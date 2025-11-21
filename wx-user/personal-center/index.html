@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>个人中心 - 极速找房</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 绿色顶部区域 -->
+    <div class="header-section">
+        <!-- 顶部导航栏 -->
+        <div class="top-bar">
+            <button class="back-btn" id="backBtn">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="header-right">
+                <button class="header-icon-btn" id="moreBtn">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+                <button class="header-icon-btn" id="eyeBtn">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 用户信息区域 -->
+        <div class="user-info" id="userInfo">
+            <div class="avatar-container" id="avatarContainer">
+                <div class="avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <div class="user-details">
+                <div class="user-name-row">
+                    <span class="user-name" id="userName">未登录</span>
+                    <div class="user-badge" id="userBadge" style="display: none;">
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+                <p class="login-tip" id="loginTip">点击头像登录</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="main-content">
+        <!-- 功能网格 -->
+        <div class="function-grid">
+            <!-- 我的房源 -->
+            <div class="function-item" id="myHouses">
+                <div class="function-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <span class="function-label">我的房源</span>
+            </div>
+
+            <!-- 我的找房 -->
+            <div class="function-item" id="myFind">
+                <div class="function-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <span class="function-label">我的找房</span>
+            </div>
+
+            <!-- 我的钱包 -->
+            <div class="function-item" id="myWallet">
+                <div class="function-icon">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <span class="function-label">我的房豆</span>
+            </div>
+
+            <!-- 获取记录 -->
+            <div class="function-item" id="contactRecords">
+                <div class="function-icon">
+                    <i class="fas fa-address-book"></i>
+                </div>
+                <span class="function-label">获取记录</span>
+            </div>
+
+            <!-- 活动中心 -->
+            <div class="function-item" id="activityCenter">
+                <div class="function-icon">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <span class="function-label">活动中心</span>
+            </div>
+
+            <!-- 身份切换 -->
+            <div class="function-item" id="identitySwitch">
+                <div class="function-icon">
+                    <i class="fas fa-user-friends"></i>
+                </div>
+                <span class="function-label">身份切换</span>
+            </div>
+
+            <!-- 客服中心 -->
+            <div class="function-item" id="customerService">
+                <div class="function-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <span class="function-label">客服中心</span>
+            </div>
+
+            <!-- 设置 -->
+            <div class="function-item" id="settings">
+                <div class="function-icon">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <span class="function-label">设置</span>
+            </div>
+
+            <!-- 关于我们 -->
+            <div class="function-item" id="aboutUs">
+                <div class="function-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <span class="function-label">关于我们</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部导航指示器 -->
+    <div class="bottom-indicator"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

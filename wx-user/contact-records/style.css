@@ -1,0 +1,234 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* 顶部导航栏 */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
+    position: relative;
+    height: 56px;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #333;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    transition: all 0.3s;
+}
+
+.back-btn:active {
+    opacity: 0.6;
+    transform: scale(0.95);
+}
+
+.header-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    margin: 0;
+}
+
+.header-right {
+    width: 40px;
+}
+
+/* 主内容区域 */
+.main-content {
+    flex: 1;
+    padding: 16px;
+}
+
+/* 记录列表 */
+.record-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.record-item {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.record-item:active {
+    transform: scale(0.98);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.record-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.record-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.record-icon.house {
+    background: #FFE0B2;
+}
+
+.record-icon.house i {
+    color: #FF6F00;
+    font-size: 20px;
+}
+
+.record-icon.tenant {
+    background: #E1BEE7;
+}
+
+.record-icon.tenant i {
+    color: #7B1FA2;
+    font-size: 20px;
+}
+
+.record-title {
+    flex: 1;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.record-time {
+    font-size: 12px;
+    color: #999;
+    white-space: nowrap;
+}
+
+.record-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.record-info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #666;
+}
+
+.record-info-item i {
+    color: #4CAF50;
+    font-size: 14px;
+    width: 16px;
+    text-align: center;
+}
+
+.record-info-item .info-label {
+    color: #999;
+    min-width: 70px;
+}
+
+.record-info-item .info-value {
+    color: #333;
+    font-weight: 500;
+}
+
+.record-contact {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.contact-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #666;
+}
+
+.contact-item i {
+    color: #4CAF50;
+    font-size: 14px;
+}
+
+.contact-value {
+    color: #333;
+    font-weight: 500;
+}
+
+.empty-result {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 60px 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.empty-result i {
+    font-size: 48px;
+    color: #e0e0e0;
+    margin-bottom: 16px;
+}
+
+.empty-result p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.empty-result span {
+    font-size: 13px;
+    color: #999;
+}
+
+/* 响应式设计 */
+@media (max-width: 375px) {
+    .main-content {
+        padding: 12px;
+    }
+    
+    .record-item {
+        padding: 14px;
+    }
+}
+

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>录入房源 - 商家端</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <div class="header">
+        <button class="back-btn" id="backBtn">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <h1 class="header-title">录入房源</h1>
+        <div class="header-right"></div>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="main-content">
+        <!-- 步骤指示器 -->
+        <div class="step-indicator">
+            <div class="step-item active" data-step="1">
+                <div class="step-number">1</div>
+                <div class="step-label">基本信息</div>
+            </div>
+            <div class="step-line"></div>
+            <div class="step-item" data-step="2">
+                <div class="step-number">2</div>
+                <div class="step-label">房源图片</div>
+            </div>
+            <div class="step-line"></div>
+            <div class="step-item" data-step="3">
+                <div class="step-number">3</div>
+                <div class="step-label">房东信息</div>
+            </div>
+        </div>
+
+        <!-- 第一步：基本信息 -->
+        <div class="form-step active" id="step1">
+            <div class="form-section">
+                <div class="form-item">
+                    <label class="form-label">小区名称 <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="communityName" placeholder="请输入小区名称" value="光谷广场小区">
+                </div>
+
+                <div class="form-item">
+                    <label class="form-label">租赁类型 <span class="required">*</span></label>
+                    <div class="select-btn" id="rentalTypeBtn">
+                        <span id="rentalTypeText">整租</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+
+                <div class="form-item">
+                    <label class="form-label">户型 <span class="required">*</span></label>
+                    <div class="select-btn" id="houseTypeBtn">
+                        <span id="houseTypeText">2室1厅</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+
+                <div class="form-item">
+                    <label class="form-label">面积(㎡) <span class="required">*</span></label>
+                    <input type="number" class="form-input" id="area" placeholder="请输入面积" value="65">
+                </div>
+
+                <div class="form-item">
+                    <label class="form-label">楼层 <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="floor" placeholder="例如：5/10" value="5/10">
+                </div>
+
+                <div class="form-item">
+                    <label class="form-label">租金(元/月) <span class="required">*</span></label>
+                    <input type="number" class="form-input" id="rent" placeholder="请输入租金" value="2500">
+                </div>
+
+                <div class="form-item">
+                    <label class="form-label">可入住时间 <span class="required">*</span></label>
+                    <div class="select-btn" id="moveInTimeBtn">
+                        <span id="moveInTimeText">随时入住</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+
+                <div class="form-item">
+                    <label class="form-label">房源描述</label>
+                    <textarea class="form-textarea" id="description" placeholder="请输入房源描述（选填）" rows="4">精装修，交通便利，周边配套设施完善</textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第二步：房源图片 -->
+        <div class="form-step" id="step2">
+            <div class="form-section">
+                <div class="form-item">
+                    <label class="form-label">房源图片 <span class="required">*</span></label>
+                    <div class="image-upload-area">
+                        <div class="image-list" id="imageList">
+                            <!-- 图片将通过JavaScript动态添加 -->
+                        </div>
+                        <div class="upload-btn" id="uploadBtn">
+                            <i class="fas fa-camera"></i>
+                            <span>添加图片</span>
+                        </div>
+                    </div>
+                    <div class="form-tip">最多上传9张图片，第一张为封面图</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第三步：房东信息 -->
+        <div class="form-step" id="step3">
+            <div class="form-section">
+                <div class="form-item">
+                    <label class="form-label">房东姓名 <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="landlordName" placeholder="请输入房东姓名" value="张先生">
+                </div>
+
+                <div class="form-item">
+                    <label class="form-label">联系电话 <span class="required">*</span></label>
+                    <input type="tel" class="form-input" id="landlordPhone" placeholder="请输入联系电话" value="13800138001">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部操作栏 -->
+    <div class="bottom-actions">
+        <button class="action-btn draft-btn" id="draftBtn">保存草稿</button>
+        <button class="action-btn next-btn" id="nextBtn">下一步</button>
+    </div>
+
+    <!-- 下拉选择弹窗 -->
+    <div class="dropdown-modal" id="dropdownModal">
+        <div class="dropdown-content" id="dropdownContent">
+            <!-- 选项将通过JavaScript动态生成 -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

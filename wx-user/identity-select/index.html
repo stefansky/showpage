@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>选择身份 - 极速找房</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <div class="header">
+        <button class="back-btn" id="backBtn">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <h1 class="header-title">选择身份</h1>
+        <div class="header-right"></div>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="container">
+        <!-- 标题和说明 -->
+        <div class="title-section">
+            <h2 class="main-title" id="pageTitle">请选择您的身份</h2>
+            <p class="subtitle" id="pageSubtitle">选择后可在个人中心修改</p>
+        </div>
+
+        <!-- 身份选择卡片 -->
+        <div class="identity-cards">
+            <!-- 租客卡片 -->
+            <div class="identity-card" data-role="tenant" id="tenantCard">
+                <div class="card-icon tenant-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3 class="card-title">我是租客</h3>
+
+                <div class="card-features">
+                    <div class="feature-tag">
+                        <i class="fas fa-check-circle"></i>
+                        <span>免费找房</span>
+                    </div>
+                    <div class="feature-tag">
+                        <i class="fas fa-check-circle"></i>
+                        <span>智能匹配</span>
+                    </div>
+                    <div class="feature-tag">
+                        <i class="fas fa-check-circle"></i>
+                        <span>无中介费</span>
+                    </div>
+                </div>
+                <div class="check-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+            </div>
+
+            <!-- 房东卡片 -->
+            <div class="identity-card" data-role="landlord" id="landlordCard">
+                <div class="card-icon landlord-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <h3 class="card-title">我是房东</h3>
+                <div class="card-features">
+                    <div class="feature-tag">
+                        <i class="fas fa-check-circle"></i>
+                        <span>免费发布</span>
+                    </div>
+                    <div class="feature-tag">
+                        <i class="fas fa-check-circle"></i>
+                        <span>精准推荐</span>
+                    </div>
+                    <div class="feature-tag">
+                        <i class="fas fa-check-circle"></i>
+                        <span>快速出租</span>
+                    </div>
+                </div>
+                <div class="check-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- 确认按钮 -->
+        <button class="confirm-btn" id="confirmBtn" disabled>
+            <span>确认选择</span>
+        </button>
+    </div>
+
+    <!-- 底部导航指示器 -->
+    <div class="bottom-indicator"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

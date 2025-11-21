@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>房源详情 - 极速找房</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <div class="header">
+        <button class="back-btn" id="backBtn">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <h1 class="header-title">房源详情</h1>
+        <button class="share-btn" id="shareBtn">
+            <i class="fas fa-share-alt"></i>
+        </button>
+    </div>
+
+    <!-- 房源图片轮播 -->
+    <div class="image-carousel" id="imageCarousel">
+        <div class="carousel-container" id="carouselContainer">
+            <!-- 图片将通过JavaScript动态生成 -->
+        </div>
+        <div class="carousel-indicator" id="carouselIndicator">
+            <!-- 指示器将通过JavaScript动态生成 -->
+        </div>
+        <div class="image-count" id="imageCount">1/1</div>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="main-content">
+        <!-- 房源基本信息 -->
+        <div class="info-section">
+            <div class="house-header">
+                <div class="house-title" id="houseTitle">房源标题</div>
+                <div class="house-price">
+                    <span class="price-value" id="priceValue">¥0</span>
+                    <span class="price-unit">/月</span>
+                </div>
+            </div>
+
+            <div class="house-tags" id="houseTags">
+                <!-- 标签将通过JavaScript动态生成 -->
+            </div>
+
+            <div class="house-meta-list">
+                <div class="meta-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span class="meta-label">位置：</span>
+                    <span class="meta-value" id="locationValue">-</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-home"></i>
+                    <span class="meta-label">户型：</span>
+                    <span class="meta-value" id="roomsValue">-</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-arrows-alt"></i>
+                    <span class="meta-label">面积：</span>
+                    <span class="meta-value" id="areaValue">-</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-building"></i>
+                    <span class="meta-label">楼层：</span>
+                    <span class="meta-value" id="floorValue">-</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-key"></i>
+                    <span class="meta-label">出租类型：</span>
+                    <span class="meta-value" id="rentTypeValue">-</span>
+                </div>
+                <div class="meta-item highlight-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span class="meta-label">可入住时间：</span>
+                    <span class="meta-value highlight-value" id="moveInTimeValue">-</span>
+                </div>
+            </div>
+        </div>
+
+     
+
+        <!-- 房源位置 -->
+        <div class="location-section">
+            <div class="section-title">房源位置</div>
+            <div class="map-container" id="mapContainer">
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>地图位置</span>
+                </div>
+            </div>
+            <div class="location-address" id="locationAddress">-</div>
+        </div>
+
+    </div>
+
+    <!-- 底部操作栏 -->
+    <div class="bottom-action">
+        <button class="action-btn report-btn" id="reportBtn">
+            <i class="fas fa-flag"></i>
+            <span>举报</span>
+        </button>
+        <button class="action-btn contact-action-btn" id="contactActionBtn">
+            <i class="fas fa-phone"></i>
+            <span>获取联系方式</span>
+        </button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

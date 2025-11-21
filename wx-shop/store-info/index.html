@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>我的门店 - 商家端</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <div class="header">
+        <button class="back-btn" id="backBtn">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <h1 class="header-title">我的门店</h1>
+       
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="main-content">
+        <!-- 门店状态卡片 -->
+        <div class="status-card">
+            <div class="status-icon">
+                <i class="fas fa-store"></i>
+            </div>
+            <div class="status-info">
+                <div class="status-label">门店状态</div>
+                <div class="status-value" id="storeStatus">正常营业</div>
+            </div>
+            <div class="status-badge" id="statusBadge">
+                <span id="statusText">营业中</span>
+            </div>
+        </div>
+
+        <!-- 门店基本信息 -->
+        <div class="info-section">
+            <div class="section-title">基本信息</div>
+            
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="fas fa-store"></i>
+                    <span>门店名称</span>
+                </div>
+                <div class="info-value" id="storeName">我的门店</div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="fas fa-user"></i>
+                    <span>店长姓名</span>
+                </div>
+                <div class="info-value" id="managerName">张先生</div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="fas fa-phone"></i>
+                    <span>店长手机号</span>
+                </div>
+                <div class="info-value" id="managerPhone">13800138001</div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>开店时间</span>
+                </div>
+                <div class="info-value" id="openTime">2024-01-01</div>
+            </div>
+        </div>
+
+        <!-- 门店位置 -->
+        <div class="info-section">
+            <div class="section-title">门店位置</div>
+            
+            <div class="map-container" id="mapContainer">
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span id="storeAddress">武汉市洪山区光谷广场</span>
+                </div>
+                <div class="map-view" id="mapView">
+                    <!-- 地图将通过JavaScript动态生成或使用第三方地图API -->
+                    <div class="map-marker">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="location-detail">
+                <div class="location-item">
+                    <i class="fas fa-map-pin"></i>
+                    <span id="locationDetail">湖北省武汉市洪山区光谷广场A座101</span>
+                </div>
+               
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>
+

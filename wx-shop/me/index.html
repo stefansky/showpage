@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>商家端 - 我的</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <div class="header">
+        <h1 class="header-title">我的</h1>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="main-content">
+        <!-- 用户信息卡片 -->
+        <div class="user-card">
+            <div class="user-avatar" id="userAvatar">
+                <i class="fas fa-store"></i>
+            </div>
+            <div class="user-info">
+                <div class="user-name" id="userName">张三丰</div>
+                <div class="user-store" id="userStore">店长</div>
+            </div>
+            <button class="edit-btn" id="editProfileBtn">
+                <i class="fas fa-edit"></i>
+            </button>
+        </div>
+
+        <!-- 门店信息 -->
+        <div class="store-info-section">
+        
+            <div class="info-item" id="storeNameItem">
+                <div class="info-icon">
+                    <i class="fas fa-store"></i>
+                </div>
+                <div class="info-content">
+                    <div class="info-value" id="storeName">我的门店</div>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </div>
+
+        <!-- 功能菜单 -->
+        <div class="menu-section">
+            <div class="menu-item" id="myHousesItem">
+                <div class="menu-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div class="menu-content">
+                    <div class="menu-label">联系记录</div>
+                    <div class="menu-badge" id="housesCount">0</div>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="menu-item" id="storeWalletItem">
+                <div class="menu-icon">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <div class="menu-content">
+                    <div class="menu-label">门店房豆</div>
+                    <div class="menu-value" id="walletBalance">0</div>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+           
+        </div>
+
+        <!-- 其他功能 -->
+        <div class="menu-section">
+            <div class="menu-item" id="messagesItem">
+                <div class="menu-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <div class="menu-content">
+                    <div class="menu-label">消息通知</div>
+                    <div class="menu-badge" id="messageCount">0</div>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="menu-item" id="helpItem">
+                <div class="menu-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <div class="menu-content">
+                    <div class="menu-label">帮助中心</div>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="menu-item" id="settingsItem">
+                <div class="menu-icon">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <div class="menu-content">
+                    <div class="menu-label">设置</div>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="bottom-nav">
+        <div class="nav-item" id="homeNav">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </div>
+        <div class="nav-item active" id="meNav">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

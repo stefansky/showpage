@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>房源详情 - 商家端</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <div class="header">
+        <button class="back-btn" id="backBtn">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <h1 class="header-title">房源详情</h1>
+        <div class="header-right"></div>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="main-content">
+        <!-- 房源图片 -->
+        <div class="house-images">
+            <div class="image-placeholder" id="houseImage">
+                <i class="fas fa-home"></i>
+            </div>
+        </div>
+
+        <!-- 房源基本信息 -->
+        <div class="house-info-section">
+            <div class="house-title" id="houseTitle">房源标题</div>
+            <div class="house-price" id="housePrice">¥0<span>/月</span></div>
+            <div class="house-status" id="houseStatus">待审核</div>
+        </div>
+
+        <!-- 房源详情 -->
+        <div class="house-details-section">
+            <h3 class="section-title">房源信息</h3>
+            <div class="detail-list">
+                <div class="detail-item">
+                    <div class="detail-label">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>位置</span>
+                    </div>
+                    <div class="detail-value" id="houseLocation">-</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                        <span>面积</span>
+                    </div>
+                    <div class="detail-value" id="houseArea">-</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">
+                        <i class="fas fa-home"></i>
+                        <span>户型</span>
+                    </div>
+                    <div class="detail-value" id="houseRooms">-</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">
+                        <i class="fas fa-building"></i>
+                        <span>楼层</span>
+                    </div>
+                    <div class="detail-value" id="houseFloor">-</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">
+                        <i class="fas fa-key"></i>
+                        <span>租赁类型</span>
+                    </div>
+                    <div class="detail-value" id="houseRentType">-</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>可入住时间</span>
+                    </div>
+                    <div class="detail-value" id="houseMoveInTime">-</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">
+                        <i class="fas fa-clock"></i>
+                        <span>录入时间</span>
+                    </div>
+                    <div class="detail-value" id="houseCreateTime">-</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 房东信息 -->
+        <div class="landlord-section">
+            <h3 class="section-title">房东信息</h3>
+            <div class="landlord-card">
+                <div class="landlord-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="landlord-info">
+                    <div class="landlord-name" id="landlordName">房东姓名</div>
+                    <div class="landlord-phone" id="landlordPhone">联系电话</div>
+                </div>
+                <button class="contact-btn" id="contactBtn">
+                    <i class="fas fa-phone"></i>
+                    <span>联系房东</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 房源描述 -->
+        <div class="description-section">
+            <h3 class="section-title">房源描述</h3>
+            <div class="description-content" id="houseDescription">
+                暂无描述
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部操作栏 -->
+    <div class="bottom-actions">
+        <button class="action-btn edit-btn" id="editBtn">
+            <i class="fas fa-edit"></i>
+            <span>编辑</span>
+        </button>
+        <button class="action-btn delete-btn" id="deleteBtn">
+            <i class="fas fa-trash"></i>
+            <span>删除</span>
+        </button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

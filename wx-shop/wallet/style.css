@@ -1,0 +1,229 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* 顶部导航栏 */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: #ffffff;
+    position: relative;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    transition: all 0.3s;
+}
+
+.back-btn:active {
+    opacity: 0.6;
+    transform: scale(0.95);
+}
+
+.header-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.header-right {
+    width: 40px;
+}
+
+/* 主内容区域 */
+.main-content {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    padding-bottom: 20px;
+}
+
+/* 房豆数量显示 */
+.points-display {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 40px 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.points-number {
+    font-size: 64px;
+    font-weight: 700;
+    color: #FFC107;
+    line-height: 1;
+    margin-bottom: 12px;
+}
+
+.points-label {
+    font-size: 15px;
+    color: #666;
+}
+
+/* 收益记录 */
+.records-section {
+    margin-bottom: 20px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.more-btn {
+    background: none;
+    border: none;
+    color: #999;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    padding: 4px 0;
+}
+
+.more-btn:active {
+    opacity: 0.6;
+}
+
+.more-btn i {
+    font-size: 12px;
+}
+
+.records-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.record-item {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.record-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.record-icon.earn {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    color: #4CAF50;
+}
+
+.record-icon.consume {
+    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+    color: #FF9800;
+}
+
+.record-content {
+    flex: 1;
+}
+
+.record-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.record-time {
+    font-size: 12px;
+    color: #999;
+}
+
+.record-amount {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.record-amount.earn {
+    color: #4CAF50;
+}
+
+.record-amount.consume {
+    color: #FF9800;
+}
+
+/* 空状态 */
+.empty-state {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 40px 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.empty-state i {
+    font-size: 48px;
+    color: #e0e0e0;
+    margin-bottom: 16px;
+}
+
+.empty-state p {
+    font-size: 14px;
+    color: #999;
+}
+
+/* 响应式设计 */
+@media (max-width: 375px) {
+    .balance-amount {
+        font-size: 32px;
+    }
+    
+    .quick-actions {
+        gap: 8px;
+    }
+    
+    .action-btn {
+        padding: 12px;
+    }
+}
+

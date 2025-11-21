@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>商家端 - 首页</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <div class="header">
+        <div class="header-right">
+            <button class="header-btn" id="messageBtn">
+                <i class="fas fa-bell"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="main-content">
+        <!-- 门店名称 -->
+        <div class="store-name-section">
+            <div class="store-info">
+                <i class="fas fa-store"></i>
+                <span class="store-name" id="storeName">我的门店</span>
+            </div>
+        </div>
+
+        <!-- 收益概览卡片 -->
+        <div class="earnings-overview">
+            <div class="earnings-header">
+                <div class="earnings-title">本月收益</div>
+                <div class="earnings-amount" id="monthEarnings">¥0</div>
+            </div>
+            <div class="earnings-stats">
+                <div class="stat-item">
+                    <div class="stat-label">已成交</div>
+                    <div class="stat-value" id="completedOrders">0单</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <div class="stat-label">待成交</div>
+                    <div class="stat-value" id="pendingOrders">0单</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <div class="stat-label">预测收入</div>
+                    <div class="stat-value predicted" id="predictedEarnings">¥0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 快捷功能 -->
+        <div class="quick-actions">
+            <div class="action-item" id="addHouseBtn">
+                <div class="action-icon add">
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="action-label">录入房源</div>
+            </div>
+            <div class="action-item" id="myHousesBtn">
+                <div class="action-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div class="action-label">门店房源</div>
+            </div>
+            <div class="action-item" id="nearbyTenantsBtn">
+                <div class="action-icon">
+                    <i class="fas fa-user-friends"></i>
+                </div>
+                <div class="action-label">门店运营</div>
+            </div>
+            <div class="action-item" id="storeWalletBtn">
+                <div class="action-icon">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <div class="action-label">门店房豆</div>
+            </div>
+        </div>
+
+        <!-- 附近租客列表 -->
+        <div class="nearby-tenants-list-section">
+            <div class="section-header">
+                <h3 class="section-title">附近租客</h3>
+                <button class="more-btn" id="moreTenantsBtn">查看更多 <i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="tenants-list" id="tenantsList">
+            </div>
+        </div>
+    </div>
+
+    <!-- 获取联系方式弹窗 -->
+    <div class="modal" id="contactModal">
+        <div class="modal-backdrop" id="modalBackdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>获取联系方式</h3>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <div class="modal-icon" id="modalIcon">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <p class="modal-message" id="modalMessage">获取租客联系方式需要消耗 <span class="points-highlight">1个房豆</span></p>
+                <p class="modal-tip" id="modalTip">是否继续获取？</p>
+                <!-- 联系方式显示区域 -->
+                <div class="contact-info" id="contactInfo" style="display: none;">
+                    <div class="contact-item-display">
+                        <i class="fas fa-phone"></i>
+                        <span class="contact-label">手机号码：</span>
+                        <span class="contact-value" id="contactPhone">-</span>
+                    </div>
+                    <button class="copy-contact-btn" id="copyContactBtn">
+                        <i class="fas fa-copy"></i>
+                        <span>复制手机号</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer" id="modalFooter">
+                <button class="modal-btn cancel" id="cancelBtn">取消</button>
+                <button class="modal-btn confirm" id="confirmBtn">获取</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="bottom-nav">
+        <div class="nav-item active" id="homeNav">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </div>
+        <div class="nav-item" id="meNav">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

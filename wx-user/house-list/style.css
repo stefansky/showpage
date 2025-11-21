@@ -1,0 +1,347 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* 顶部导航栏 */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
+    position: relative;
+    height: 56px;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #333;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    transition: all 0.3s;
+}
+
+.back-btn:active {
+    opacity: 0.6;
+    transform: scale(0.95);
+}
+
+.header-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    margin: 0;
+}
+
+.header-right {
+    width: 40px;
+}
+
+/* 筛选栏 */
+.filter-bar {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
+    position: sticky;
+    top: 56px;
+    z-index: 90;
+}
+
+.filter-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.filter-item:active {
+    background: #f5f5f5;
+}
+
+.filter-label {
+    font-size: 14px;
+    color: #666;
+}
+
+.filter-value {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+}
+
+.filter-item i {
+    font-size: 12px;
+    color: #999;
+    transition: transform 0.3s;
+}
+
+.filter-item.active i {
+    transform: rotate(180deg);
+}
+
+.filter-divider {
+    width: 1px;
+    height: 24px;
+    background: #f0f0f0;
+}
+
+/* 筛选下拉菜单 */
+.filter-dropdown {
+    position: absolute;
+    top: 105px;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.dropdown-item {
+    padding: 14px 20px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-item:active {
+    background: #f5f5f5;
+}
+
+.dropdown-item.selected {
+    color: #4CAF50;
+    font-weight: 600;
+    background: #f1f8f4;
+}
+
+/* 主内容区域 */
+.main-content {
+    flex: 1;
+    padding: 16px;
+}
+
+.result-header {
+    margin-bottom: 12px;
+}
+
+.result-count {
+    font-size: 14px;
+    color: #666;
+}
+
+.result-count span {
+    color: #4CAF50;
+    font-weight: 600;
+}
+
+/* 房源列表 */
+.house-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.house-item {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.house-item:active {
+    transform: scale(0.98);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.house-content {
+    display: flex;
+    padding: 16px;
+    gap: 12px;
+}
+
+.house-image {
+    width: 120px;
+    height: 90px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.house-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.house-image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 24px;
+}
+
+.house-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 0;
+}
+
+.house-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.house-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.house-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #666;
+}
+
+.house-meta-item i {
+    color: #999;
+    font-size: 12px;
+    width: 14px;
+}
+
+.house-tags {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+
+.house-tag {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.house-tag.rent-type {
+    background: #E3F2FD;
+    color: #1976D2;
+}
+
+.house-tag.rooms {
+    background: #F3E5F5;
+    color: #7B1FA2;
+}
+
+.house-price {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin-top: 8px;
+}
+
+.house-price-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #FF5722;
+}
+
+.house-price-unit {
+    font-size: 13px;
+    color: #999;
+}
+
+.empty-result {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 60px 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.empty-result i {
+    font-size: 48px;
+    color: #e0e0e0;
+    margin-bottom: 16px;
+}
+
+.empty-result p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.empty-result span {
+    font-size: 13px;
+    color: #999;
+}
+
+/* 响应式设计 */
+@media (max-width: 375px) {
+    .main-content {
+        padding: 12px;
+    }
+    
+    .house-content {
+        padding: 12px;
+    }
+    
+    .house-image {
+        width: 100px;
+        height: 75px;
+    }
+}
+

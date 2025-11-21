@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>联系记录 - 商家端</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <div class="header">
+        <button class="back-btn" id="backBtn">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <h1 class="header-title">联系记录</h1>
+        <div class="header-right"></div>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="main-content">
+        <!-- 记录列表 -->
+        <div class="records-list" id="recordsList">
+            <!-- 记录项将通过JavaScript动态生成 -->
+        </div>
+
+        <!-- 空状态 -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <i class="fas fa-inbox"></i>
+            <p>暂无联系记录</p>
+            <span>获取租客联系方式后，记录将显示在这里</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

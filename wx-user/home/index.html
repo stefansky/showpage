@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>租房小程序 - 首页</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 顶部状态栏 -->
+    <div class="status-bar">
+        <div class="status-left">
+            <span class="location-name">当前位置</span>
+            <span class="time">12:00</span>
+        </div>
+        <div class="status-right">
+            <i class="fas fa-wifi"></i>
+            <span class="battery">100%</span>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+
+    <!-- 地图容器 -->
+    <div class="map-container" id="mapContainer">
+        <!-- 地图将在这里显示 -->
+        <div id="map" class="map"></div>
+
+        <!-- 头部招募广告（椭圆形） -->
+        <div class="recruit-banner">
+            <div class="banner-content">
+                <!-- <div class="banner-icon">
+                    <i class="fas fa-home"></i>
+                </div> -->
+                <div class="banner-text">
+                    <div class="banner-title">0成本加入，轻松赚佣金</div>
+                    <div class="banner-desc">0成本、0押金、0风险，手机即可开店</div>
+                </div>
+                <button class="banner-btn">立即开店</button>
+            </div>
+        </div>
+
+        <!-- 地图右侧悬浮按钮 -->
+        <div class="map-controls">
+            <button class="control-btn search-btn" id="searchBtn">
+                <i class="fas fa-search"></i>
+            </button>
+            <button class="control-btn location-btn" id="locationBtn">
+                <i class="fas fa-crosshairs"></i>
+            </button>
+        </div>
+
+        <!-- 地图底部悬浮按钮 - 附近房源 -->
+        <div class="nearby-houses-btn" id="nearbyBtn">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>附近房源</span>
+        </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="bottom-nav">
+        <!-- 使用说明 -->
+        <div class="nav-item" id="helpBtn">
+            <i class="fas fa-question-circle"></i>
+            <span>使用说明</span>
+        </div>
+
+        <!-- 预约找房/出租按钮 -->
+        <button class="nav-main-btn" id="appointmentBtn">
+            <i class="fas fa-calendar-check"></i>
+            <span>预约找房/出租</span>
+        </button>
+
+        <!-- 个人中心 -->
+        <div class="nav-item" id="profileBtn">
+            <i class="fas fa-user-circle"></i>
+            <span>个人中心</span>
+        </div>
+    </div>
+
+    <!-- 搜索弹窗 -->
+    <div class="search-modal" id="searchModal">
+        <div class="search-content">
+            <div class="search-header">
+                <input type="text" placeholder="搜索地点、小区、地铁站..." class="search-input">
+                <button class="search-close" id="closeSearch">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="search-suggestions">
+                <div class="suggestion-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>光谷广场</span>
+                </div>
+                <div class="suggestion-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>街道口</span>
+                </div>
+                <div class="suggestion-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>汉街</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 租客卡片弹框 -->
+    <div class="tenant-card-modal" id="tenantCardModal">
+        <div class="modal-backdrop" id="modalBackdrop"></div>
+        <div class="modal-content-wrapper">
+            <div class="tenant-card-content" id="tenantCardContent">
+                <!-- 租客卡片内容将通过JavaScript动态生成 -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <!-- 高德地图API -->
+    <script src="https://webapi.amap.com/maps?v=2.0&key=8cdc32fc74e46d2c614231a02a48318a"></script>
+    <script>
+        // 如果使用高德地图，取消注释以下代码并替换YOUR_AMAP_KEY
+    
+        var map = new AMap.Map('map', {
+            zoom: 10,
+            center: [114.316200, 30.581084], // 武汉光谷坐标
+            viewMode: '3D'
+        });
+        
+    </script>
+</body>
+</html>
+

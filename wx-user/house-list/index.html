@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>房源列表 - 极速找房</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <div class="header">
+        <button class="back-btn" id="backBtn">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <h1 class="header-title">附近房源</h1>
+        <div class="header-right"></div>
+    </div>
+
+    <!-- 筛选栏 -->
+    <div class="filter-bar">
+        <div class="filter-item" id="timeFilter">
+            <span class="filter-label">出租时间</span>
+            <span class="filter-value" id="timeFilterValue">不限</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="filter-divider"></div>
+        <div class="filter-item" id="priceFilter">
+            <span class="filter-label">出租价格</span>
+            <span class="filter-value" id="priceFilterValue">不限</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </div>
+
+    <!-- 筛选下拉菜单 -->
+    <div class="filter-dropdown" id="timeDropdown" style="display: none;">
+        <div class="dropdown-item" data-value="">不限</div>
+        <div class="dropdown-item" data-value="immediate">随时入住</div>
+        <div class="dropdown-item" data-value="week">一周内</div>
+        <div class="dropdown-item" data-value="month">一个月内</div>
+        <div class="dropdown-item" data-value="quarter">三个月内</div>
+    </div>
+
+    <div class="filter-dropdown" id="priceDropdown" style="display: none;">
+        <div class="dropdown-item" data-value="">不限</div>
+        <div class="dropdown-item" data-value="0-1500">1500元以下</div>
+        <div class="dropdown-item" data-value="1500-2500">1500-2500元</div>
+        <div class="dropdown-item" data-value="2500-3500">2500-3500元</div>
+        <div class="dropdown-item" data-value="3500-5000">3500-5000元</div>
+        <div class="dropdown-item" data-value="5000-">5000元以上</div>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="main-content">
+        <div class="result-header">
+            <span class="result-count" id="resultCount">找到 <span id="countNumber">0</span> 个房源</span>
+        </div>
+
+        <!-- 房源列表 -->
+        <div class="house-list" id="houseList">
+            <!-- 房源项将通过JavaScript动态生成 -->
+        </div>
+
+        <div class="empty-result" id="emptyResult" style="display: none;">
+            <i class="fas fa-home"></i>
+            <p>暂无房源</p>
+            <span>试试调整筛选条件</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

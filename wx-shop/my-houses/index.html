@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>门店房源 - 商家端</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <div class="header">
+        <button class="back-btn" id="backBtn">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <h1 class="header-title">门店房源</h1>
+        <button class="add-btn" id="addBtn">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="main-content">
+        <!-- 房源列表 -->
+        <div class="houses-list" id="housesList">
+            <!-- 房源卡片将通过JavaScript动态生成 -->
+        </div>
+
+        <!-- 空状态 -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <i class="fas fa-home"></i>
+            <p>暂无房源</p>
+            <button class="add-house-btn" id="addHouseBtn">立即录入房源</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

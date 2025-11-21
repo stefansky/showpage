@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>搜索房源 - 极速找房</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 顶部搜索栏 -->
+    <div class="header">
+        <button class="back-btn" id="backBtn">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="search-box">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" id="searchInput" placeholder="搜索小区名称、地点、地铁站..." autofocus>
+            <button class="clear-btn" id="clearBtn" style="display: none;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <button class="search-btn" id="searchBtn">搜索</button>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="main-content">
+        <!-- 搜索历史 -->
+        <div class="history-section" id="historySection" style="display: none;">
+            <div class="section-header">
+                <span class="section-title">搜索历史</span>
+                <button class="clear-history-btn" id="clearHistoryBtn">清空</button>
+            </div>
+            <div class="history-list" id="historyList">
+                <!-- 历史记录将通过JavaScript动态生成 -->
+            </div>
+        </div>
+
+        <!-- 热门搜索 -->
+        <div class="hot-section" id="hotSection">
+            <div class="section-title">热门搜索</div>
+            <div class="hot-tags">
+                <span class="hot-tag" data-keyword="光谷广场">光谷广场</span>
+                <span class="hot-tag" data-keyword="街道口">街道口</span>
+                <span class="hot-tag" data-keyword="汉街">汉街</span>
+                <span class="hot-tag" data-keyword="徐东">徐东</span>
+                <span class="hot-tag" data-keyword="积玉桥">积玉桥</span>
+                <span class="hot-tag" data-keyword="中南路">中南路</span>
+            </div>
+        </div>
+
+        <!-- 搜索结果 -->
+        <div class="result-section" id="resultSection" style="display: none;">
+            <div class="result-header">
+                <span class="result-count" id="resultCount">找到 <span id="countNumber">0</span> 个房源</span>
+            </div>
+            <div class="house-list" id="houseList">
+                <!-- 房源列表将通过JavaScript动态生成 -->
+            </div>
+            <div class="empty-result" id="emptyResult" style="display: none;">
+                <i class="fas fa-search"></i>
+                <p>未找到相关房源</p>
+                <span>试试其他关键词</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

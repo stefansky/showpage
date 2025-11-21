@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>门店运营 - 商家端</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <div class="header">
+        <button class="back-btn" id="backBtn">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <h1 class="header-title">门店运营</h1>
+        <div class="header-right"></div>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="main-content">
+        <!-- 数据概览卡片 -->
+        <div class="overview-section">
+            <div class="overview-card">
+                <div class="overview-item">
+                    <div class="overview-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="overview-content">
+                        <div class="overview-value" id="totalHouses">0</div>
+                        <div class="overview-label">在租房源</div>
+                    </div>
+                </div>
+                <div class="overview-item">
+                    <div class="overview-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="overview-content">
+                        <div class="overview-value" id="totalViews">0</div>
+                        <div class="overview-label">本月浏览</div>
+                    </div>
+                </div>
+                <div class="overview-item">
+                    <div class="overview-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div class="overview-content">
+                        <div class="overview-value" id="totalContacts">0</div>
+                        <div class="overview-label">意向租客</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 收益统计 -->
+        <div class="earnings-section">
+            <h3 class="section-title">收益统计</h3>
+            <div class="earnings-card">
+                <div class="earnings-row">
+                    <div class="earnings-item">
+                        <div class="earnings-label">本月收益</div>
+                        <div class="earnings-value" id="monthEarnings">¥0</div>
+                    </div>
+                    <div class="earnings-item">
+                        <div class="earnings-label">已成交</div>
+                        <div class="earnings-value" id="completedOrders">0单</div>
+                    </div>
+                </div>
+                <div class="earnings-row">
+                    <div class="earnings-item">
+                        <div class="earnings-label">待成交</div>
+                        <div class="earnings-value" id="pendingOrders">0单</div>
+                    </div>
+                    <div class="earnings-item">
+                        <div class="earnings-label">预测收入</div>
+                        <div class="earnings-value predicted" id="predictedEarnings">¥0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 房源统计 -->
+        <div class="houses-section">
+            <h3 class="section-title">房源统计</h3>
+            <div class="stat-cards">
+                <div class="stat-card">
+                    <div class="stat-icon published">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="publishedHouses">0</div>
+                        <div class="stat-label">已发布</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon pending">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="pendingHouses">0</div>
+                        <div class="stat-label">待审核</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon rented">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="rentedHouses">0</div>
+                        <div class="stat-label">已出租</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 浏览趋势 -->
+        <div class="trend-section">
+            <h3 class="section-title">浏览趋势</h3>
+            <div class="trend-card">
+                <div class="trend-item">
+                    <div class="trend-label">今日浏览</div>
+                    <div class="trend-value" id="todayViews">0</div>
+                </div>
+                <div class="trend-item">
+                    <div class="trend-label">本周浏览</div>
+                    <div class="trend-value" id="weekViews">0</div>
+                </div>
+                <div class="trend-item">
+                    <div class="trend-label">本月浏览</div>
+                    <div class="trend-value" id="monthViews">0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 租客分析 -->
+        <div class="tenants-analysis-section">
+            <h3 class="section-title">租客分析</h3>
+            <div class="analysis-card">
+                <div class="analysis-item">
+                    <div class="analysis-label">意向租客</div>
+                    <div class="analysis-value" id="intentionTenants">0</div>
+                </div>
+                <div class="analysis-item">
+                    <div class="analysis-label">已联系</div>
+                    <div class="analysis-value" id="contactedTenants">0</div>
+                </div>
+                <div class="analysis-item">
+                    <div class="analysis-label">看房预约</div>
+                    <div class="analysis-value" id="viewingAppointments">0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

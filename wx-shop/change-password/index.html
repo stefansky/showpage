@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>修改密码 - 商家端</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <div class="header">
+        <button class="back-btn" id="backBtn">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <h1 class="header-title">修改密码</h1>
+        <div class="header-right"></div>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="main-content">
+        <!-- 密码修改表单 -->
+        <div class="form-section">
+            <div class="form-item">
+                <label class="form-label">原始密码</label>
+                <div class="input-wrapper">
+                    <input type="password" class="form-input" id="oldPassword" placeholder="请输入原始密码">
+                    <button class="eye-btn" id="oldPasswordEye">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <div class="error-message" id="oldPasswordError"></div>
+            </div>
+
+            <div class="form-item">
+                <label class="form-label">新密码</label>
+                <div class="input-wrapper">
+                    <input type="password" class="form-input" id="newPassword" placeholder="请输入新密码（6-20位）">
+                    <button class="eye-btn" id="newPasswordEye">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <div class="password-tip">密码长度为6-20位，建议包含字母和数字</div>
+                <div class="error-message" id="newPasswordError"></div>
+            </div>
+
+            <div class="form-item">
+                <label class="form-label">确认新密码</label>
+                <div class="input-wrapper">
+                    <input type="password" class="form-input" id="confirmPassword" placeholder="请再次输入新密码">
+                    <button class="eye-btn" id="confirmPasswordEye">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <div class="error-message" id="confirmPasswordError"></div>
+            </div>
+        </div>
+
+        <!-- 提交按钮 -->
+        <div class="action-section">
+            <button class="submit-btn" id="submitBtn">
+                <i class="fas fa-check"></i>
+                <span>确认修改</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

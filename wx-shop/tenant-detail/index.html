@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>租客详情 - 商家端</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <div class="header">
+        <button class="back-btn" id="backBtn">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <h1 class="header-title">租客详情</h1>
+        <div class="header-right"></div>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="main-content">
+        <!-- 租客信息卡片 -->
+        <div class="tenant-card">
+            <div class="tenant-header">
+                <div class="tenant-avatar" id="tenantAvatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="tenant-info">
+                    <div class="tenant-name" id="tenantName">租客</div>
+                    <div class="tenant-tags" id="tenantTags">
+                        <!-- 标签将通过JavaScript动态生成 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 租房需求 -->
+        <div class="info-section">
+            <div class="section-title">租房需求</div>
+            
+            <div class="info-item">
+                <div class="info-left">
+                    <i class="fas fa-home info-icon"></i>
+                    <span class="info-label">租赁类型</span>
+                </div>
+                <div class="info-value" id="rentType">-</div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-left">
+                    <i class="fas fa-door-open info-icon"></i>
+                    <span class="info-label">户型要求</span>
+                </div>
+                <div class="info-value" id="rooms">-</div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-left">
+                    <i class="fas fa-calendar-alt info-icon"></i>
+                    <span class="info-label">入住时间</span>
+                </div>
+                <div class="info-value" id="moveInTime">-</div>
+            </div>
+        </div>
+
+        <!-- 意向位置 -->
+        <div class="info-section">
+            <div class="section-title">意向位置</div>
+            
+            <div class="location-card" id="locationCard">
+                <div class="location-info">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div class="location-text">
+                        <div class="location-name" id="locationName">-</div>
+                        <div class="location-address" id="locationAddress">-</div>
+                    </div>
+                </div>
+                <button class="view-map-btn" id="viewMapBtn">
+                    <i class="fas fa-map"></i>
+                    <span>查看地图</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 联系方式 -->
+        <div class="info-section">
+            <div class="section-title">联系方式</div>
+            
+            <div class="contact-item">
+                <div class="contact-label">
+                    <i class="fas fa-phone"></i>
+                    <span>手机号码</span>
+                </div>
+                <div class="contact-value" id="tenantPhone">-</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

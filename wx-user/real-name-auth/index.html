@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>实名认证 - 极速找房</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <div class="header">
+        <button class="back-btn" id="backBtn">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <h1 class="header-title">实名认证</h1>
+        <div class="header-right"></div>
+    </div>
+
+    <!-- 提示横幅 -->
+    <div class="info-banner">
+        <i class="fas fa-shield-alt"></i>
+        <span>实名认证可以帮助减少虚假信息，确保信息真实</span>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="main-content">
+   
+
+        <!-- 表单区域 -->
+        <div class="form-container">
+            <!-- 姓名 -->
+            <div class="form-section">
+                <label class="form-label">
+                    <i class="fas fa-user"></i>
+                    <span>真实姓名</span>
+                </label>
+                <input type="text" class="input-field" id="nameInput" value="张三" placeholder="请输入您的真实姓名" maxlength="20">
+                <div class="error-message" id="nameError"></div>
+            </div>
+
+            <!-- 身份证号 -->
+            <div class="form-section">
+                <label class="form-label">
+                    <i class="fas fa-id-card"></i>
+                    <span>身份证号码</span>
+                </label>
+                <input type="text" class="input-field" id="idCardInput" value="110101199003075672" placeholder="请输入18位身份证号码" maxlength="18">
+                <div class="error-message" id="idCardError"></div>
+                <div class="hint-text">
+                    <i class="fas fa-info-circle"></i>
+                    <span>身份证号码仅用于身份验证，我们将严格保护您的隐私</span>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+
+    <!-- 底部操作按钮 -->
+    <div class="bottom-action">
+        <button class="submit-btn" id="submitBtn" type="button">
+            <i class="fas fa-check"></i>
+            <span>提交认证</span>
+        </button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
