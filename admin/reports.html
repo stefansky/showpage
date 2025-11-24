@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>举报处理 - 管理后台</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 侧边栏 -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-cog"></i>
+                <span>管理后台</span>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-item" data-page="dashboard">
+                <i class="fas fa-chart-line"></i>
+                <span>数据概览</span>
+            </a>
+            <a href="users.html" class="nav-item" data-page="users">
+                <i class="fas fa-users"></i>
+                <span>用户管理</span>
+            </a>
+            <a href="stores.html" class="nav-item" data-page="stores">
+                <i class="fas fa-store"></i>
+                <span>门店管理</span>
+            </a>
+            <a href="houses.html" class="nav-item" data-page="houses">
+                <i class="fas fa-home"></i>
+                <span>房源管理</span>
+            </a>
+            <a href="find-requests.html" class="nav-item" data-page="find-requests">
+                <i class="fas fa-search"></i>
+                <span>找房需求</span>
+            </a>
+            <a href="auth-review.html" class="nav-item" data-page="auth-review">
+                <i class="fas fa-id-card"></i>
+                <span>实名认证审核</span>
+            </a>
+            <a href="reports.html" class="nav-item active" data-page="reports">
+                <i class="fas fa-flag"></i>
+                <span>举报处理</span>
+            </a>
+            <a href="points.html" class="nav-item" data-page="points">
+                <i class="fas fa-coins"></i>
+                <span>房豆管理</span>
+            </a>
+            <a href="settings.html" class="nav-item" data-page="settings">
+                <i class="fas fa-cog"></i>
+                <span>系统设置</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- 主内容区 -->
+    <div class="main-container">
+        <!-- 顶部导航栏 -->
+        <header class="header">
+            <div class="header-left">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="page-title">举报处理</h1>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span>管理员</span>
+                </div>
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- 页面内容 -->
+        <main class="content">
+            <!-- 筛选 -->
+            <div class="toolbar">
+                <div class="filter-group">
+                    <select class="filter-select" id="statusFilter">
+                        <option value="pending">待处理</option>
+                        <option value="">全部状态</option>
+                        <option value="processed">已处理</option>
+                    </select>
+                    <select class="filter-select" id="typeFilter">
+                        <option value="">全部类型</option>
+                        <option value="house">房源举报</option>
+                        <option value="user">用户举报</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 举报列表 -->
+            <div class="report-list" id="reportList">
+                <!-- 举报项将通过JavaScript动态生成 -->
+            </div>
+
+            <!-- 分页 -->
+            <div class="pagination" id="pagination">
+                <!-- 分页控件将通过JavaScript动态生成 -->
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,292 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* 顶部导航栏 */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
+    position: relative;
+    height: 56px;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #333;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    transition: all 0.3s;
+}
+
+.back-btn:active {
+    opacity: 0.6;
+    transform: scale(0.95);
+}
+
+.header-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    margin: 0;
+}
+
+.header-right {
+    width: 40px;
+}
+
+/* 主内容区域 */
+.main-content {
+    flex: 1;
+    padding: 16px;
+}
+
+.result-header {
+    margin-bottom: 16px;
+}
+
+.result-count {
+    font-size: 14px;
+    color: #666;
+}
+
+.result-count span {
+    color: #4CAF50;
+    font-weight: 600;
+}
+
+/* 看房记录列表 */
+.visit-records-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.visit-record-item {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.visit-record-item:active {
+    transform: scale(0.98);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 租客卡片头部 - 参考首页租客卡片 */
+.tenant-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+    position: relative;
+}
+
+.tenant-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #E1BEE7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7B1FA2;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.tenant-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.tenant-info {
+    flex: 1;
+    min-width: 0;
+}
+
+/* 看房时间徽章 - 右上角 */
+.visit-time-badge {
+    position: absolute;
+    top: 5px;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: #999;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.visit-time-badge i {
+    font-size: 11px;
+    color: #4CAF50;
+}
+
+.tenant-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.tenant-meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.rent-type-tag,
+.rooms-tag {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    background: #f0f0f0;
+    color: #666;
+}
+
+/* 租客卡片内容 */
+.tenant-card-body {
+    margin-bottom: 12px;
+}
+
+.tenant-detail-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+.tenant-detail-item i {
+    color: #4CAF50;
+    width: 20px;
+    text-align: center;
+}
+
+.detail-label {
+    color: #999;
+}
+
+.detail-value {
+    color: #333;
+    font-weight: 500;
+}
+
+/* 房源信息区域 - 参考租房卡片 */
+.house-info-section {
+    padding-top: 12px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.house-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.house-meta {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.house-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: #666;
+}
+
+.house-meta-item i {
+    color: #4CAF50;
+    font-size: 12px;
+}
+
+.house-price {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    margin-top: 8px;
+}
+
+.house-price-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #FF5722;
+}
+
+.house-price-unit {
+    font-size: 13px;
+    color: #999;
+}
+
+.empty-result {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 60px 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.empty-result i {
+    font-size: 48px;
+    color: #e0e0e0;
+    margin-bottom: 16px;
+}
+
+.empty-result p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.empty-result span {
+    font-size: 13px;
+    color: #999;
+}
+
+/* 响应式设计 */
+@media (max-width: 375px) {
+    .main-content {
+        padding: 12px;
+    }
+    
+    .visit-record-item {
+        padding: 14px;
+    }
+}
+

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>找房需求管理 - 管理后台</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 侧边栏 -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-cog"></i>
+                <span>管理后台</span>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-item" data-page="dashboard">
+                <i class="fas fa-chart-line"></i>
+                <span>数据概览</span>
+            </a>
+            <a href="users.html" class="nav-item" data-page="users">
+                <i class="fas fa-users"></i>
+                <span>用户管理</span>
+            </a>
+            <a href="stores.html" class="nav-item" data-page="stores">
+                <i class="fas fa-store"></i>
+                <span>门店管理</span>
+            </a>
+            <a href="houses.html" class="nav-item" data-page="houses">
+                <i class="fas fa-home"></i>
+                <span>房源管理</span>
+            </a>
+            <a href="find-requests.html" class="nav-item active" data-page="find-requests">
+                <i class="fas fa-search"></i>
+                <span>找房需求</span>
+            </a>
+            <a href="auth-review.html" class="nav-item" data-page="auth-review">
+                <i class="fas fa-id-card"></i>
+                <span>实名认证审核</span>
+            </a>
+            <a href="reports.html" class="nav-item" data-page="reports">
+                <i class="fas fa-flag"></i>
+                <span>举报处理</span>
+            </a>
+            <a href="points.html" class="nav-item" data-page="points">
+                <i class="fas fa-coins"></i>
+                <span>房豆管理</span>
+            </a>
+            <a href="settings.html" class="nav-item" data-page="settings">
+                <i class="fas fa-cog"></i>
+                <span>系统设置</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- 主内容区 -->
+    <div class="main-container">
+        <!-- 顶部导航栏 -->
+        <header class="header">
+            <div class="header-left">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="page-title">找房需求管理</h1>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span>管理员</span>
+                </div>
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- 页面内容 -->
+        <main class="content">
+            <!-- 搜索和筛选 -->
+            <div class="toolbar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="搜索用户昵称、位置">
+                </div>
+                <div class="filter-group">
+                    <select class="filter-select" id="rentTypeFilter">
+                        <option value="">全部类型</option>
+                        <option value="整租">整租</option>
+                        <option value="合租">合租</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 找房需求列表 -->
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>需求ID</th>
+                            <th>用户</th>
+                            <th>租赁类型</th>
+                            <th>户型要求</th>
+                            <th>意向位置</th>
+                            <th>入住时间</th>
+                            <th>发布时间</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="findRequestsTableBody">
+                        <!-- 找房需求数据将通过JavaScript动态生成 -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 分页 -->
+            <div class="pagination" id="pagination">
+                <!-- 分页控件将通过JavaScript动态生成 -->
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

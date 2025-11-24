@@ -19,34 +19,48 @@
 
     <!-- 主内容区域 -->
     <div class="main-content">
-        <!-- 门店名称 -->
-        <div class="store-name-section">
-            <div class="store-info">
-                <i class="fas fa-store"></i>
-                <span class="store-name" id="storeName">我的门店</span>
-            </div>
-        </div>
-
-        <!-- 收益概览卡片 -->
-        <div class="earnings-overview">
-            <div class="earnings-header">
-                <div class="earnings-title">本月收益</div>
-                <div class="earnings-amount" id="monthEarnings">¥0</div>
-            </div>
-            <div class="earnings-stats">
-                <div class="stat-item">
-                    <div class="stat-label">已成交</div>
-                    <div class="stat-value" id="completedOrders">0单</div>
+        <!-- 门店信息与收益概览卡片 -->
+        <div class="store-earnings-card">
+            <!-- 门店信息头部 -->
+            <div class="store-header">
+                <div class="store-info">
+                    <div class="store-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <div class="store-details">
+                        <div class="store-name" id="storeName">我的门店</div>
+                        <div class="store-status">
+                            <i class="fas fa-circle"></i>
+                            <span>正常营业</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <div class="stat-label">待成交</div>
-                    <div class="stat-value" id="pendingOrders">0单</div>
+                <button class="qr-code-btn" id="qrCodeBtn">
+                    <i class="fas fa-qrcode"></i>
+                </button>
+            </div>
+            
+            <!-- 收益概览 -->
+            <div class="earnings-section">
+                <div class="earnings-header">
+                    <div class="earnings-title">本月收益</div>
+                    <div class="earnings-amount" id="monthEarnings">¥0</div>
                 </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <div class="stat-label">预测收入</div>
-                    <div class="stat-value predicted" id="predictedEarnings">¥0</div>
+                <div class="earnings-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">已成交</div>
+                        <div class="stat-value" id="completedOrders">0单</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="stat-label">待成交</div>
+                        <div class="stat-value" id="pendingOrders">0单</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="stat-label">预测收入</div>
+                        <div class="stat-value predicted" id="predictedEarnings">¥0</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -75,7 +89,7 @@
                 <div class="action-icon">
                     <i class="fas fa-coins"></i>
                 </div>
-                <div class="action-label">门店房豆</div>
+                <div class="action-label">附近房东</div>
             </div>
         </div>
 
@@ -86,6 +100,38 @@
                 <button class="more-btn" id="moreTenantsBtn">查看更多 <i class="fas fa-chevron-right"></i></button>
             </div>
             <div class="tenants-list" id="tenantsList">
+            </div>
+        </div>
+    </div>
+
+    <!-- 门店二维码弹窗 -->
+    <div class="modal" id="qrCodeModal">
+        <div class="modal-backdrop" id="qrCodeModalBackdrop"></div>
+        <div class="modal-content qr-modal-content">
+            <div class="modal-header">
+                <h3>门店二维码</h3>
+                <button class="modal-close" id="closeQrModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body qr-modal-body">
+                <div class="qr-code-container">
+                    <div class="qr-code-placeholder" id="qrCodeDisplay">
+                        <div class="qr-code-grid">
+                            <!-- 二维码网格将通过JavaScript生成 -->
+                        </div>
+                    </div>
+                </div>
+                <div class="qr-code-info">
+                    <div class="store-name-qr" id="storeNameQr">我的门店</div>
+                    <div class="qr-tip">租客扫码即可记录看房</div>
+                </div>
+                <div class="qr-scan-demo" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #f0f0f0;">
+                    <button class="demo-scan-btn" id="demoScanBtn">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>模拟扫码（演示）</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

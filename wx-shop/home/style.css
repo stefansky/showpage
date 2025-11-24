@@ -57,43 +57,126 @@ body {
     overflow-y: auto;
 }
 
-/* 门店名称区域 */
-.store-name-section {
+/* 门店信息与收益概览统一卡片 */
+.store-earnings-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 16px;
+    padding: 0;
     margin-bottom: 16px;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    overflow: hidden;
+    color: #ffffff;
+}
+
+/* 门店信息头部 */
+.store-header {
+    padding: 20px 20px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .store-info {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 12px 16px;
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    gap: 12px;
+    flex: 1;
 }
 
-.store-info i {
+.qr-code-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: #ffffff;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    flex-shrink: 0;
+}
+
+.qr-code-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.qr-code-btn:active {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(0.95);
+}
+
+.qr-code-btn i {
     font-size: 20px;
-    color: #4CAF50;
+}
+
+.store-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.store-icon i {
+    font-size: 24px;
+    color: #ffffff;
+}
+
+.store-details {
+    flex: 1;
 }
 
 .store-name {
-    font-size: 18px;
-    font-weight: 600;
-    color: #333;
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 6px;
 }
 
-/* 收益概览卡片 */
-.earnings-overview {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 16px;
-    padding: 20px;
+.store-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.store-status i {
+    font-size: 8px;
+    color: #4ade80;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.store-status span {
     color: #ffffff;
-    margin-bottom: 16px;
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+/* 收益概览区域 */
+.earnings-section {
+    padding: 20px;
 }
 
 .earnings-header {
+    margin-bottom: 20px;
+}
+
+.earnings-section .earnings-header {
     margin-bottom: 20px;
 }
 
@@ -763,6 +846,94 @@ body {
 
 .copy-contact-btn i {
     font-size: 14px;
+}
+
+/* 二维码弹窗样式 */
+.qr-modal-content {
+    max-width: 320px;
+}
+
+.qr-modal-body {
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.qr-code-container {
+    margin-bottom: 20px;
+}
+
+.qr-code-placeholder {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qr-code-grid {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(25, 1fr);
+    grid-template-rows: repeat(25, 1fr);
+    gap: 1px;
+}
+
+.qr-code-cell {
+    background: #000;
+    border-radius: 1px;
+}
+
+.qr-code-info {
+    margin-top: 20px;
+}
+
+.store-name-qr {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.qr-tip {
+    font-size: 13px;
+    color: #999;
+    line-height: 1.5;
+}
+
+.qr-scan-demo {
+    text-align: center;
+}
+
+.demo-scan-btn {
+    width: 100%;
+    padding: 12px;
+    border: 1.5px solid #4CAF50;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #4CAF50;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.demo-scan-btn:active {
+    background: #f1f8f4;
+    transform: scale(0.98);
+}
+
+.demo-scan-btn i {
+    font-size: 16px;
 }
 
 /* 响应式设计 */

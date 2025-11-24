@@ -1,0 +1,474 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    padding-bottom: 80px;
+}
+
+/* 顶部导航栏 */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
+    position: relative;
+    height: 56px;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #333;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    transition: all 0.3s;
+}
+
+.back-btn:active {
+    opacity: 0.6;
+    transform: scale(0.95);
+}
+
+.header-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    margin: 0;
+}
+
+.header-right {
+    width: 40px;
+}
+
+/* 主内容区域 */
+.main-content {
+    flex: 1;
+    padding: 16px;
+}
+
+/* 房东信息卡片 */
+.landlord-info-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.landlord-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.landlord-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 32px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+}
+
+.landlord-basic {
+    flex: 1;
+}
+
+.landlord-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.landlord-meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.rent-type-tag,
+.rooms-tag {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    background: #f0f0f0;
+    color: #666;
+    font-weight: 500;
+}
+
+.landlord-details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+}
+
+.detail-item i {
+    color: #FF9800;
+    width: 24px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.detail-label {
+    color: #999;
+    min-width: 90px;
+}
+
+.detail-value {
+    color: #333;
+    font-weight: 500;
+    flex: 1;
+}
+
+/* 房源列表 */
+.houses-section {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 16px;
+}
+
+.section-title i {
+    color: #FF9800;
+}
+
+.house-count {
+    color: #999;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.houses-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.house-item {
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 3px solid #FF9800;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.house-item:active {
+    background: #f0f0f0;
+    transform: scale(0.98);
+}
+
+.house-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.house-info {
+    display: flex;
+    gap: 16px;
+    font-size: 14px;
+    color: #666;
+}
+
+.house-info-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.house-info-item i {
+    color: #FF9800;
+    font-size: 12px;
+}
+
+/* 底部操作栏 */
+.bottom-actions {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    padding: 12px 16px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.get-contact-btn {
+    width: 100%;
+    height: 48px;
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    border: none;
+    border-radius: 24px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.get-contact-btn:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+/* 弹窗样式 */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 20px;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    position: relative;
+    background: #ffffff;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 320px;
+    overflow: hidden;
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.modal-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #999;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.modal-close:active {
+    color: #333;
+    transform: scale(0.95);
+}
+
+.modal-body {
+    padding: 24px 20px;
+    text-align: center;
+}
+
+.modal-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    font-size: 32px;
+    color: #FF9800;
+}
+
+.modal-message {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.points-highlight {
+    color: #FF9800;
+    font-weight: 600;
+}
+
+.modal-tip {
+    font-size: 14px;
+    color: #999;
+}
+
+.modal-footer {
+    display: flex;
+    gap: 12px;
+    padding: 16px 20px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.modal-btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.modal-btn.cancel {
+    background: #f5f5f5;
+    color: #666;
+}
+
+.modal-btn.cancel:active {
+    background: #e0e0e0;
+}
+
+.modal-btn.confirm {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: #ffffff;
+}
+
+.modal-btn.confirm:active {
+    transform: scale(0.98);
+}
+
+/* 联系方式显示 */
+.contact-info {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.contact-item-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.contact-item-display i {
+    color: #4CAF50;
+    font-size: 18px;
+}
+
+.contact-label {
+    font-size: 14px;
+    color: #666;
+}
+
+.contact-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.copy-contact-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.copy-contact-btn:active {
+    transform: scale(0.98);
+}
+
+.copy-contact-btn i {
+    font-size: 14px;
+}
+

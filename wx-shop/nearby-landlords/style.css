@@ -1,0 +1,629 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* 顶部导航栏 */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
+    position: relative;
+    height: 56px;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #333;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    transition: all 0.3s;
+}
+
+.back-btn:active {
+    opacity: 0.6;
+    transform: scale(0.95);
+}
+
+.header-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    margin: 0;
+}
+
+.header-right {
+    width: 40px;
+}
+
+/* 筛选栏 */
+.filter-bar {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
+    position: sticky;
+    top: 56px;
+    z-index: 90;
+}
+
+.filter-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.filter-item:active {
+    background: #f5f5f5;
+}
+
+.filter-label {
+    font-size: 14px;
+    color: #666;
+}
+
+.filter-value {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+}
+
+.filter-item i {
+    font-size: 12px;
+    color: #999;
+    transition: transform 0.3s;
+}
+
+.filter-item.active i {
+    transform: rotate(180deg);
+}
+
+.filter-divider {
+    width: 1px;
+    height: 24px;
+    background: #f0f0f0;
+}
+
+/* 筛选下拉菜单 */
+.filter-dropdown {
+    position: absolute;
+    top: 105px;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.dropdown-item {
+    padding: 14px 20px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-item:active {
+    background: #f5f5f5;
+}
+
+.dropdown-item.selected {
+    color: #4CAF50;
+    font-weight: 600;
+    background: #f1f8f4;
+}
+
+/* 主内容区域 */
+.main-content {
+    flex: 1;
+    padding: 16px;
+}
+
+.result-header {
+    margin-bottom: 12px;
+}
+
+.result-count {
+    font-size: 14px;
+    color: #666;
+}
+
+.result-count span {
+    color: #4CAF50;
+    font-weight: 600;
+}
+
+/* 房东列表 */
+.landlord-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.landlord-item {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 12px;
+}
+
+/* 房东卡片头部（参考租客卡片） */
+.landlord-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.landlord-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 24px;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.landlord-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.landlord-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.landlord-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.landlord-meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.rent-type-tag,
+.rooms-tag {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    background: #f0f0f0;
+    color: #666;
+}
+
+/* 房东卡片主体（参考租客卡片） */
+.landlord-card-body {
+    margin-bottom: 20px;
+}
+
+.landlord-detail-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+}
+
+.landlord-detail-item i {
+    color: #FF9800;
+    width: 20px;
+    text-align: center;
+}
+
+.landlord-detail-item .detail-label {
+    color: #999;
+}
+
+.landlord-detail-item .detail-value {
+    color: #333;
+    font-weight: 500;
+}
+
+.landlord-location {
+    margin-top: 16px;
+}
+
+.location-map-bg {
+    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    min-height: 80px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.location-map-bg:active {
+    transform: scale(0.98);
+}
+
+.location-map-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px),
+        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+    border-radius: 12px;
+    opacity: 0.5;
+}
+
+.location-map-bg i {
+    font-size: 24px;
+    color: #FF9800;
+    position: relative;
+    z-index: 1;
+}
+
+.location-text {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.location-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.location-detail {
+    font-size: 13px;
+    color: #666;
+}
+
+/* 房东卡片底部（参考租客卡片） */
+.landlord-card-footer {
+    padding-top: 16px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.get-contact-btn {
+    width: 100%;
+    height: 48px;
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    border: none;
+    border-radius: 24px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.get-contact-btn:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+.get-contact-btn:disabled {
+    background: #e0e0e0;
+    color: #999;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+.landlord-item {
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.landlord-item:active {
+    transform: scale(0.98);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.empty-result {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 60px 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.empty-result i {
+    font-size: 48px;
+    color: #e0e0e0;
+    margin-bottom: 16px;
+}
+
+.empty-result p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.empty-result span {
+    font-size: 13px;
+    color: #999;
+}
+
+/* 弹窗样式 */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 20px;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    position: relative;
+    background: #ffffff;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 320px;
+    overflow: hidden;
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.modal-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #999;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.modal-close:active {
+    color: #333;
+    transform: scale(0.95);
+}
+
+.modal-body {
+    padding: 24px 20px;
+    text-align: center;
+}
+
+.modal-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    font-size: 32px;
+    color: #FF9800;
+}
+
+.modal-message {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.points-highlight {
+    color: #FF9800;
+    font-weight: 600;
+}
+
+.modal-tip {
+    font-size: 14px;
+    color: #999;
+}
+
+.modal-footer {
+    display: flex;
+    gap: 12px;
+    padding: 16px 20px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.modal-btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.modal-btn.cancel {
+    background: #f5f5f5;
+    color: #666;
+}
+
+.modal-btn.cancel:active {
+    background: #e0e0e0;
+}
+
+.modal-btn.confirm {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: #ffffff;
+}
+
+.modal-btn.confirm:active {
+    transform: scale(0.98);
+}
+
+/* 联系方式显示 */
+.contact-info {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.contact-item-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.contact-item-display i {
+    color: #4CAF50;
+    font-size: 18px;
+}
+
+.contact-label {
+    font-size: 14px;
+    color: #666;
+}
+
+.contact-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.copy-contact-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.copy-contact-btn:active {
+    transform: scale(0.98);
+}
+
+.copy-contact-btn i {
+    font-size: 14px;
+}
+
+/* 响应式设计 */
+@media (max-width: 375px) {
+    .main-content {
+        padding: 12px;
+    }
+    
+    .landlord-item {
+        padding: 14px;
+    }
+    
+    .landlord-card-footer {
+        flex-direction: column;
+    }
+    
+    .action-btn {
+        width: 100%;
+    }
+}
+

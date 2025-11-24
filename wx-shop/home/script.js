@@ -75,7 +75,7 @@ function initEventListeners() {
     });
     
     document.getElementById('storeWalletBtn').addEventListener('click', function() {
-        window.location.href = '../wallet/index.html';
+        window.location.href = '../nearby-landlords/index.html';
     });
     
     // 查看更多租客
@@ -89,12 +89,179 @@ function initEventListeners() {
         alert('消息通知\n\n跳转到消息中心');
         // window.location.href = '../messages/index.html';
     });
+    
+    // 二维码按钮
+    document.getElementById('qrCodeBtn').addEventListener('click', function() {
+        showQrCodeModal();
+    });
+    
+    // 关闭二维码弹窗
+    document.getElementById('closeQrModal').addEventListener('click', function() {
+        closeQrCodeModal();
+    });
+    
+    document.getElementById('qrCodeModalBackdrop').addEventListener('click', function() {
+        closeQrCodeModal();
+    });
+    
+    // 模拟扫码按钮（用于演示）
+    const demoScanBtn = document.getElementById('demoScanBtn');
+    if (demoScanBtn) {
+        demoScanBtn.addEventListener('click', function() {
+            simulateScan();
+        });
+    }
+}
+
+// 显示二维码弹窗
+function showQrCodeModal() {
+    const modal = document.getElementById('qrCodeModal');
+    const storeName = localStorage.getItem('storeName') || '我的门店';
+    
+    // 更新门店名称
+    document.getElementById('storeNameQr').textContent = storeName;
+    
+    // 生成二维码（模拟）
+    generateQrCode();
+    
+    modal.classList.add('show');
+}
+
+// 生成二维码（模拟）
+function generateQrCode() {
+    const qrGrid = document.querySelector('.qr-code-grid');
+    if (!qrGrid) return;
+    
+    // 清空现有内容
+    qrGrid.innerHTML = '';
+    
+    // 生成25x25的二维码网格（模拟）
+    const size = 25;
+    const storeId = localStorage.getItem('storeId') || 'store_001';
+    const qrData = `house_visit_${storeId}_${Date.now()}`;
+    
+    // 使用简单的伪随机生成二维码图案
+    for (let i = 0; i < size; i++) {
+        for (let j = 0; j < size; j++) {
+            const cell = document.createElement('div');
+            cell.className = 'qr-code-cell';
+            
+            // 生成二维码图案（模拟，实际应该使用二维码库）
+            const shouldFill = (i + j + qrData.charCodeAt((i * size + j) % qrData.length)) % 3 === 0;
+            if (shouldFill) {
+                cell.style.background = '#000';
+            } else {
+                cell.style.background = '#fff';
+            }
+            
+            qrGrid.appendChild(cell);
+        }
+    }
+    
+    // 添加定位点（模拟）
+    addQrCodePositionMarkers(qrGrid);
+}
+
+// 添加二维码定位点
+function addQrCodePositionMarkers(qrGrid) {
+    const cells = qrGrid.querySelectorAll('.qr-code-cell');
+    const size = 25;
+    
+    // 左上角定位点
+    const positions = [
+        [1, 1], [1, 2], [1, 3], [1, 4], [1, 5],
+        [2, 1], [2, 3], [2, 5],
+        [3, 1], [3, 2], [3, 3], [3, 4], [3, 5],
+        [4, 1], [4, 3], [4, 5],
+        [5, 1], [5, 2], [5, 3], [5, 4], [5, 5],
+    ];
+    
+    positions.forEach(([row, col]) => {
+        const index = (row - 1) * size + (col - 1);
+        if (cells[index]) {
+            cells[index].style.background = '#000';
+        }
+    });
+}
+
+// 关闭二维码弹窗
+function closeQrCodeModal() {
+    document.getElementById('qrCodeModal').classList.remove('show');
+}
+
+// 模拟扫码（用于演示）
+function simulateScan() {
+    // 模拟租客扫码记录看房
+    const mockTenant = {
+        id: Date.now(),
+        nickname: '看房租客' + Math.floor(Math.random() * 1000),
+        avatar: '👤',
+        phone: '138' + Math.floor(Math.random() * 100000000).toString().padStart(8, '0'),
+        rentType: ['整租', '合租'][Math.floor(Math.random() * 2)],
+        rooms: ['1室1厅', '2室1厅', '3室2厅'][Math.floor(Math.random() * 3)],
+        moveInTime: '2024-02-' + String(Math.floor(Math.random() * 28) + 1).padStart(2, '0'),
+        location: '北京市朝阳区',
+        locationDetail: '长存花园'
+    };
+    
+    // 获取当前查看的房源（如果有）
+    const currentHouses = JSON.parse(localStorage.getItem('storeHouses') || '[]');
+    const randomHouse = currentHouses.length > 0 
+        ? currentHouses[Math.floor(Math.random() * currentHouses.length)]
+        : {
+            title: '精装两室一厅 近地铁',
+            location: '北京市朝阳区建国路88号',
+            price: 4500
+        };
+    
+    // 创建看房记录
+    const visitRecord = {
+        id: Date.now(),
+        tenantName: mockTenant.nickname,
+        tenantAvatar: mockTenant.avatar,
+        tenantPhone: mockTenant.phone,
+        visitTime: new Date().toLocaleString('zh-CN', { 
+            year: 'numeric', 
+            month: '2-digit', 
+            day: '2-digit', 
+            hour: '2-digit', 
+            minute: '2-digit', 
+            second: '2-digit' 
+        }).replace(/\//g, '-'),
+        houseTitle: randomHouse.title || '精装两室一厅 近地铁',
+        houseLocation: randomHouse.location || '北京市朝阳区建国路88号',
+        housePrice: randomHouse.price || 4500,
+        rentType: mockTenant.rentType,
+        moveInTime: mockTenant.moveInTime,
+        rooms: mockTenant.rooms
+    };
+    
+    // 保存看房记录
+    const records = JSON.parse(localStorage.getItem('visitRecords') || '[]');
+    records.unshift(visitRecord);
+    
+    // 只保留最近100条记录
+    if (records.length > 100) {
+        records.pop();
+    }
+    
+    localStorage.setItem('visitRecords', JSON.stringify(records));
+    
+    // 关闭弹窗并提示
+    closeQrCodeModal();
+    alert(`扫码成功！\n\n租客：${mockTenant.nickname}\n看房时间：${visitRecord.visitTime}\n\n可在"看房记录"中查看详情`);
 }
 
 // 加载门店数据
 function loadStoreData() {
     // 从localStorage加载门店信息
-    const storeName =  '光谷未来城门店';
+    const storeName = localStorage.getItem('storeName') || '光谷未来城门店';
+    
+    // 如果没有storeId，生成一个
+    if (!localStorage.getItem('storeId')) {
+        localStorage.setItem('storeId', 'store_' + Date.now());
+    }
+    
     const monthEarnings = parseFloat(localStorage.getItem('monthEarnings')) || 0;
     const completedOrders = parseInt(localStorage.getItem('completedOrders')) || 0;
     const pendingOrders = parseInt(localStorage.getItem('pendingOrders')) || 0;
@@ -108,6 +275,8 @@ function loadStoreData() {
     
     // 更新UI
     document.getElementById('storeName').textContent = storeName;
+    
+    document.getElementById('storeNameQr').textContent = storeName;
     document.getElementById('monthEarnings').textContent = '¥' + monthEarnings.toFixed(2);
     document.getElementById('completedOrders').textContent = completedOrders + '单';
     document.getElementById('pendingOrders').textContent = pendingOrders + '单';
@@ -468,6 +637,85 @@ function fallbackCopyToClipboard(text) {
         console.error('复制失败:', err);
     }
     document.body.removeChild(textArea);
+}
+
+// 显示二维码弹窗
+function showQrCodeModal() {
+    const modal = document.getElementById('qrCodeModal');
+    const storeName = localStorage.getItem('storeName') || '我的门店';
+    
+    // 更新门店名称
+    const storeNameQrEl = document.getElementById('storeNameQr');
+    if (storeNameQrEl) {
+        storeNameQrEl.textContent = storeName;
+    }
+    
+    // 生成二维码（模拟）
+    generateQrCode();
+    
+    modal.classList.add('show');
+}
+
+// 生成二维码（模拟）
+function generateQrCode() {
+    const qrGrid = document.querySelector('.qr-code-grid');
+    if (!qrGrid) return;
+    
+    // 清空现有内容
+    qrGrid.innerHTML = '';
+    
+    // 生成25x25的二维码网格（模拟）
+    const size = 25;
+    const storeId = localStorage.getItem('storeId') || 'store_001';
+    const qrData = `house_visit_${storeId}_${Date.now()}`;
+    
+    // 使用简单的伪随机生成二维码图案
+    for (let i = 0; i < size; i++) {
+        for (let j = 0; j < size; j++) {
+            const cell = document.createElement('div');
+            cell.className = 'qr-code-cell';
+            
+            // 生成二维码图案（模拟，实际应该使用二维码库）
+            const shouldFill = (i + j + qrData.charCodeAt((i * size + j) % qrData.length)) % 3 === 0;
+            if (shouldFill) {
+                cell.style.background = '#000';
+            } else {
+                cell.style.background = '#fff';
+            }
+            
+            qrGrid.appendChild(cell);
+        }
+    }
+    
+    // 添加定位点（模拟）
+    addQrCodePositionMarkers(qrGrid);
+}
+
+// 添加二维码定位点
+function addQrCodePositionMarkers(qrGrid) {
+    const cells = qrGrid.querySelectorAll('.qr-code-cell');
+    const size = 25;
+    
+    // 左上角定位点
+    const positions = [
+        [1, 1], [1, 2], [1, 3], [1, 4], [1, 5],
+        [2, 1], [2, 3], [2, 5],
+        [3, 1], [3, 2], [3, 3], [3, 4], [3, 5],
+        [4, 1], [4, 3], [4, 5],
+        [5, 1], [5, 2], [5, 3], [5, 4], [5, 5],
+    ];
+    
+    positions.forEach(([row, col]) => {
+        const index = (row - 1) * size + (col - 1);
+        if (cells[index]) {
+            cells[index].style.background = '#000';
+        }
+    });
+}
+
+// 关闭二维码弹窗
+function closeQrCodeModal() {
+    document.getElementById('qrCodeModal').classList.remove('show');
 }
 
 // 添加商家端消费记录

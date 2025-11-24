@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>附近房东 - 商家端</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <div class="header">
+        <button class="back-btn" id="backBtn">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <h1 class="header-title">附近房东</h1>
+        <div class="header-right"></div>
+    </div>
+
+    <!-- 筛选栏 -->
+    <div class="filter-bar">
+        <div class="filter-item" id="typeFilter">
+            <span class="filter-label">出租类型</span>
+            <span class="filter-value" id="typeFilterValue">不限</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="filter-divider"></div>
+        <div class="filter-item" id="timeFilter">
+            <span class="filter-label">出租时间</span>
+            <span class="filter-value" id="timeFilterValue">不限</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </div>
+
+    <!-- 筛选下拉菜单 -->
+    <div class="filter-dropdown" id="typeDropdown" style="display: none;">
+        <div class="dropdown-item" data-value="">不限</div>
+        <div class="dropdown-item" data-value="整租">整租</div>
+        <div class="dropdown-item" data-value="合租">合租</div>
+    </div>
+
+    <div class="filter-dropdown" id="timeDropdown" style="display: none;">
+        <div class="dropdown-item" data-value="">不限</div>
+        <div class="dropdown-item" data-value="week">一周内</div>
+        <div class="dropdown-item" data-value="month">一个月内</div>
+        <div class="dropdown-item" data-value="quarter">三个月内</div>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="main-content">
+        <div class="result-header">
+            <span class="result-count" id="resultCount">找到 <span id="countNumber">0</span> 个房东</span>
+        </div>
+
+        <!-- 房东列表 -->
+        <div class="landlord-list" id="landlordList">
+            <!-- 房东项将通过JavaScript动态生成 -->
+        </div>
+
+        <div class="empty-result" id="emptyResult" style="display: none;">
+            <i class="fas fa-user-tie"></i>
+            <p>暂无房东信息</p>
+            <span>试试调整筛选条件</span>
+        </div>
+    </div>
+
+    <!-- 获取联系方式弹窗 -->
+    <div class="modal" id="contactModal">
+        <div class="modal-backdrop" id="modalBackdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>获取联系方式</h3>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <div class="modal-icon" id="modalIcon">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <p class="modal-message" id="modalMessage">获取房东联系方式需要消耗 <span class="points-highlight">1个房豆</span></p>
+                <p class="modal-tip" id="modalTip">是否继续获取？</p>
+                <!-- 联系方式显示区域 -->
+                <div class="contact-info" id="contactInfo" style="display: none;">
+                    <div class="contact-item-display">
+                        <i class="fas fa-phone"></i>
+                        <span class="contact-label">手机号码：</span>
+                        <span class="contact-value" id="contactPhone">-</span>
+                    </div>
+                    <button class="copy-contact-btn" id="copyContactBtn">
+                        <i class="fas fa-copy"></i>
+                        <span>复制手机号</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer" id="modalFooter">
+                <button class="modal-btn cancel" id="cancelBtn">取消</button>
+                <button class="modal-btn confirm" id="confirmBtn">获取</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
