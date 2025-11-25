@@ -753,6 +753,9 @@ function saveShopContactRecord(tenant) {
             type: 'tenant',
             targetId: tenant.id,
             contactTime: new Date().toLocaleString('zh-CN'),
+            name: tenant.nickname || '租客',
+            phone: tenant.phone || '',
+            // 保留完整信息用于兼容
             tenantInfo: {
                 id: tenant.id,
                 nickname: tenant.nickname,

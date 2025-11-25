@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>用户管理 - 管理后台</title>
+    <title>城市管理 - 管理后台</title>
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -29,9 +29,13 @@
                 <button class="menu-toggle" id="menuToggle">
                     <i class="fas fa-bars"></i>
                 </button>
-                <h1 class="page-title">用户管理</h1>
+                <h1 class="page-title">城市管理</h1>
             </div>
             <div class="header-right">
+                <button class="btn btn-primary" id="addCityBtn">
+                    <i class="fas fa-plus"></i>
+                    <span>新增城市</span>
+                </button>
                 <div class="user-info">
                     <i class="fas fa-user-circle"></i>
                     <span>管理员</span>
@@ -48,41 +52,34 @@
             <div class="toolbar">
                 <div class="search-box">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="搜索用户昵称、手机号">
+                    <input type="text" id="searchInput" placeholder="搜索城市名称...">
                 </div>
                 <div class="filter-group">
-                    <select class="filter-select" id="roleFilter">
-                        <option value="">全部角色</option>
-                        <option value="tenant">租客</option>
-                        <option value="landlord">房东</option>
-                    </select>
-                    <select class="filter-select" id="authFilter">
-                        <option value="">全部认证状态</option>
-                        <option value="verified">已认证</option>
-                        <option value="pending">待审核</option>
-                        <option value="unverified">未认证</option>
+                    <select id="statusFilter" class="filter-select">
+                        <option value="">全部状态</option>
+                        <option value="active">启用</option>
+                        <option value="inactive">禁用</option>
                     </select>
                 </div>
             </div>
 
-            <!-- 用户列表 -->
+            <!-- 数据表格 -->
             <div class="table-container">
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>用户ID</th>
-                            <th>头像</th>
-                            <th>昵称</th>
-                            <th>角色</th>
-                            <th>手机号</th>
-                            <th>实名认证</th>
-                            <th>注册时间</th>
+                            <th>ID</th>
+                            <th>城市名称</th>
+                            <th>城市代码</th>
+                            <th>房源数量</th>
+                            <th>用户数量</th>
+                            <th>门店数量</th>
                             <th>状态</th>
                             <th>操作</th>
                         </tr>
                     </thead>
-                    <tbody id="usersTableBody">
-                        <!-- 用户数据将通过JavaScript动态生成 -->
+                    <tbody id="dataTableBody">
+                        <!-- 数据将通过JavaScript动态生成 -->
                     </tbody>
                 </table>
             </div>

@@ -48,6 +48,13 @@ body {
     margin-bottom: 16px;
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
     color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.user-card:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
 }
 
 .user-avatar {

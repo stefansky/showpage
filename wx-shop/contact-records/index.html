@@ -19,6 +19,16 @@
 
     <!-- 主内容区域 -->
     <div class="main-content">
+        <!-- Tab切换 -->
+        <div class="tab-container">
+            <div class="tab-item active" data-tab="tenant" id="tenantTab">
+                <span>租客</span>
+            </div>
+            <div class="tab-item" data-tab="landlord" id="landlordTab">
+                <span>房东</span>
+            </div>
+        </div>
+
         <!-- 记录列表 -->
         <div class="records-list" id="recordsList">
             <!-- 记录项将通过JavaScript动态生成 -->
@@ -26,9 +36,9 @@
 
         <!-- 空状态 -->
         <div class="empty-state" id="emptyState" style="display: none;">
-            <i class="fas fa-inbox"></i>
+            <i class="fas fa-address-book"></i>
             <p>暂无联系记录</p>
-            <span>获取租客联系方式后，记录将显示在这里</span>
+            <span>获取联系方式后，记录将显示在这里</span>
         </div>
     </div>
 

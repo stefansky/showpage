@@ -315,14 +315,39 @@ function getLandlordContact() {
 // 保存联系记录
 function saveContactRecord(landlord) {
     const records = JSON.parse(localStorage.getItem('shopContactRecords') || '[]');
-    records.push({
-        id: Date.now(),
-        type: 'landlord',
-        name: landlord.name,
-        phone: landlord.phone,
-        time: new Date().toLocaleString('zh-CN')
+    
+    // 检查是否已存在
+    const exists = records.some(function(r) {
+        return r.type === 'landlord' && r.targetId === landlord.id;
     });
-    localStorage.setItem('shopContactRecords', JSON.stringify(records));
+    
+    if (!exists) {
+        const record = {
+            id: Date.now(),
+            type: 'landlord',
+            targetId: landlord.id,
+            contactTime: new Date().toLocaleString('zh-CN'),
+            name: landlord.name,
+            phone: landlord.phone,
+            // 保留完整信息用于兼容
+            landlordInfo: {
+                id: landlord.id,
+                name: landlord.name,
+                phone: landlord.phone,
+                rentType: landlord.rentType,
+                rooms: landlord.rooms,
+                moveInTime: landlord.rentTime || '随时入住'
+            }
+        };
+        records.unshift(record);
+        
+        // 只保留最近100条记录
+        if (records.length > 100) {
+            records.pop();
+        }
+        
+        localStorage.setItem('shopContactRecords', JSON.stringify(records));
+    }
 }
 
 // 复制联系方式

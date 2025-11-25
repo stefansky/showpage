@@ -107,8 +107,46 @@ function deleteData(key, id) {
     return true;
 }
 
+// 生成侧边栏菜单
+function generateSidebarMenu() {
+    const sidebarNav = document.getElementById('sidebarNav');
+    if (!sidebarNav) return;
+    
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    
+    const menuItems = [
+        { href: 'index.html', icon: 'fa-chart-line', text: '数据概览', page: 'dashboard' },
+        { href: 'users.html', icon: 'fa-users', text: '用户管理', page: 'users' },
+        { href: 'stores.html', icon: 'fa-store', text: '门店管理', page: 'stores' },
+        { href: 'houses.html', icon: 'fa-home', text: '房源管理', page: 'houses' },
+        { href: 'find-requests.html', icon: 'fa-search', text: '找房需求', page: 'find-requests' },
+        { href: 'auth-review.html', icon: 'fa-id-card', text: '认证审核', page: 'auth-review' },
+        { href: 'communications.html', icon: 'fa-comments', text: '沟通管理', page: 'communications' },
+        { href: 'activities.html', icon: 'fa-gift', text: '活动管理', page: 'activities' },
+        { href: 'visits.html', icon: 'fa-eye', text: '看房管理', page: 'visits' },
+        { href: 'store-applications.html', icon: 'fa-file-alt', text: '开店申请', page: 'store-applications' },
+        { href: 'reports.html', icon: 'fa-flag', text: '举报处理', page: 'reports' },
+        { href: 'points.html', icon: 'fa-coins', text: '房豆管理', page: 'points' },
+        { href: 'cities.html', icon: 'fa-map-marker-alt', text: '城市管理', page: 'cities' },
+        { href: 'settings.html', icon: 'fa-cog', text: '系统设置', page: 'settings' }
+    ];
+    
+    sidebarNav.innerHTML = menuItems.map(item => {
+        const isActive = item.href === currentPage ? 'active' : '';
+        return `
+            <a href="${item.href}" class="nav-item ${isActive}" data-page="${item.page}">
+                <i class="fas ${item.icon}"></i>
+                <span>${item.text}</span>
+            </a>
+        `;
+    }).join('');
+}
+
 // 通用初始化
 function initCommon() {
+    // 生成侧边栏菜单
+    generateSidebarMenu();
+    
     // 侧边栏切换
     const menuToggle = document.getElementById('menuToggle');
     const sidebar = document.getElementById('sidebar');
@@ -117,14 +155,6 @@ function initCommon() {
             sidebar.classList.toggle('show');
         });
     }
-
-    // 导航高亮
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    document.querySelectorAll('.nav-item').forEach(item => {
-        if (item.getAttribute('href') === currentPage) {
-            item.classList.add('active');
-        }
-    });
 
     // 退出登录
     const logoutBtn = document.getElementById('logoutBtn');
@@ -1130,6 +1160,502 @@ document.addEventListener('DOMContentLoaded', () => {
         case 'settings.html':
             initSettings();
             break;
+        case 'communications.html':
+            initCommunications();
+            break;
+        case 'activities.html':
+            initActivities();
+            break;
+        case 'visits.html':
+            initVisits();
+            break;
+        case 'store-applications.html':
+            initStoreApplications();
+            break;
+        case 'cities.html':
+            initCities();
+            break;
     }
 });
+
+// 通用页面初始化函数（用于新页面）
+function initPage() {
+    initMockData();
+    initCommon();
+    
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    
+    switch (currentPage) {
+        case 'index.html':
+            initDashboard();
+            break;
+        case 'users.html':
+            initUsers();
+            break;
+        case 'stores.html':
+            initStores();
+            break;
+        case 'houses.html':
+            initHouses();
+            break;
+        case 'find-requests.html':
+            initFindRequests();
+            break;
+        case 'auth-review.html':
+            initAuthReview();
+            break;
+        case 'reports.html':
+            initReports();
+            break;
+        case 'points.html':
+            initPoints();
+            break;
+        case 'settings.html':
+            initSettings();
+            break;
+        case 'communications.html':
+            initCommunications();
+            break;
+        case 'activities.html':
+            initActivities();
+            break;
+        case 'visits.html':
+            initVisits();
+            break;
+        case 'store-applications.html':
+            initStoreApplications();
+            break;
+        case 'cities.html':
+            initCities();
+            break;
+    }
+}
+
+// ==================== 新页面初始化函数 ====================
+
+// 沟通管理
+function initCommunications() {
+    let currentPage = 1;
+    const pageSize = 10;
+    
+    function loadData() {
+        const data = getData('communications');
+        const searchTerm = document.getElementById('searchInput')?.value.toLowerCase() || '';
+        const typeFilter = document.getElementById('typeFilter')?.value || '';
+        const statusFilter = document.getElementById('statusFilter')?.value || '';
+        
+        let filtered = data.filter(item => {
+            const matchSearch = !searchTerm || 
+                item.acquirer.toLowerCase().includes(searchTerm) ||
+                item.targetUser.toLowerCase().includes(searchTerm) ||
+                item.contact.includes(searchTerm);
+            const matchType = !typeFilter || item.type === typeFilter;
+            const matchStatus = !statusFilter || item.status === statusFilter;
+            return matchSearch && matchType && matchStatus;
+        });
+        
+        const total = filtered.length;
+        const start = (currentPage - 1) * pageSize;
+        const paginated = filtered.slice(start, start + pageSize);
+        
+        renderTable(paginated);
+        createPagination(total, currentPage, pageSize, (page) => {
+            currentPage = page;
+            loadData();
+        });
+    }
+    
+    function renderTable(data) {
+        const tbody = document.getElementById('dataTableBody');
+        if (!tbody) return;
+        
+        tbody.innerHTML = data.map(item => `
+            <tr>
+                <td>${item.id}</td>
+                <td>${item.acquirer}</td>
+                <td>${item.typeName}</td>
+                <td>${item.targetUser}</td>
+                <td>${item.contact}</td>
+                <td>${item.contactTime}</td>
+                <td><span class="badge ${item.status === 'active' ? 'success' : 'danger'}">${item.status === 'active' ? '有效' : '无效'}</span></td>
+                <td>
+                    <button class="btn btn-sm btn-info" onclick="viewDetail(${item.id})">查看</button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteItem(${item.id})">删除</button>
+                </td>
+            </tr>
+        `).join('');
+    }
+    
+    window.viewDetail = (id) => {
+        const item = getData('communications').find(d => d.id === id);
+        if (item) {
+            alert(`沟通记录详情\n\n获取者: ${item.acquirer}\n类型: ${item.typeName}\n目标用户: ${item.targetUser}\n联系方式: ${item.contact}\n获取时间: ${item.contactTime}`);
+        }
+    };
+    
+    window.deleteItem = (id) => {
+        if (confirm('确定要删除这条记录吗？')) {
+            deleteData('communications', id);
+            loadData();
+        }
+    };
+    
+    document.getElementById('searchInput')?.addEventListener('input', loadData);
+    document.getElementById('typeFilter')?.addEventListener('change', () => { currentPage = 1; loadData(); });
+    document.getElementById('statusFilter')?.addEventListener('change', () => { currentPage = 1; loadData(); });
+    
+    loadData();
+}
+
+// 活动管理
+function initActivities() {
+    let currentPage = 1;
+    const pageSize = 10;
+    
+    function loadData() {
+        const data = getData('platformActivities');
+        const searchTerm = document.getElementById('searchInput')?.value.toLowerCase() || '';
+        const statusFilter = document.getElementById('statusFilter')?.value || '';
+        const typeFilter = document.getElementById('typeFilter')?.value || '';
+        
+        let filtered = data.filter(item => {
+            const matchSearch = !searchTerm || item.name.toLowerCase().includes(searchTerm);
+            const matchStatus = !statusFilter || item.status === statusFilter;
+            const matchType = !typeFilter || item.type === typeFilter;
+            return matchSearch && matchStatus && matchType;
+        });
+        
+        const total = filtered.length;
+        const start = (currentPage - 1) * pageSize;
+        const paginated = filtered.slice(start, start + pageSize);
+        
+        renderTable(paginated);
+        createPagination(total, currentPage, pageSize, (page) => {
+            currentPage = page;
+            loadData();
+        });
+    }
+    
+    function renderTable(data) {
+        const tbody = document.getElementById('dataTableBody');
+        if (!tbody) return;
+        
+        tbody.innerHTML = data.map(item => `
+            <tr>
+                <td>${item.id}</td>
+                <td>${item.name}</td>
+                <td>${item.typeName}</td>
+                <td>${item.reward}</td>
+                <td>${item.startTime}</td>
+                <td>${item.endTime}</td>
+                <td>${item.participants}</td>
+                <td><span class="badge ${item.status === 'active' ? 'success' : item.status === 'ended' ? 'warning' : 'secondary'}">${item.status === 'active' ? '进行中' : item.status === 'ended' ? '已结束' : '草稿'}</span></td>
+                <td>
+                    <button class="btn btn-sm btn-info" onclick="viewActivity(${item.id})">查看</button>
+                    <button class="btn btn-sm btn-primary" onclick="editActivity(${item.id})">编辑</button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteActivity(${item.id})">删除</button>
+                </td>
+            </tr>
+        `).join('');
+    }
+    
+    window.viewActivity = (id) => {
+        const item = getData('platformActivities').find(d => d.id === id);
+        if (item) {
+            alert(`活动详情\n\n活动名称: ${item.name}\n活动类型: ${item.typeName}\n奖励内容: ${item.reward}\n参与人数: ${item.participants}\n状态: ${item.status === 'active' ? '进行中' : item.status === 'ended' ? '已结束' : '草稿'}`);
+        }
+    };
+    
+    window.editActivity = (id) => {
+        alert('编辑活动功能待开发');
+    };
+    
+    window.deleteActivity = (id) => {
+        if (confirm('确定要删除这个活动吗？')) {
+            deleteData('platformActivities', id);
+            loadData();
+        }
+    };
+    
+    document.getElementById('addActivityBtn')?.addEventListener('click', () => {
+        alert('新增活动功能待开发');
+    });
+    
+    document.getElementById('searchInput')?.addEventListener('input', loadData);
+    document.getElementById('statusFilter')?.addEventListener('change', () => { currentPage = 1; loadData(); });
+    document.getElementById('typeFilter')?.addEventListener('change', () => { currentPage = 1; loadData(); });
+    
+    loadData();
+}
+
+// 看房管理
+function initVisits() {
+    let currentPage = 1;
+    const pageSize = 10;
+    
+    function loadData() {
+        const data = getData('visits');
+        const searchTerm = document.getElementById('searchInput')?.value.toLowerCase() || '';
+        const storeFilter = document.getElementById('storeFilter')?.value || '';
+        const dateFilter = document.getElementById('dateFilter')?.value || '';
+        
+        let filtered = data.filter(item => {
+            const matchSearch = !searchTerm || 
+                item.tenantName.toLowerCase().includes(searchTerm) ||
+                item.storeName.toLowerCase().includes(searchTerm);
+            const matchStore = !storeFilter || item.storeId == storeFilter;
+            const matchDate = !dateFilter || item.visitTime.startsWith(dateFilter);
+            return matchSearch && matchStore && matchDate;
+        });
+        
+        const total = filtered.length;
+        const start = (currentPage - 1) * pageSize;
+        const paginated = filtered.slice(start, start + pageSize);
+        
+        renderTable(paginated);
+        createPagination(total, currentPage, pageSize, (page) => {
+            currentPage = page;
+            loadData();
+        });
+    }
+    
+    function renderTable(data) {
+        const tbody = document.getElementById('dataTableBody');
+        if (!tbody) return;
+        
+        tbody.innerHTML = data.map(item => `
+            <tr>
+                <td>${item.id}</td>
+                <td>${item.tenantName}</td>
+                <td>${item.storeName}</td>
+                <td>${item.visitTime}</td>
+                <td>${item.houseTitle}</td>
+                <td><span class="badge ${item.status === 'completed' ? 'success' : 'info'}">${item.status === 'completed' ? '已完成' : '已预约'}</span></td>
+                <td>
+                    <button class="btn btn-sm btn-info" onclick="viewVisit(${item.id})">查看</button>
+                </td>
+            </tr>
+        `).join('');
+    }
+    
+    window.viewVisit = (id) => {
+        const item = getData('visits').find(d => d.id === id);
+        if (item) {
+            alert(`看房记录详情\n\n租客: ${item.tenantName}\n门店: ${item.storeName}\n看房时间: ${item.visitTime}\n房源: ${item.houseTitle}\n状态: ${item.status === 'completed' ? '已完成' : '已预约'}`);
+        }
+    };
+    
+    document.getElementById('searchInput')?.addEventListener('input', loadData);
+    document.getElementById('storeFilter')?.addEventListener('change', () => { currentPage = 1; loadData(); });
+    document.getElementById('dateFilter')?.addEventListener('change', () => { currentPage = 1; loadData(); });
+    
+    loadData();
+}
+
+// 开店申请
+function initStoreApplications() {
+    let currentPage = 1;
+    const pageSize = 10;
+    
+    function loadData() {
+        const data = getData('storeApplications');
+        const searchTerm = document.getElementById('searchInput')?.value.toLowerCase() || '';
+        const statusFilter = document.getElementById('statusFilter')?.value || '';
+        
+        let filtered = data.filter(item => {
+            const matchSearch = !searchTerm || 
+                item.applicant.toLowerCase().includes(searchTerm) ||
+                item.storeName.toLowerCase().includes(searchTerm);
+            const matchStatus = !statusFilter || item.status === statusFilter;
+            return matchSearch && matchStatus;
+        });
+        
+        const total = filtered.length;
+        const start = (currentPage - 1) * pageSize;
+        const paginated = filtered.slice(start, start + pageSize);
+        
+        renderTable(paginated);
+        createPagination(total, currentPage, pageSize, (page) => {
+            currentPage = page;
+            loadData();
+        });
+    }
+    
+    function renderTable(data) {
+        const tbody = document.getElementById('dataTableBody');
+        if (!tbody) return;
+        
+        tbody.innerHTML = data.map(item => `
+            <tr>
+                <td>${item.id}</td>
+                <td>${item.applicant}</td>
+                <td>${item.storeName}</td>
+                <td>${item.applicantPhone}</td>
+                <td>${item.address}</td>
+                <td>${item.applyTime}</td>
+                <td><span class="badge ${item.status === 'approved' ? 'success' : item.status === 'pending' ? 'warning' : 'danger'}">${item.status === 'approved' ? '已通过' : item.status === 'pending' ? '待审核' : '已拒绝'}</span></td>
+                <td>
+                    ${item.status === 'pending' ? `
+                        <button class="btn btn-sm btn-success" onclick="approveApplication(${item.id})">通过</button>
+                        <button class="btn btn-sm btn-danger" onclick="rejectApplication(${item.id})">拒绝</button>
+                    ` : ''}
+                    <button class="btn btn-sm btn-info" onclick="viewApplication(${item.id})">查看</button>
+                </td>
+            </tr>
+        `).join('');
+    }
+    
+    window.viewApplication = (id) => {
+        const item = getData('storeApplications').find(d => d.id === id);
+        if (item) {
+            alert(`开店申请详情\n\n申请人: ${item.applicant}\n联系电话: ${item.applicantPhone}\n门店名称: ${item.storeName}\n门店地址: ${item.address}\n申请时间: ${item.applyTime}\n状态: ${item.status === 'approved' ? '已通过' : item.status === 'pending' ? '待审核' : '已拒绝'}`);
+        }
+    };
+    
+    window.approveApplication = (id) => {
+        if (confirm('确定要通过这个开店申请吗？')) {
+            updateData('storeApplications', id, { status: 'approved' });
+            loadData();
+            alert('申请已通过！');
+        }
+    };
+    
+    window.rejectApplication = (id) => {
+        if (confirm('确定要拒绝这个开店申请吗？')) {
+            updateData('storeApplications', id, { status: 'rejected' });
+            loadData();
+            alert('申请已拒绝！');
+        }
+    };
+    
+    document.getElementById('searchInput')?.addEventListener('input', loadData);
+    document.getElementById('statusFilter')?.addEventListener('change', () => { currentPage = 1; loadData(); });
+    
+    loadData();
+}
+
+// 城市管理
+function initCities() {
+    let currentPage = 1;
+    const pageSize = 10;
+    
+    function loadData() {
+        const data = getData('cities');
+        const searchTerm = document.getElementById('searchInput')?.value.toLowerCase() || '';
+        const statusFilter = document.getElementById('statusFilter')?.value || '';
+        
+        let filtered = data.filter(item => {
+            const matchSearch = !searchTerm || item.name.toLowerCase().includes(searchTerm);
+            const matchStatus = !statusFilter || item.status === statusFilter;
+            return matchSearch && matchStatus;
+        });
+        
+        const total = filtered.length;
+        const start = (currentPage - 1) * pageSize;
+        const paginated = filtered.slice(start, start + pageSize);
+        
+        renderTable(paginated);
+        createPagination(total, currentPage, pageSize, (page) => {
+            currentPage = page;
+            loadData();
+        });
+    }
+    
+    function renderTable(data) {
+        const tbody = document.getElementById('dataTableBody');
+        if (!tbody) return;
+        
+        tbody.innerHTML = data.map(item => `
+            <tr>
+                <td>${item.id}</td>
+                <td>${item.name}</td>
+                <td>${item.code}</td>
+                <td>${item.houseCount}</td>
+                <td>${item.userCount}</td>
+                <td>${item.storeCount}</td>
+                <td><span class="badge ${item.status === 'active' ? 'success' : 'danger'}">${item.status === 'active' ? '启用' : '禁用'}</span></td>
+                <td>
+                    <button class="btn btn-sm btn-primary" onclick="editCity(${item.id})">编辑</button>
+                    <button class="btn btn-sm ${item.status === 'active' ? 'btn-warning' : 'btn-success'}" onclick="toggleCityStatus(${item.id})">${item.status === 'active' ? '禁用' : '启用'}</button>
+                </td>
+            </tr>
+        `).join('');
+    }
+    
+    window.editCity = (id) => {
+        alert('编辑城市功能待开发');
+    };
+    
+    window.toggleCityStatus = (id) => {
+        const item = getData('cities').find(d => d.id === id);
+        if (item) {
+            const newStatus = item.status === 'active' ? 'inactive' : 'active';
+            updateData('cities', id, { status: newStatus });
+            loadData();
+            alert(`城市已${newStatus === 'active' ? '启用' : '禁用'}！`);
+        }
+    };
+    
+    document.getElementById('addCityBtn')?.addEventListener('click', () => {
+        alert('新增城市功能待开发');
+    });
+    
+    document.getElementById('searchInput')?.addEventListener('input', loadData);
+    document.getElementById('statusFilter')?.addEventListener('change', () => { currentPage = 1; loadData(); });
+    
+    loadData();
+}
+
+// 通用页面初始化函数
+function initPage() {
+    initMockData();
+    initCommon();
+    
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    
+    switch (currentPage) {
+        case 'index.html':
+            initDashboard();
+            break;
+        case 'users.html':
+            initUsers();
+            break;
+        case 'stores.html':
+            initStores();
+            break;
+        case 'houses.html':
+            initHouses();
+            break;
+        case 'find-requests.html':
+            initFindRequests();
+            break;
+        case 'auth-review.html':
+            initAuthReview();
+            break;
+        case 'reports.html':
+            initReports();
+            break;
+        case 'points.html':
+            initPoints();
+            break;
+        case 'settings.html':
+            initSettings();
+            break;
+        case 'communications.html':
+            initCommunications();
+            break;
+        case 'activities.html':
+            initActivities();
+            break;
+        case 'visits.html':
+            initVisits();
+            break;
+        case 'store-applications.html':
+            initStoreApplications();
+            break;
+        case 'cities.html':
+            initCities();
+            break;
+    }
+}
 

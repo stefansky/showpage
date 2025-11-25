@@ -69,9 +69,30 @@ function initEventListeners() {
     // 编辑资料
     const editProfileBtn = document.getElementById('editProfileBtn');
     if (editProfileBtn) {
-        editProfileBtn.addEventListener('click', function() {
+        editProfileBtn.addEventListener('click', function(e) {
+            e.stopPropagation(); // 阻止事件冒泡
             window.location.href = '../edit-profile/index.html';
         });
+    }
+    
+    // 用户信息卡片点击（跳转到登录）
+    const userCard = document.querySelector('.user-card');
+    if (userCard) {
+        userCard.addEventListener('click', function(e) {
+            // 如果点击的是编辑按钮，不处理
+            if (e.target.closest('.edit-btn')) {
+                return;
+            }
+            
+            // 检查是否已登录
+            const loginStatus = localStorage.getItem('shopLoginStatus');
+            if (loginStatus !== 'loggedIn') {
+                window.location.href = '../login/index.html';
+            }
+        });
+        
+        // 添加点击样式提示
+        userCard.style.cursor = 'pointer';
     }
     
 }
