@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>用户管理 - 管理后台</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../common/style.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 侧边栏 -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-cog"></i>
+                <span>管理后台</span>
+            </div>
+        </div>
+        <nav class="sidebar-nav" id="sidebarNav"></nav>
+    </div>
+
+    <!-- 主内容区 -->
+    <div class="main-container">
+        <header class="header">
+            <div class="header-left">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="page-title">用户管理</h1>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span>管理员</span>
+                </div>
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </header>
+
+        <main class="content">
+            <!-- 提示信息 -->
+            <div class="info-card">
+                <div class="info-icon"><i class="fas fa-info-circle"></i></div>
+                <div class="info-content">
+                    <h4>用户数据说明</h4>
+                    <p>用户通过小程序端自主注册，系统自动获取微信 openId。用户头像、昵称来自微信授权，请勿随意修改。</p>
+                </div>
+            </div>
+
+            <!-- 统计卡片 -->
+            <div class="stats-row">
+                <div class="mini-stat-card">
+                    <div class="mini-stat-value" id="totalUsers">0</div>
+                    <div class="mini-stat-label">总用户数</div>
+                </div>
+                <div class="mini-stat-card">
+                    <div class="mini-stat-value" id="tenantCount">0</div>
+                    <div class="mini-stat-label">租客</div>
+                </div>
+                <div class="mini-stat-card">
+                    <div class="mini-stat-value" id="landlordCount">0</div>
+                    <div class="mini-stat-label">房东</div>
+                </div>
+                <div class="mini-stat-card">
+                    <div class="mini-stat-value" id="verifiedCount">0</div>
+                    <div class="mini-stat-label">已实名</div>
+                </div>
+            </div>
+
+            <!-- 工具栏 -->
+            <div class="toolbar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="搜索用户昵称、手机号、openId...">
+                </div>
+                <div class="filter-group">
+                    <select class="filter-select" id="roleFilter">
+                        <option value="">全部角色</option>
+                        <option value="tenant">租客</option>
+                        <option value="landlord">房东</option>
+                    </select>
+                    <select class="filter-select" id="authFilter">
+                        <option value="">全部认证状态</option>
+                        <option value="verified">已认证</option>
+                        <option value="pending">待审核</option>
+                        <option value="unverified">未认证</option>
+                    </select>
+                    <select class="filter-select" id="statusFilter">
+                        <option value="">全部状态</option>
+                        <option value="active">正常</option>
+                        <option value="disabled">禁用</option>
+                        <option value="blocked">拉黑</option>
+                    </select>
+                </div>
+                <button class="btn btn-secondary" onclick="exportUsers()">
+                    <i class="fas fa-download"></i>
+                    <span>导出</span>
+                </button>
+            </div>
+
+            <!-- 用户列表 -->
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>用户ID</th>
+                            <th>用户信息</th>
+                            <th>角色</th>
+                            <th>手机号</th>
+                            <th>实名认证</th>
+                            <th>房豆</th>
+                            <th>状态</th>
+                            <th>注册时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+
+            <div class="pagination" id="pagination"></div>
+        </main>
+    </div>
+
+    <!-- 用户详情弹窗 -->
+    <div class="modal" id="detailModal">
+        <div class="modal-backdrop" onclick="closeDetailModal()"></div>
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h3>用户详情</h3>
+                <button class="modal-close" onclick="closeDetailModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="detailBody"></div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closeDetailModal()">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 房豆操作弹窗 -->
+    <div class="modal" id="pointsModal">
+        <div class="modal-backdrop" onclick="closePointsModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>房豆操作</h3>
+                <button class="modal-close" onclick="closePointsModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="user-points-info" id="userPointsInfo"></div>
+                <div class="form-item">
+                    <label class="form-label">操作类型</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="pointsAction" value="add" checked>
+                            <span>充值/赠送</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="pointsAction" value="deduct">
+                            <span>扣减</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-item">
+                    <label class="form-label">数量</label>
+                    <input type="number" class="form-input" id="pointsAmount" placeholder="请输入房豆数量" min="1">
+                </div>
+                <div class="form-item">
+                    <label class="form-label">备注</label>
+                    <input type="text" class="form-input" id="pointsReason" placeholder="如：活动奖励、客服补偿等">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closePointsModal()">取消</button>
+                <button class="modal-btn confirm" onclick="confirmPointsAction()">确认</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 状态修改弹窗 -->
+    <div class="modal" id="statusModal">
+        <div class="modal-backdrop" onclick="closeStatusModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>修改用户状态</h3>
+                <button class="modal-close" onclick="closeStatusModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="user-status-info" id="userStatusInfo"></div>
+                <div class="form-item">
+                    <label class="form-label">选择状态</label>
+                    <div class="status-options">
+                        <label class="status-option active-option">
+                            <input type="radio" name="userStatus" value="active">
+                            <div class="status-option-content">
+                                <i class="fas fa-check-circle"></i>
+                                <span>正常</span>
+                                <p>用户可以正常使用所有功能</p>
+                            </div>
+                        </label>
+                        <label class="status-option disabled-option">
+                            <input type="radio" name="userStatus" value="disabled">
+                            <div class="status-option-content">
+                                <i class="fas fa-ban"></i>
+                                <span>禁用</span>
+                                <p>暂时禁止用户登录和使用</p>
+                            </div>
+                        </label>
+                        <label class="status-option blocked-option">
+                            <input type="radio" name="userStatus" value="blocked">
+                            <div class="status-option-content">
+                                <i class="fas fa-skull-crossbones"></i>
+                                <span>拉黑</span>
+                                <p>永久禁止用户使用平台</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-item">
+                    <label class="form-label">操作原因</label>
+                    <textarea class="form-input" id="statusReason" placeholder="请输入操作原因（选填）" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closeStatusModal()">取消</button>
+                <button class="modal-btn confirm" onclick="confirmStatusChange()">确认修改</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../common/common.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

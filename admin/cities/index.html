@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>城市管理 - 管理后台</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../common/style.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header"><div class="logo"><i class="fas fa-cog"></i><span>管理后台</span></div></div>
+        <nav class="sidebar-nav" id="sidebarNav"></nav>
+    </div>
+
+    <div class="main-container">
+        <header class="header">
+            <div class="header-left">
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+                <h1 class="page-title">城市管理</h1>
+            </div>
+            <div class="header-right">
+                <div class="user-info"><i class="fas fa-user-circle"></i><span>管理员</span></div>
+                <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </header>
+
+        <main class="content">
+            <!-- 说明卡片 -->
+            <div class="info-card">
+                <div class="info-icon"><i class="fas fa-info-circle"></i></div>
+                <div class="info-content">
+                    <h4>城市匹配规则说明</h4>
+                    <p>用户端小程序打开后会通过地图API获取用户定位，系统将根据返回的<strong>行政区划代码(adcode)</strong>与已开通城市列表进行匹配。</p>
+                    <p>如需精确匹配到区县，请开通对应的区县；如只需匹配到城市级别，开通城市即可。</p>
+                </div>
+            </div>
+
+            <!-- 统计卡片 -->
+            <div class="stats-row">
+                <div class="mini-stat-card">
+                    <div class="mini-stat-value" id="totalCities">0</div>
+                    <div class="mini-stat-label">已开通城市</div>
+                </div>
+                <div class="mini-stat-card">
+                    <div class="mini-stat-value" id="activeCities">0</div>
+                    <div class="mini-stat-label">启用中</div>
+                </div>
+                <div class="mini-stat-card">
+                    <div class="mini-stat-value" id="inactiveCities">0</div>
+                    <div class="mini-stat-label">已禁用</div>
+                </div>
+            </div>
+
+            <!-- 搜索筛选和操作栏 -->
+            <div class="toolbar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="搜索城市名称...">
+                </div>
+                <div class="filter-group">
+                    <select id="provinceFilter" class="filter-select">
+                        <option value="">全部省份</option>
+                    </select>
+                    <select id="statusFilter" class="filter-select">
+                        <option value="">全部状态</option>
+                        <option value="active">启用</option>
+                        <option value="inactive">禁用</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" id="addCityBtn">
+                    <i class="fas fa-plus"></i>
+                    <span>开通城市</span>
+                </button>
+            </div>
+
+            <!-- 城市列表表格 -->
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>城市名称</th>
+                            <th>所属省份</th>
+                            <th>行政区划代码</th>
+                            <th>坐标</th>
+                            <th>房源数</th>
+                            <th>用户数</th>
+                            <th>门店数</th>
+                            <th>状态</th>
+                            <th>开通时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- 数据将通过JS动态生成 -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination" id="pagination"></div>
+        </main>
+    </div>
+
+    <!-- 添加/编辑城市弹窗 -->
+    <div class="modal" id="cityModal">
+        <div class="modal-backdrop" onclick="closeModal()"></div>
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h3 id="modalTitle">开通城市</h3>
+                <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <!-- 搜索城市（添加模式） -->
+                <div class="city-search-section" id="citySearchSection">
+                    <label class="form-label">搜索城市</label>
+                    <div class="city-search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="citySearchInput" placeholder="输入城市名称搜索..." autocomplete="off">
+                    </div>
+                    <div class="city-search-results" id="citySearchResults"></div>
+                </div>
+
+                <!-- 城市表单 -->
+                <div class="city-form" id="cityForm" style="display: none;">
+                    <div class="form-row">
+                        <div class="form-item">
+                            <label class="form-label">城市名称 <span class="required">*</span></label>
+                            <input type="text" class="form-input" id="formCityName" placeholder="请输入城市名称">
+                        </div>
+                        <div class="form-item">
+                            <label class="form-label">所属省份 <span class="required">*</span></label>
+                            <input type="text" class="form-input" id="formProvince" placeholder="请输入省份">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-item">
+                            <label class="form-label">行政区划代码 <span class="required">*</span></label>
+                            <input type="text" class="form-input" id="formAdcode" placeholder="如：440100">
+                        </div>
+                        <div class="form-item">
+                            <label class="form-label">城市级别</label>
+                            <select class="form-input" id="formLevel">
+                                <option value="city">地级市</option>
+                                <option value="province">省级/直辖市</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-item">
+                            <label class="form-label">纬度</label>
+                            <input type="text" class="form-input" id="formLat" placeholder="如：23.1291">
+                        </div>
+                        <div class="form-item">
+                            <label class="form-label">经度</label>
+                            <input type="text" class="form-input" id="formLng" placeholder="如：113.2644">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-item full-width">
+                            <label class="form-label">状态</label>
+                            <div class="radio-group">
+                                <label class="radio-item">
+                                    <input type="radio" name="formStatus" value="active" checked>
+                                    <span>启用</span>
+                                </label>
+                                <label class="radio-item">
+                                    <input type="radio" name="formStatus" value="inactive">
+                                    <span>禁用</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 提示信息 -->
+                <div class="tip-box" id="tipBox">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>系统内置全国城市数据库，搜索并选择要开通的城市即可自动填充信息。也可以切换到手动输入模式。</span>
+                </div>
+
+                <!-- 切换模式按钮 -->
+                <div class="mode-switch">
+                    <button class="mode-btn" id="modeSwitchBtn" onclick="toggleInputMode()">
+                        <i class="fas fa-keyboard"></i>
+                        <span>切换到手动输入</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closeModal()">取消</button>
+                <button class="modal-btn confirm" id="confirmBtn" onclick="saveCity()">确认保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 查看详情弹窗 -->
+    <div class="modal" id="detailModal">
+        <div class="modal-backdrop" onclick="closeDetailModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>城市详情</h3>
+                <button class="modal-close" onclick="closeDetailModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="detailBody"></div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closeDetailModal()">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../common/common.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

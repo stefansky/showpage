@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>房源管理 - 管理后台</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../common/style.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo"><i class="fas fa-cog"></i><span>管理后台</span></div>
+        </div>
+        <nav class="sidebar-nav" id="sidebarNav"></nav>
+    </div>
+
+    <div class="main-container">
+        <header class="header">
+            <div class="header-left">
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+                <h1 class="page-title">房源管理</h1>
+            </div>
+            <div class="header-right">
+                <div class="user-info"><i class="fas fa-user-circle"></i><span>管理员</span></div>
+                <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </header>
+
+        <main class="content">
+            <!-- 统计卡片 -->
+            <div class="stats-row">
+                <div class="mini-stat-card">
+                    <div class="mini-stat-value" id="totalHouses">0</div>
+                    <div class="mini-stat-label">总房源数</div>
+                </div>
+                <div class="mini-stat-card pending">
+                    <div class="mini-stat-value" id="pendingHouses">0</div>
+                    <div class="mini-stat-label">待审核</div>
+                </div>
+                <div class="mini-stat-card active">
+                    <div class="mini-stat-value" id="activeHouses">0</div>
+                    <div class="mini-stat-label">已上架</div>
+                </div>
+                <div class="mini-stat-card rented">
+                    <div class="mini-stat-value" id="rentedHouses">0</div>
+                    <div class="mini-stat-label">已出租</div>
+                </div>
+            </div>
+
+            <!-- 工具栏 -->
+            <div class="toolbar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="搜索房源标题、地址...">
+                </div>
+                <div class="filter-group">
+                    <select class="filter-select" id="publisherTypeFilter">
+                        <option value="">全部来源</option>
+                        <option value="1">租客转租</option>
+                        <option value="2">房东直租</option>
+                        <option value="3">商家发布</option>
+                    </select>
+                    <select class="filter-select" id="rentModeFilter">
+                        <option value="">全部方式</option>
+                        <option value="1">整租</option>
+                        <option value="2">合租</option>
+                    </select>
+                    <select class="filter-select" id="statusFilter">
+                        <option value="">全部状态</option>
+                        <option value="0">审核中</option>
+                        <option value="1">已上架</option>
+                        <option value="2">已下架</option>
+                        <option value="3">已出租</option>
+                        <option value="4">已过期</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" id="addHouseBtn">
+                    <i class="fas fa-plus"></i>
+                    <span>录入房源</span>
+                </button>
+            </div>
+
+            <!-- 房源列表 -->
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>房源标题</th>
+                            <th>位置</th>
+                            <th>出租方式</th>
+                            <th>房屋类型</th>
+                            <th>租赁类型</th>
+                            <th>租金</th>
+                            <th>发布者</th>
+                            <th>状态</th>
+                            <th>发布时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+
+            <div class="pagination" id="pagination"></div>
+        </main>
+    </div>
+
+    <!-- 录入/编辑房源弹窗 -->
+    <div class="modal" id="houseModal">
+        <div class="modal-backdrop" onclick="closeHouseModal()"></div>
+        <div class="modal-content modal-xl">
+            <div class="modal-header">
+                <h3 id="modalTitle">录入房源</h3>
+                <button class="modal-close" onclick="closeHouseModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-tabs">
+                    <div class="form-tab active" data-tab="basic">基本信息</div>
+                    <div class="form-tab" data-tab="location">位置信息</div>
+                    <div class="form-tab" data-tab="images">房源图片</div>
+                    <div class="form-tab" data-tab="detail">详细信息</div>
+                </div>
+
+                <!-- 基本信息 -->
+                <div class="form-section active" id="section-basic">
+                    <div class="form-row">
+                        <div class="form-item">
+                            <label class="form-label">发布者类型 <span class="required">*</span></label>
+                            <select class="form-input" id="publisherType" onchange="handlePublisherTypeChange()">
+                                <option value="">请选择</option>
+                                <option value="1">租客转租</option>
+                                <option value="2">房东直租</option>
+                                <option value="3">商家发布</option>
+                            </select>
+                        </div>
+                        <div class="form-item">
+                            <label class="form-label">发布者 <span class="required">*</span></label>
+                            <div class="publisher-select">
+                                <select class="form-input" id="publisherId">
+                                    <option value="">请先选择发布者类型</option>
+                                </select>
+                                <span class="form-hint" id="publisherHint">选择发布者类型后可选择具体用户或门店</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-item full-width">
+                            <label class="form-label">房源标题 <span class="required">*</span></label>
+                            <input type="text" class="form-input" id="title" placeholder="如：精装两室一厅 近地铁 拎包入住">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-item">
+                            <label class="form-label">出租方式 <span class="required">*</span></label>
+                            <div class="radio-group">
+                                <label class="radio-item">
+                                    <input type="radio" name="rentMode" value="1" onchange="handleRentModeChange()">
+                                    <span>整租</span>
+                                </label>
+                                <label class="radio-item">
+                                    <input type="radio" name="rentMode" value="2" onchange="handleRentModeChange()">
+                                    <span>合租</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-item">
+                            <label class="form-label">租赁类型 <span class="required">*</span></label>
+                            <div class="radio-group">
+                                <label class="radio-item">
+                                    <input type="radio" name="rentType" value="1">
+                                    <span>转租</span>
+                                </label>
+                                <label class="radio-item">
+                                    <input type="radio" name="rentType" value="2">
+                                    <span>直租</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row" id="roomCountRow" style="display:none;">
+                        <div class="form-item">
+                            <label class="form-label">户型（室数）</label>
+                            <select class="form-input" id="roomCount">
+                                <option value="">请选择</option>
+                                <option value="1">1室</option>
+                                <option value="2">2室</option>
+                                <option value="3">3室</option>
+                                <option value="4">4室及以上</option>
+                            </select>
+                        </div>
+                        <div class="form-item">
+                            <label class="form-label">联系电话 <span class="required">*</span></label>
+                            <input type="text" class="form-input" id="contactPhone" placeholder="请输入联系电话">
+                        </div>
+                    </div>
+                    <div class="form-row" id="roomTypeRow" style="display:none;">
+                        <div class="form-item">
+                            <label class="form-label">房间类型</label>
+                            <select class="form-input" id="roomType">
+                                <option value="">请选择</option>
+                                <option value="1">主卧</option>
+                                <option value="2">次卧</option>
+                                <option value="3">其他</option>
+                            </select>
+                        </div>
+                        <div class="form-item">
+                            <label class="form-label">联系电话 <span class="required">*</span></label>
+                            <input type="text" class="form-input" id="contactPhone2" placeholder="请输入联系电话">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 位置信息 -->
+                <div class="form-section" id="section-location">
+                    <div class="form-row">
+                        <div class="form-item">
+                            <label class="form-label">省份 <span class="required">*</span></label>
+                            <select class="form-input" id="province" onchange="handleProvinceChange()">
+                                <option value="">请选择省份</option>
+                            </select>
+                        </div>
+                        <div class="form-item">
+                            <label class="form-label">城市 <span class="required">*</span></label>
+                            <select class="form-input" id="city" onchange="handleCityChange()">
+                                <option value="">请选择城市</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-item">
+                            <label class="form-label">区县 <span class="required">*</span></label>
+                            <select class="form-input" id="district">
+                                <option value="">请选择区县</option>
+                            </select>
+                        </div>
+                        <div class="form-item">
+                            <label class="form-label">详细地址 <span class="required">*</span></label>
+                            <input type="text" class="form-input" id="address" placeholder="如：xx小区xx栋xx单元">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-item">
+                            <label class="form-label">经度</label>
+                            <input type="text" class="form-input" id="longitude" placeholder="如：116.4074">
+                        </div>
+                        <div class="form-item">
+                            <label class="form-label">纬度</label>
+                            <input type="text" class="form-input" id="latitude" placeholder="如：39.9042">
+                        </div>
+                    </div>
+                    <div class="map-placeholder-small">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <button class="btn btn-secondary btn-sm" type="button" onclick="simulateGetLocation()">
+                            <i class="fas fa-crosshairs"></i> 模拟获取坐标
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 房源图片 -->
+                <div class="form-section" id="section-images">
+                    <div class="images-tip">
+                        <i class="fas fa-info-circle"></i>
+                        <span>第一张图片将作为封面图展示，最多可上传9张图片</span>
+                    </div>
+                    <div class="image-upload-grid" id="imageUploadGrid">
+                        <!-- 已上传图片将动态生成 -->
+                    </div>
+                    <div class="upload-add-btn" id="uploadAddBtn">
+                        <i class="fas fa-plus"></i>
+                        <span>添加图片</span>
+                        <input type="file" accept="image/*" multiple style="display:none" onchange="handleImageUpload(event)">
+                    </div>
+                </div>
+
+                <!-- 详细信息 -->
+                <div class="form-section" id="section-detail">
+                    <div class="form-row">
+                        <div class="form-item">
+                            <label class="form-label">租金（元/月）<span class="required">*</span></label>
+                            <input type="number" class="form-input" id="rentPrice" placeholder="请输入月租金">
+                        </div>
+                        <div class="form-item">
+                            <label class="form-label">面积（㎡）</label>
+                            <input type="number" class="form-input" id="area" placeholder="如：80">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-item">
+                            <label class="form-label">楼层</label>
+                            <input type="number" class="form-input" id="floor" placeholder="如：15">
+                        </div>
+                        <div class="form-item">
+                            <label class="form-label">可入住日期</label>
+                            <input type="date" class="form-input" id="availableDate">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-item">
+                            <label class="form-label">房源状态 <span class="required">*</span></label>
+                            <select class="form-input" id="status">
+                                <option value="0">审核中</option>
+                                <option value="1">已上架</option>
+                                <option value="2">已下架</option>
+                                <option value="3">已出租</option>
+                                <option value="4">已过期</option>
+                            </select>
+                        </div>
+                        <div class="form-item">
+                            <!-- 空白占位 -->
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-item full-width">
+                            <label class="form-label">房源描述</label>
+                            <textarea class="form-input" id="description" rows="4" placeholder="请输入房源详细描述..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closeHouseModal()">取消</button>
+                <button class="modal-btn confirm" onclick="saveHouse()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 房源详情弹窗 -->
+    <div class="modal" id="detailModal">
+        <div class="modal-backdrop" onclick="closeDetailModal()"></div>
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h3 id="detailTitle">房源详情</h3>
+                <button class="modal-close" onclick="closeDetailModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="detailBody"></div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closeDetailModal()">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 审核弹窗 -->
+    <div class="modal" id="reviewModal">
+        <div class="modal-backdrop" onclick="closeReviewModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>房源审核</h3>
+                <button class="modal-close" onclick="closeReviewModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="review-house-info" id="reviewHouseInfo"></div>
+                <div class="review-options">
+                    <label class="review-option pass">
+                        <input type="radio" name="reviewAction" value="pass" checked>
+                        <div class="review-option-content">
+                            <i class="fas fa-check-circle"></i>
+                            <span>审核通过</span>
+                            <p>房源将上架展示</p>
+                        </div>
+                    </label>
+                    <label class="review-option reject">
+                        <input type="radio" name="reviewAction" value="reject">
+                        <div class="review-option-content">
+                            <i class="fas fa-times-circle"></i>
+                            <span>审核拒绝</span>
+                            <p>房源将被驳回</p>
+                        </div>
+                    </label>
+                </div>
+                <div class="form-item" id="rejectReasonBox" style="display:none;">
+                    <label class="form-label">拒绝原因</label>
+                    <textarea class="form-input" id="rejectReason" rows="3" placeholder="请输入拒绝原因..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closeReviewModal()">取消</button>
+                <button class="modal-btn confirm" onclick="confirmReview()">确认</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../common/common.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

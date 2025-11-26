@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>门店管理 - 管理后台</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../common/style.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-cog"></i>
+                <span>管理后台</span>
+            </div>
+        </div>
+        <nav class="sidebar-nav" id="sidebarNav"></nav>
+    </div>
+
+    <div class="main-container">
+        <header class="header">
+            <div class="header-left">
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+                <h1 class="page-title">门店管理</h1>
+            </div>
+            <div class="header-right">
+                <div class="user-info"><i class="fas fa-user-circle"></i><span>管理员</span></div>
+                <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </header>
+
+        <main class="content">
+            <!-- 统计卡片 -->
+            <div class="stats-row">
+                <div class="mini-stat-card">
+                    <div class="mini-stat-value" id="totalStores">0</div>
+                    <div class="mini-stat-label">总门店数</div>
+                </div>
+                <div class="mini-stat-card">
+                    <div class="mini-stat-value" id="activeStores">0</div>
+                    <div class="mini-stat-label">正常营业</div>
+                </div>
+                <div class="mini-stat-card">
+                    <div class="mini-stat-value" id="verifiedStores">0</div>
+                    <div class="mini-stat-label">已认证</div>
+                </div>
+                <div class="mini-stat-card">
+                    <div class="mini-stat-value" id="totalHouses">0</div>
+                    <div class="mini-stat-label">总房源数</div>
+                </div>
+            </div>
+
+            <!-- 工具栏 -->
+            <div class="toolbar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="搜索门店名称、店长姓名、手机号...">
+                </div>
+                <div class="filter-group">
+                    <select class="filter-select" id="typeFilter">
+                        <option value="">全部类型</option>
+                        <option value="1">中介门店</option>
+                        <option value="2">公寓门店</option>
+                    </select>
+                    <select class="filter-select" id="verifyFilter">
+                        <option value="">全部认证</option>
+                        <option value="1">已认证</option>
+                        <option value="0">未认证</option>
+                    </select>
+                    <select class="filter-select" id="statusFilter">
+                        <option value="">全部状态</option>
+                        <option value="1">正常</option>
+                        <option value="0">禁用</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" id="addStoreBtn">
+                    <i class="fas fa-plus"></i>
+                    <span>新增门店</span>
+                </button>
+            </div>
+
+            <!-- 门店列表 -->
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>门店ID</th>
+                            <th>门店信息</th>
+                            <th>店长/联系人</th>
+                            <th>所在区域</th>
+                            <th>商家类型</th>
+                            <th>房源数</th>
+                            <th>房豆</th>
+                            <th>认证</th>
+                            <th>状态</th>
+                            <th>创建时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+
+            <div class="pagination" id="pagination"></div>
+        </main>
+    </div>
+
+    <!-- 新增/编辑门店弹窗 -->
+    <div class="modal" id="storeModal">
+        <div class="modal-backdrop" onclick="closeStoreModal()"></div>
+        <div class="modal-content modal-xl">
+            <div class="modal-header">
+                <h3 id="modalTitle">新增门店</h3>
+                <button class="modal-close" onclick="closeStoreModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-tabs">
+                    <div class="form-tab active" data-tab="basic">基本信息</div>
+                    <div class="form-tab" data-tab="location">位置信息</div>
+                    <div class="form-tab" data-tab="auth">认证信息</div>
+                </div>
+
+                <!-- 基本信息 -->
+                <div class="form-section active" id="section-basic">
+                    <div class="form-row">
+                        <div class="form-item">
+                            <label class="form-label">门店名称 <span class="required">*</span></label>
+                            <input type="text" class="form-input" id="merchantName" placeholder="请输入门店名称">
+                        </div>
+                        <div class="form-item">
+                            <label class="form-label">商家类型 <span class="required">*</span></label>
+                            <select class="form-input" id="merchantType">
+                                <option value="">请选择</option>
+                                <option value="1">中介门店</option>
+                                <option value="2">公寓门店</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-item">
+                            <label class="form-label">店长姓名 <span class="required">*</span></label>
+                            <input type="text" class="form-input" id="contactPerson" placeholder="请输入店长姓名">
+                        </div>
+                        <div class="form-item">
+                            <label class="form-label">联系电话 <span class="required">*</span></label>
+                            <input type="text" class="form-input" id="contactPhone" placeholder="请输入手机号">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-item">
+                            <label class="form-label">登录密码 <span class="required">*</span></label>
+                            <input type="password" class="form-input" id="password" placeholder="请输入登录密码">
+                            <span class="form-hint" id="passwordHint">用于商家端小程序登录</span>
+                        </div>
+                        <div class="form-item">
+                            <label class="form-label">关联用户ID</label>
+                            <input type="text" class="form-input" id="userId" placeholder="可选，关联小程序用户">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-item full-width">
+                            <label class="form-label">门店简介</label>
+                            <textarea class="form-input" id="description" rows="3" placeholder="请输入门店简介（选填）"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 位置信息 -->
+                <div class="form-section" id="section-location">
+                    <div class="form-row">
+                        <div class="form-item">
+                            <label class="form-label">省份 <span class="required">*</span></label>
+                            <select class="form-input" id="province">
+                                <option value="">请选择省份</option>
+                            </select>
+                        </div>
+                        <div class="form-item">
+                            <label class="form-label">城市 <span class="required">*</span></label>
+                            <select class="form-input" id="city">
+                                <option value="">请选择城市</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-item">
+                            <label class="form-label">区县 <span class="required">*</span></label>
+                            <select class="form-input" id="district">
+                                <option value="">请选择区县</option>
+                            </select>
+                        </div>
+                        <div class="form-item">
+                            <label class="form-label">详细地址 <span class="required">*</span></label>
+                            <input type="text" class="form-input" id="address" placeholder="请输入详细地址">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-item">
+                            <label class="form-label">经度</label>
+                            <input type="text" class="form-input" id="longitude" placeholder="如：116.4074">
+                        </div>
+                        <div class="form-item">
+                            <label class="form-label">纬度</label>
+                            <input type="text" class="form-input" id="latitude" placeholder="如：39.9042">
+                        </div>
+                    </div>
+                    <div class="map-placeholder">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <p>地图定位功能（实际项目中可接入高德/腾讯地图）</p>
+                        <button class="btn btn-secondary btn-sm" onclick="simulateGetLocation()">
+                            <i class="fas fa-crosshairs"></i> 模拟获取坐标
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 认证信息 -->
+                <div class="form-section" id="section-auth">
+                    <div class="form-row">
+                        <div class="form-item">
+                            <label class="form-label">身份证号</label>
+                            <input type="text" class="form-input" id="idCard" placeholder="请输入身份证号">
+                        </div>
+                        <div class="form-item">
+                            <label class="form-label">认证状态</label>
+                            <div class="radio-group">
+                                <label class="radio-item">
+                                    <input type="radio" name="isVerified" value="1">
+                                    <span>已认证</span>
+                                </label>
+                                <label class="radio-item">
+                                    <input type="radio" name="isVerified" value="0" checked>
+                                    <span>未认证</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-item">
+                            <label class="form-label">身份证正面</label>
+                            <div class="upload-box" id="idCardFrontBox">
+                                <i class="fas fa-id-card"></i>
+                                <span>点击上传身份证正面</span>
+                                <input type="file" accept="image/*" style="display:none">
+                            </div>
+                        </div>
+                        <div class="form-item">
+                            <label class="form-label">身份证反面</label>
+                            <div class="upload-box" id="idCardBackBox">
+                                <i class="fas fa-id-card"></i>
+                                <span>点击上传身份证反面</span>
+                                <input type="file" accept="image/*" style="display:none">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-item">
+                            <label class="form-label">初始房豆</label>
+                            <input type="number" class="form-input" id="points" value="0" min="0">
+                        </div>
+                        <div class="form-item">
+                            <label class="form-label">门店状态</label>
+                            <div class="radio-group">
+                                <label class="radio-item">
+                                    <input type="radio" name="status" value="1" checked>
+                                    <span>正常</span>
+                                </label>
+                                <label class="radio-item">
+                                    <input type="radio" name="status" value="0">
+                                    <span>禁用</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closeStoreModal()">取消</button>
+                <button class="modal-btn confirm" onclick="saveStore()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 门店详情弹窗 -->
+    <div class="modal" id="detailModal">
+        <div class="modal-backdrop" onclick="closeDetailModal()"></div>
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h3>门店详情</h3>
+                <button class="modal-close" onclick="closeDetailModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="detailBody"></div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closeDetailModal()">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 房豆操作弹窗 -->
+    <div class="modal" id="pointsModal">
+        <div class="modal-backdrop" onclick="closePointsModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>房豆操作</h3>
+                <button class="modal-close" onclick="closePointsModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="store-points-info" id="storePointsInfo"></div>
+                <div class="form-item">
+                    <label class="form-label">操作类型</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="pointsAction" value="add" checked>
+                            <span>充值</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="pointsAction" value="deduct">
+                            <span>扣减</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-item">
+                    <label class="form-label">数量</label>
+                    <input type="number" class="form-input" id="pointsAmount" placeholder="请输入房豆数量" min="1">
+                </div>
+                <div class="form-item">
+                    <label class="form-label">备注</label>
+                    <input type="text" class="form-input" id="pointsReason" placeholder="如：活动奖励、运营补贴等">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closePointsModal()">取消</button>
+                <button class="modal-btn confirm" onclick="confirmPointsAction()">确认</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../common/common.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

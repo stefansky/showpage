@@ -1,0 +1,761 @@
+/* 房源管理页面样式 */
+
+/* 统计行 */
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.mini-stat-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.mini-stat-card.pending .mini-stat-value { color: #FF9800; }
+.mini-stat-card.active .mini-stat-value { color: #4CAF50; }
+.mini-stat-card.rented .mini-stat-value { color: #2196F3; }
+
+.mini-stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.mini-stat-label {
+    font-size: 12px;
+    color: #666;
+}
+
+/* 房源标题单元格 */
+.house-title-cell {
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 位置单元格 */
+.location-cell {
+    font-size: 13px;
+    color: #666;
+    max-width: 140px;
+}
+
+/* 价格单元格 */
+.price-cell {
+    font-weight: 600;
+    color: #F44336;
+    font-size: 15px;
+}
+
+.price-cell span {
+    font-size: 12px;
+    color: #999;
+    font-weight: 400;
+}
+
+/* 发布者单元格 */
+.publisher-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.publisher-name {
+    font-size: 13px;
+    color: #333;
+}
+
+.publisher-type {
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.publisher-type.tenant { background: #e8f5e9; color: #4CAF50; }
+.publisher-type.landlord { background: #e3f2fd; color: #2196F3; }
+.publisher-type.merchant { background: #fff3e0; color: #FF9800; }
+
+/* 类型标签 */
+.type-tag {
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.type-tag.whole { background: #e8f5e9; color: #4CAF50; }
+.type-tag.shared { background: #fff3e0; color: #FF9800; }
+.type-tag.sublease { background: #e3f2fd; color: #2196F3; }
+.type-tag.direct { background: #f3e5f5; color: #9C27B0; }
+.type-tag.master { background: #fce4ec; color: #E91E63; }
+.type-tag.second { background: #e0f2f1; color: #009688; }
+.type-tag.other { background: #f5f5f5; color: #666; }
+
+/* 弹窗样式 */
+.modal-xl {
+    max-width: 760px;
+}
+
+.modal-lg {
+    max-width: 680px;
+}
+
+/* 表单tab */
+.form-tabs {
+    display: flex;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 20px;
+}
+
+.form-tab {
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s;
+}
+
+.form-tab:hover { color: #4CAF50; }
+
+.form-tab.active {
+    color: #4CAF50;
+    border-bottom-color: #4CAF50;
+    font-weight: 500;
+}
+
+/* 表单区域 */
+.form-section {
+    display: none;
+}
+
+.form-section.active {
+    display: block;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.form-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-item.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-label .required {
+    color: #F44336;
+}
+
+.form-input {
+    padding: 10px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-input:focus {
+    border-color: #4CAF50;
+}
+
+textarea.form-input {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-hint {
+    font-size: 12px;
+    color: #999;
+}
+
+/* 单选框组 */
+.radio-group {
+    display: flex;
+    gap: 24px;
+}
+
+.radio-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+}
+
+.radio-item input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #4CAF50;
+}
+
+/* 发布者选择 */
+.publisher-select {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* 地图占位（小尺寸） */
+.map-placeholder-small {
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.map-placeholder-small i {
+    font-size: 24px;
+    color: #ccc;
+}
+
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 13px;
+}
+
+/* 图片上传区域 */
+.images-tip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: #fffbeb;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: #856404;
+}
+
+.images-tip i {
+    color: #FFC107;
+}
+
+.image-upload-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.image-item {
+    position: relative;
+    aspect-ratio: 4/3;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f5f5f5;
+}
+
+.image-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-item .cover-badge {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    background: rgba(76, 175, 80, 0.9);
+    color: #fff;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.image-item .delete-btn {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.image-item:hover .delete-btn {
+    opacity: 1;
+}
+
+.image-item .set-cover-btn {
+    position: absolute;
+    bottom: 6px;
+    left: 6px;
+    right: 6px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.image-item:hover .set-cover-btn {
+    opacity: 1;
+}
+
+.upload-add-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 30px;
+    border: 2px dashed #e0e0e0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: #fafafa;
+}
+
+.upload-add-btn:hover {
+    border-color: #4CAF50;
+    background: #f0f9f0;
+}
+
+.upload-add-btn i {
+    font-size: 24px;
+    color: #ccc;
+}
+
+.upload-add-btn span {
+    font-size: 13px;
+    color: #999;
+}
+
+/* 详情弹窗 - 简化头部 */
+.detail-header-simple {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.detail-header-simple .title-section {
+    flex: 1;
+}
+
+.detail-header-simple h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
+}
+
+.detail-header-simple .meta {
+    display: flex;
+    gap: 8px;
+}
+
+.detail-header-simple .price {
+    font-size: 22px;
+    font-weight: 700;
+    color: #F44336;
+}
+
+.detail-header-simple .price span {
+    font-size: 13px;
+    color: #999;
+    font-weight: 400;
+}
+
+/* 图片轮播 */
+.image-carousel {
+    margin-bottom: 20px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    background: #f5f5f5;
+}
+
+.carousel-container {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+}
+
+.carousel-slide {
+    display: flex;
+    transition: transform 0.3s ease;
+    height: 100%;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.carousel-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #ccc;
+}
+
+.carousel-empty i {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.carousel-empty span {
+    font-size: 14px;
+}
+
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.carousel-nav:hover {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.carousel-nav.prev { left: 12px; }
+.carousel-nav.next { right: 12px; }
+
+.carousel-indicators {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+}
+
+.carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.carousel-dot.active {
+    background: #fff;
+    width: 20px;
+    border-radius: 4px;
+}
+
+/* 地图展示（小尺寸） */
+.detail-map {
+    height: 120px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 12px;
+    position: relative;
+}
+
+.detail-map i {
+    font-size: 32px;
+    color: #2196F3;
+}
+
+.detail-map .map-marker {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    font-size: 28px;
+    color: #F44336;
+}
+
+.detail-map .coord-display {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+.detail-section {
+    margin-bottom: 20px;
+}
+
+.detail-section-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.detail-label {
+    font-size: 12px;
+    color: #999;
+}
+
+.detail-value {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+}
+
+/* 审核弹窗 */
+.review-house-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.review-house-info .info {
+    flex: 1;
+}
+
+.review-house-info .title {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.review-house-info .price {
+    font-size: 14px;
+    color: #F44336;
+    font-weight: 600;
+}
+
+.review-options {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.review-option {
+    flex: 1;
+    cursor: pointer;
+}
+
+.review-option input {
+    display: none;
+}
+
+.review-option-content {
+    padding: 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.review-option-content i {
+    font-size: 28px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.review-option-content span {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.review-option-content p {
+    font-size: 12px;
+    color: #999;
+    margin: 0;
+}
+
+.review-option.pass .review-option-content {
+    color: #4CAF50;
+}
+
+.review-option.pass input:checked + .review-option-content {
+    border-color: #4CAF50;
+    background: #e8f5e9;
+}
+
+.review-option.reject .review-option-content {
+    color: #F44336;
+}
+
+.review-option.reject input:checked + .review-option-content {
+    border-color: #F44336;
+    background: #ffebee;
+}
+
+/* 操作下拉菜单 */
+.action-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.action-dropdown-btn {
+    background: #f5f5f5;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.3s;
+}
+
+.action-dropdown-btn:hover {
+    background: #e0e0e0;
+}
+
+.action-dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    margin-top: 4px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    min-width: 120px;
+    z-index: 100;
+    display: none;
+}
+
+.action-dropdown-menu.show {
+    display: block;
+}
+
+.action-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    font-size: 13px;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.action-dropdown-item:hover {
+    background: #f5f5f5;
+}
+
+.action-dropdown-item:first-child {
+    border-radius: 8px 8px 0 0;
+}
+
+.action-dropdown-item:last-child {
+    border-radius: 0 0 8px 8px;
+}
+
+.action-dropdown-item.danger {
+    color: #F44336;
+}
+
+.action-dropdown-item.success {
+    color: #4CAF50;
+}
+
+.action-dropdown-item i {
+    width: 16px;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .review-options {
+        flex-direction: column;
+    }
+    
+    .image-upload-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

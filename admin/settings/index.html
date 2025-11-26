@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>系统设置 - 管理后台</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../common/style.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header"><div class="logo"><i class="fas fa-cog"></i><span>管理后台</span></div></div>
+        <nav class="sidebar-nav" id="sidebarNav"></nav>
+    </div>
+
+    <div class="main-container">
+        <header class="header">
+            <div class="header-left">
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+                <h1 class="page-title">系统设置</h1>
+            </div>
+            <div class="header-right">
+                <div class="user-info"><i class="fas fa-user-circle"></i><span>管理员</span></div>
+                <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </header>
+
+        <main class="content">
+            <!-- 房豆设置 -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">房豆设置</h2>
+                </div>
+                <div class="settings-list">
+                    <div class="setting-item">
+                        <div class="setting-label"><i class="fas fa-coins"></i><span>获取联系方式消耗</span></div>
+                        <div class="setting-value">
+                            <input type="number" class="setting-input" id="contactPointsCost" value="1">
+                            <span class="setting-unit">房豆/次</span>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label"><i class="fas fa-gift"></i><span>首次登录奖励</span></div>
+                        <div class="setting-value">
+                            <input type="number" class="setting-input" id="firstLoginReward" value="10">
+                            <span class="setting-unit">房豆</span>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label"><i class="fas fa-home"></i><span>发布房源奖励</span></div>
+                        <div class="setting-value">
+                            <input type="number" class="setting-input" id="publishHouseReward" value="5">
+                            <span class="setting-unit">房豆</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 审核设置 -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">审核设置</h2>
+                </div>
+                <div class="settings-list">
+                    <div class="setting-item">
+                        <div class="setting-label"><i class="fas fa-check-circle"></i><span>房源自动审核</span></div>
+                        <div class="setting-value">
+                            <label class="switch">
+                                <input type="checkbox" id="autoReviewHouses">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label"><i class="fas fa-id-card"></i><span>实名认证自动通过</span></div>
+                        <div class="setting-value">
+                            <label class="switch">
+                                <input type="checkbox" id="autoAuthVerify">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 系统管理 -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">系统管理</h2>
+                </div>
+                <div class="settings-list">
+                    <div class="setting-item">
+                        <div class="setting-label"><i class="fas fa-bullhorn"></i><span>系统公告</span></div>
+                        <div class="setting-value">
+                            <button class="setting-btn" id="editNoticeBtn">编辑公告</button>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label"><i class="fas fa-database"></i><span>数据备份</span></div>
+                        <div class="setting-value">
+                            <button class="setting-btn" id="backupBtn">立即备份</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 保存按钮 -->
+            <div class="action-section">
+                <button class="save-btn" id="saveSettingsBtn">
+                    <i class="fas fa-save"></i>
+                    <span>保存设置</span>
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <script src="../common/common.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+

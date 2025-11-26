@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>认证审核 - 管理后台</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../common/style.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header"><div class="logo"><i class="fas fa-cog"></i><span>管理后台</span></div></div>
+        <nav class="sidebar-nav" id="sidebarNav"></nav>
+    </div>
+
+    <div class="main-container">
+        <header class="header">
+            <div class="header-left">
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+                <h1 class="page-title">认证审核</h1>
+            </div>
+            <div class="header-right">
+                <div class="user-info"><i class="fas fa-user-circle"></i><span>管理员</span></div>
+                <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </header>
+
+        <main class="content">
+            <div class="toolbar">
+                <div class="filter-group">
+                    <select class="filter-select" id="statusFilter">
+                        <option value="">全部状态</option>
+                        <option value="pending">待审核</option>
+                        <option value="verified">已通过</option>
+                        <option value="rejected">已拒绝</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="auth-list" id="authList"></div>
+
+            <div class="pagination" id="pagination"></div>
+        </main>
+    </div>
+
+    <script src="../common/common.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+

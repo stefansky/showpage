@@ -1,0 +1,531 @@
+/* 门店管理页面样式 */
+
+/* 统计行 */
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.mini-stat-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.mini-stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #4CAF50;
+    margin-bottom: 4px;
+}
+
+.mini-stat-label {
+    font-size: 12px;
+    color: #666;
+}
+
+/* 门店信息单元格 */
+.store-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.store-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.store-icon.agency {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    color: #4CAF50;
+}
+
+.store-icon.apartment {
+    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+    color: #FF9800;
+}
+
+.store-info-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.store-name {
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+}
+
+.store-desc {
+    font-size: 11px;
+    color: #999;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 联系人单元格 */
+.contact-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.contact-name {
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+}
+
+.contact-phone {
+    font-size: 12px;
+    color: #666;
+}
+
+/* 区域单元格 */
+.area-cell {
+    font-size: 13px;
+    color: #666;
+    max-width: 120px;
+}
+
+/* 商家类型标签 */
+.type-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.type-badge.agency {
+    background: #e8f5e9;
+    color: #4CAF50;
+}
+
+.type-badge.apartment {
+    background: #fff3e0;
+    color: #FF9800;
+}
+
+/* 房豆显示 */
+.points-cell {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #FF9800;
+    font-weight: 500;
+}
+
+.points-cell i {
+    font-size: 14px;
+}
+
+/* 弹窗样式 */
+.modal-xl {
+    max-width: 720px;
+}
+
+.modal-lg {
+    max-width: 640px;
+}
+
+/* 表单tab */
+.form-tabs {
+    display: flex;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 20px;
+}
+
+.form-tab {
+    padding: 12px 24px;
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s;
+}
+
+.form-tab:hover {
+    color: #4CAF50;
+}
+
+.form-tab.active {
+    color: #4CAF50;
+    border-bottom-color: #4CAF50;
+    font-weight: 500;
+}
+
+/* 表单区域 */
+.form-section {
+    display: none;
+}
+
+.form-section.active {
+    display: block;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.form-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-item.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-label .required {
+    color: #F44336;
+}
+
+.form-input {
+    padding: 10px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-input:focus {
+    border-color: #4CAF50;
+}
+
+textarea.form-input {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-hint {
+    font-size: 12px;
+    color: #999;
+}
+
+/* 单选框组 */
+.radio-group {
+    display: flex;
+    gap: 24px;
+}
+
+.radio-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+}
+
+.radio-item input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #4CAF50;
+}
+
+/* 上传框 */
+.upload-box {
+    border: 2px dashed #e0e0e0;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: #fafafa;
+}
+
+.upload-box:hover {
+    border-color: #4CAF50;
+    background: #f0f9f0;
+}
+
+.upload-box i {
+    font-size: 32px;
+    color: #ccc;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.upload-box span {
+    font-size: 13px;
+    color: #999;
+}
+
+.upload-box.has-image {
+    padding: 10px;
+}
+
+.upload-box.has-image img {
+    max-width: 100%;
+    max-height: 120px;
+    border-radius: 6px;
+}
+
+/* 地图占位 */
+.map-placeholder {
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    margin-top: 16px;
+}
+
+.map-placeholder i {
+    font-size: 48px;
+    color: #ccc;
+    margin-bottom: 12px;
+}
+
+.map-placeholder p {
+    color: #999;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 13px;
+}
+
+/* 详情弹窗 */
+.detail-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.detail-store-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    flex-shrink: 0;
+}
+
+.detail-store-icon.agency {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    color: #4CAF50;
+}
+
+.detail-store-icon.apartment {
+    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+    color: #FF9800;
+}
+
+.detail-store-info h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.detail-store-meta {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.detail-meta-item {
+    font-size: 12px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.detail-meta-item i {
+    color: #999;
+}
+
+.detail-section {
+    margin-bottom: 20px;
+}
+
+.detail-section-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.detail-label {
+    font-size: 12px;
+    color: #999;
+}
+
+.detail-value {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+}
+
+.detail-value.code {
+    font-family: monospace;
+    background: #f5f5f5;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+/* 房豆操作弹窗 */
+.store-points-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.store-points-info .store-name {
+    font-weight: 500;
+    color: #333;
+}
+
+.store-points-info .current-points {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #FF9800;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+/* 操作下拉菜单 */
+.action-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.action-dropdown-btn {
+    background: #f5f5f5;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.3s;
+}
+
+.action-dropdown-btn:hover {
+    background: #e0e0e0;
+}
+
+.action-dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    margin-top: 4px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    min-width: 120px;
+    z-index: 100;
+    display: none;
+}
+
+.action-dropdown-menu.show {
+    display: block;
+}
+
+.action-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    font-size: 13px;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.action-dropdown-item:hover {
+    background: #f5f5f5;
+}
+
+.action-dropdown-item:first-child {
+    border-radius: 8px 8px 0 0;
+}
+
+.action-dropdown-item:last-child {
+    border-radius: 0 0 8px 8px;
+}
+
+.action-dropdown-item.danger {
+    color: #F44336;
+}
+
+.action-dropdown-item i {
+    width: 16px;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+}
