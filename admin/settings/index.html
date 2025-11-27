@@ -27,89 +27,451 @@
         </header>
 
         <main class="content">
-            <!-- 房豆设置 -->
-            <div class="section">
-                <div class="section-header">
-                    <h2 class="section-title">房豆设置</h2>
+            <!-- 设置分类导航 -->
+            <div class="settings-nav">
+                <button class="settings-nav-item active" data-tab="basic">
+                    <i class="fas fa-sliders-h"></i> 基础设置
+                </button>
+                <button class="settings-nav-item" data-tab="storage">
+                    <i class="fas fa-cloud"></i> 云存储配置
+                </button>
+                <button class="settings-nav-item" data-tab="map">
+                    <i class="fas fa-map-marked-alt"></i> 地图服务
+                </button>
+                <button class="settings-nav-item" data-tab="wechat">
+                    <i class="fab fa-weixin"></i> 微信配置
+                </button>
+                <button class="settings-nav-item" data-tab="sms">
+                    <i class="fas fa-sms"></i> 短信服务
+                </button>
+            </div>
+
+            <!-- 基础设置 -->
+            <div class="settings-panel active" id="panel-basic">
+                <!-- 房豆设置 -->
+                <div class="config-section">
+                    <div class="config-header">
+                        <div class="config-title">
+                            <i class="fas fa-coins"></i>
+                            <span>房豆设置</span>
+                        </div>
+                        <span class="config-desc">配置房豆获取与消耗规则</span>
+                    </div>
+                    <div class="config-body">
+                        <div class="config-row">
+                            <div class="config-item">
+                                <label>获取联系方式消耗</label>
+                                <div class="input-group">
+                                    <input type="number" id="contactPointsCost" value="1" min="0">
+                                    <span class="input-suffix">房豆/次</span>
+                                </div>
+                            </div>
+                            <div class="config-item">
+                                <label>首次注册奖励</label>
+                                <div class="input-group">
+                                    <input type="number" id="registerReward" value="10" min="0">
+                                    <span class="input-suffix">房豆</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="config-row">
+                            <div class="config-item">
+                                <label>发布房源奖励</label>
+                                <div class="input-group">
+                                    <input type="number" id="publishHouseReward" value="5" min="0">
+                                    <span class="input-suffix">房豆</span>
+                                </div>
+                            </div>
+                            <div class="config-item">
+                                <label>发布找房奖励</label>
+                                <div class="input-group">
+                                    <input type="number" id="publishFindReward" value="3" min="0">
+                                    <span class="input-suffix">房豆</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="config-row">
+                            <div class="config-item">
+                                <label>每日签到奖励</label>
+                                <div class="input-group">
+                                    <input type="number" id="dailySignReward" value="2" min="0">
+                                    <span class="input-suffix">房豆</span>
+                                </div>
+                            </div>
+                            <div class="config-item">
+                                <label>观看广告奖励</label>
+                                <div class="input-group">
+                                    <input type="number" id="adWatchReward" value="1" min="0">
+                                    <span class="input-suffix">房豆/次</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="settings-list">
-                    <div class="setting-item">
-                        <div class="setting-label"><i class="fas fa-coins"></i><span>获取联系方式消耗</span></div>
-                        <div class="setting-value">
-                            <input type="number" class="setting-input" id="contactPointsCost" value="1">
-                            <span class="setting-unit">房豆/次</span>
+
+                <!-- 审核设置 -->
+                <div class="config-section">
+                    <div class="config-header">
+                        <div class="config-title">
+                            <i class="fas fa-check-double"></i>
+                            <span>审核设置</span>
+                        </div>
+                        <span class="config-desc">配置内容审核规则</span>
+                    </div>
+                    <div class="config-body">
+                        <div class="config-row">
+                            <div class="config-item switch-item">
+                                <div class="switch-info">
+                                    <label>房源自动审核</label>
+                                    <span class="switch-desc">开启后，新发布的房源将自动通过审核</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="autoReviewHouse">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="config-row">
+                            <div class="config-item switch-item">
+                                <div class="switch-info">
+                                    <label>找房需求自动审核</label>
+                                    <span class="switch-desc">开启后，新发布的找房需求将自动通过审核</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="autoReviewFind" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
                         </div>
                     </div>
-                    <div class="setting-item">
-                        <div class="setting-label"><i class="fas fa-gift"></i><span>首次登录奖励</span></div>
-                        <div class="setting-value">
-                            <input type="number" class="setting-input" id="firstLoginReward" value="10">
-                            <span class="setting-unit">房豆</span>
+                </div>
+
+                <!-- 系统公告 -->
+                <div class="config-section">
+                    <div class="config-header">
+                        <div class="config-title">
+                            <i class="fas fa-bullhorn"></i>
+                            <span>系统公告</span>
                         </div>
+                        <span class="config-desc">设置小程序顶部公告信息</span>
                     </div>
-                    <div class="setting-item">
-                        <div class="setting-label"><i class="fas fa-home"></i><span>发布房源奖励</span></div>
-                        <div class="setting-value">
-                            <input type="number" class="setting-input" id="publishHouseReward" value="5">
-                            <span class="setting-unit">房豆</span>
+                    <div class="config-body">
+                        <div class="config-row full">
+                            <div class="config-item switch-item">
+                                <div class="switch-info">
+                                    <label>启用公告</label>
+                                    <span class="switch-desc">开启后将在小程序首页显示公告</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="enableNotice">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="config-row full">
+                            <div class="config-item">
+                                <label>公告内容</label>
+                                <textarea id="noticeContent" rows="3" placeholder="请输入公告内容..."></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 审核设置 -->
-            <div class="section">
-                <div class="section-header">
-                    <h2 class="section-title">审核设置</h2>
-                </div>
-                <div class="settings-list">
-                    <div class="setting-item">
-                        <div class="setting-label"><i class="fas fa-check-circle"></i><span>房源自动审核</span></div>
-                        <div class="setting-value">
-                            <label class="switch">
-                                <input type="checkbox" id="autoReviewHouses">
-                                <span class="slider"></span>
-                            </label>
+            <!-- 云存储配置 -->
+            <div class="settings-panel" id="panel-storage">
+                <div class="config-section">
+                    <div class="config-header">
+                        <div class="config-title">
+                            <img src="https://www.qiniu.com/favicon.ico" alt="七牛云" class="service-icon">
+                            <span>七牛云存储</span>
+                        </div>
+                        <span class="config-desc">用于存储房源图片、用户头像等文件</span>
+                        <div class="config-status" id="qiniuStatus">
+                            <span class="status-dot"></span>
+                            <span class="status-text">未配置</span>
                         </div>
                     </div>
-                    <div class="setting-item">
-                        <div class="setting-label"><i class="fas fa-id-card"></i><span>实名认证自动通过</span></div>
-                        <div class="setting-value">
-                            <label class="switch">
-                                <input type="checkbox" id="autoAuthVerify">
-                                <span class="slider"></span>
-                            </label>
+                    <div class="config-body">
+                        <div class="config-row">
+                            <div class="config-item">
+                                <label>AccessKey <span class="required">*</span></label>
+                                <input type="text" id="qiniuAK" placeholder="请输入七牛云 AccessKey">
+                            </div>
+                            <div class="config-item">
+                                <label>SecretKey <span class="required">*</span></label>
+                                <input type="password" id="qiniuSK" placeholder="请输入七牛云 SecretKey">
+                            </div>
+                        </div>
+                        <div class="config-row">
+                            <div class="config-item">
+                                <label>存储空间名称 <span class="required">*</span></label>
+                                <input type="text" id="qiniuBucket" placeholder="如：my-bucket">
+                            </div>
+                            <div class="config-item">
+                                <label>存储区域 <span class="required">*</span></label>
+                                <select id="qiniuRegion">
+                                    <option value="">请选择存储区域</option>
+                                    <option value="z0">华东</option>
+                                    <option value="z1">华北</option>
+                                    <option value="z2">华南</option>
+                                    <option value="na0">北美</option>
+                                    <option value="as0">东南亚</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="config-row full">
+                            <div class="config-item">
+                                <label>访问域名 <span class="required">*</span></label>
+                                <input type="text" id="qiniuDomain" placeholder="如：https://cdn.example.com">
+                                <span class="input-hint">绑定的CDN加速域名或七牛测试域名</span>
+                            </div>
+                        </div>
+                        <div class="config-actions">
+                            <button class="btn btn-secondary" onclick="testQiniu()">
+                                <i class="fas fa-plug"></i> 测试连接
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 系统管理 -->
-            <div class="section">
-                <div class="section-header">
-                    <h2 class="section-title">系统管理</h2>
-                </div>
-                <div class="settings-list">
-                    <div class="setting-item">
-                        <div class="setting-label"><i class="fas fa-bullhorn"></i><span>系统公告</span></div>
-                        <div class="setting-value">
-                            <button class="setting-btn" id="editNoticeBtn">编辑公告</button>
+            <!-- 地图服务配置 -->
+            <div class="settings-panel" id="panel-map">
+                <!-- 高德地图 -->
+                <div class="config-section">
+                    <div class="config-header">
+                        <div class="config-title">
+                            <img src="https://a.amap.com/favicon.ico" alt="高德地图" class="service-icon">
+                            <span>高德地图</span>
+                        </div>
+                        <span class="config-desc">用于地址解析、定位、路线规划</span>
+                        <div class="config-status" id="amapStatus">
+                            <span class="status-dot"></span>
+                            <span class="status-text">未配置</span>
                         </div>
                     </div>
-                    <div class="setting-item">
-                        <div class="setting-label"><i class="fas fa-database"></i><span>数据备份</span></div>
-                        <div class="setting-value">
-                            <button class="setting-btn" id="backupBtn">立即备份</button>
+                    <div class="config-body">
+                        <div class="config-row">
+                            <div class="config-item">
+                                <label>Web服务 Key <span class="required">*</span></label>
+                                <input type="text" id="amapWebKey" placeholder="用于服务端API调用">
+                            </div>
+                            <div class="config-item">
+                                <label>小程序 Key</label>
+                                <input type="text" id="amapMiniKey" placeholder="用于微信小程序">
+                            </div>
+                        </div>
+                        <div class="config-actions">
+                            <button class="btn btn-secondary" onclick="testAmap()">
+                                <i class="fas fa-plug"></i> 测试连接
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 百度地图 -->
+                <div class="config-section">
+                    <div class="config-header">
+                        <div class="config-title">
+                            <img src="https://map.baidu.com/favicon.ico" alt="百度地图" class="service-icon">
+                            <span>百度地图</span>
+                        </div>
+                        <span class="config-desc">备用地图服务（可选）</span>
+                        <div class="config-status" id="bmapStatus">
+                            <span class="status-dot"></span>
+                            <span class="status-text">未配置</span>
+                        </div>
+                    </div>
+                    <div class="config-body">
+                        <div class="config-row">
+                            <div class="config-item">
+                                <label>服务端 AK</label>
+                                <input type="text" id="bmapServerAK" placeholder="用于服务端API调用">
+                            </div>
+                            <div class="config-item">
+                                <label>小程序 AK</label>
+                                <input type="text" id="bmapMiniAK" placeholder="用于微信小程序">
+                            </div>
+                        </div>
+                        <div class="config-actions">
+                            <button class="btn btn-secondary" onclick="testBmap()">
+                                <i class="fas fa-plug"></i> 测试连接
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 腾讯地图 -->
+                <div class="config-section">
+                    <div class="config-header">
+                        <div class="config-title">
+                            <img src="https://lbs.qq.com/favicon.ico" alt="腾讯地图" class="service-icon">
+                            <span>腾讯位置服务</span>
+                        </div>
+                        <span class="config-desc">微信小程序推荐使用</span>
+                        <div class="config-status" id="qqmapStatus">
+                            <span class="status-dot"></span>
+                            <span class="status-text">未配置</span>
+                        </div>
+                    </div>
+                    <div class="config-body">
+                        <div class="config-row full">
+                            <div class="config-item">
+                                <label>开发密钥 Key <span class="required">*</span></label>
+                                <input type="text" id="qqmapKey" placeholder="请输入腾讯位置服务 Key">
+                            </div>
+                        </div>
+                        <div class="config-actions">
+                            <button class="btn btn-secondary" onclick="testQQMap()">
+                                <i class="fas fa-plug"></i> 测试连接
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 微信配置 -->
+            <div class="settings-panel" id="panel-wechat">
+                <div class="config-section">
+                    <div class="config-header">
+                        <div class="config-title">
+                            <i class="fab fa-weixin" style="color: #07C160; font-size: 20px;"></i>
+                            <span>微信小程序</span>
+                        </div>
+                        <span class="config-desc">微信小程序基础配置</span>
+                        <div class="config-status" id="wechatStatus">
+                            <span class="status-dot"></span>
+                            <span class="status-text">未配置</span>
+                        </div>
+                    </div>
+                    <div class="config-body">
+                        <div class="config-row">
+                            <div class="config-item">
+                                <label>AppID <span class="required">*</span></label>
+                                <input type="text" id="wxAppId" placeholder="小程序AppID">
+                            </div>
+                            <div class="config-item">
+                                <label>AppSecret <span class="required">*</span></label>
+                                <input type="password" id="wxAppSecret" placeholder="小程序AppSecret">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 微信支付（预留） -->
+                <div class="config-section">
+                    <div class="config-header">
+                        <div class="config-title">
+                            <i class="fas fa-credit-card" style="color: #07C160; font-size: 18px;"></i>
+                            <span>微信支付</span>
+                            <span class="badge info" style="margin-left: 8px;">预留</span>
+                        </div>
+                        <span class="config-desc">微信支付配置（暂未启用）</span>
+                    </div>
+                    <div class="config-body">
+                        <div class="config-row">
+                            <div class="config-item">
+                                <label>商户号</label>
+                                <input type="text" id="wxMchId" placeholder="微信支付商户号" disabled>
+                            </div>
+                            <div class="config-item">
+                                <label>API密钥</label>
+                                <input type="password" id="wxApiKey" placeholder="微信支付API密钥" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 短信服务配置 -->
+            <div class="settings-panel" id="panel-sms">
+                <div class="config-section">
+                    <div class="config-header">
+                        <div class="config-title">
+                            <img src="https://www.aliyun.com/favicon.ico" alt="阿里云" class="service-icon">
+                            <span>阿里云短信</span>
+                        </div>
+                        <span class="config-desc">用于发送验证码、通知短信</span>
+                        <div class="config-status" id="aliyunSmsStatus">
+                            <span class="status-dot"></span>
+                            <span class="status-text">未配置</span>
+                        </div>
+                    </div>
+                    <div class="config-body">
+                        <div class="config-row">
+                            <div class="config-item">
+                                <label>AccessKey ID <span class="required">*</span></label>
+                                <input type="text" id="aliSmsAKId" placeholder="阿里云 AccessKey ID">
+                            </div>
+                            <div class="config-item">
+                                <label>AccessKey Secret <span class="required">*</span></label>
+                                <input type="password" id="aliSmsAKSecret" placeholder="阿里云 AccessKey Secret">
+                            </div>
+                        </div>
+                        <div class="config-row">
+                            <div class="config-item">
+                                <label>短信签名 <span class="required">*</span></label>
+                                <input type="text" id="aliSmsSign" placeholder="如：租房平台">
+                            </div>
+                            <div class="config-item">
+                                <label>验证码模板ID <span class="required">*</span></label>
+                                <input type="text" id="aliSmsTemplate" placeholder="如：SMS_123456789">
+                            </div>
+                        </div>
+                        <div class="config-actions">
+                            <button class="btn btn-secondary" onclick="testAliSms()">
+                                <i class="fas fa-plug"></i> 测试连接
+                            </button>
+                            <button class="btn btn-secondary" onclick="sendTestSms()">
+                                <i class="fas fa-paper-plane"></i> 发送测试
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 腾讯云短信（备选） -->
+                <div class="config-section">
+                    <div class="config-header">
+                        <div class="config-title">
+                            <img src="https://cloud.tencent.com/favicon.ico" alt="腾讯云" class="service-icon">
+                            <span>腾讯云短信</span>
+                            <span class="badge secondary" style="margin-left: 8px;">备选</span>
+                        </div>
+                        <span class="config-desc">备用短信服务（可选配置）</span>
+                    </div>
+                    <div class="config-body">
+                        <div class="config-row">
+                            <div class="config-item">
+                                <label>SecretId</label>
+                                <input type="text" id="txSmsSecretId" placeholder="腾讯云 SecretId">
+                            </div>
+                            <div class="config-item">
+                                <label>SecretKey</label>
+                                <input type="password" id="txSmsSecretKey" placeholder="腾讯云 SecretKey">
+                            </div>
+                        </div>
+                        <div class="config-row">
+                            <div class="config-item">
+                                <label>SDKAppID</label>
+                                <input type="text" id="txSmsAppId" placeholder="短信应用 SDKAppID">
+                            </div>
+                            <div class="config-item">
+                                <label>短信签名</label>
+                                <input type="text" id="txSmsSign" placeholder="如：租房平台">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- 保存按钮 -->
-            <div class="action-section">
-                <button class="save-btn" id="saveSettingsBtn">
-                    <i class="fas fa-save"></i>
-                    <span>保存设置</span>
+            <div class="settings-footer">
+                <button class="btn btn-secondary" onclick="resetSettings()">
+                    <i class="fas fa-undo"></i> 重置
+                </button>
+                <button class="btn btn-primary" onclick="saveSettings()">
+                    <i class="fas fa-save"></i> 保存设置
                 </button>
             </div>
         </main>
@@ -119,4 +481,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-

@@ -27,29 +27,212 @@
         </header>
 
         <main class="content">
-            <div class="toolbar">
-                <div class="filter-group">
-                    <select id="statusFilter" class="filter-select">
-                        <option value="">全部状态</option>
-                        <option value="pending">待处理</option>
-                        <option value="processed">已处理</option>
-                    </select>
-                    <select id="typeFilter" class="filter-select">
-                        <option value="">全部类型</option>
-                        <option value="house">房源举报</option>
-                        <option value="user">用户举报</option>
-                    </select>
+            <!-- 搜索表单 -->
+            <div class="search-form">
+                <div class="search-form-row">
+                    <div class="search-form-item">
+                        <label>举报人</label>
+                        <input type="text" id="reporterInput" placeholder="请输入举报人">
+                    </div>
+                    <div class="search-form-item">
+                        <label>被举报对象</label>
+                        <input type="text" id="targetInput" placeholder="请输入被举报对象">
+                    </div>
+                    <div class="search-form-item">
+                        <label>被举报类型</label>
+                        <select id="targetTypeFilter">
+                            <option value="">全部</option>
+                            <option value="1">用户</option>
+                            <option value="2">商家</option>
+                            <option value="3">房源</option>
+                            <option value="4">找房需求</option>
+                        </select>
+                    </div>
+                    <div class="search-form-item">
+                        <label>举报原因</label>
+                        <select id="reasonFilter">
+                            <option value="">全部</option>
+                            <option value="1">虚假信息</option>
+                            <option value="2">骚扰辱骂</option>
+                            <option value="3">诈骗行为</option>
+                            <option value="4">违规内容</option>
+                            <option value="5">其他</option>
+                        </select>
+                    </div>
+                    <div class="search-form-item">
+                        <label>处理状态</label>
+                        <select id="statusFilter">
+                            <option value="">全部</option>
+                            <option value="0">待处理</option>
+                            <option value="1">已处理</option>
+                            <option value="2">已驳回</option>
+                        </select>
+                    </div>
+                    <div class="search-form-buttons">
+                        <button class="btn btn-search" onclick="searchData()">
+                            <i class="fas fa-search"></i>查询
+                        </button>
+                        <button class="btn btn-reset" onclick="resetSearch()">
+                            <i class="fas fa-redo"></i>重置
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <div class="report-list" id="reportList"></div>
+            <!-- 举报列表 -->
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>举报人</th>
+                            <th>被举报类型</th>
+                            <th>被举报对象</th>
+                            <th>举报原因</th>
+                            <th>举报详情</th>
+                            <th>状态</th>
+                            <th>处理结果</th>
+                            <th>举报时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
 
             <div class="pagination" id="pagination"></div>
         </main>
+    </div>
+
+    <!-- 详情弹窗 -->
+    <div class="modal" id="detailModal">
+        <div class="modal-backdrop" onclick="closeDetailModal()"></div>
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h3>举报详情</h3>
+                <button class="modal-close" onclick="closeDetailModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="detailBody"></div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closeDetailModal()">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 处理弹窗 -->
+    <div class="modal" id="handleModal">
+        <div class="modal-backdrop" onclick="closeHandleModal()"></div>
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h3>处理举报</h3>
+                <button class="modal-close" onclick="closeHandleModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="handle-report-info" id="handleReportInfo">
+                    <!-- 举报信息将动态生成 -->
+                </div>
+                
+                <div class="form-item">
+                    <label class="form-label">处理结果 <span class="required">*</span></label>
+                    <div class="handle-options" id="handleOptions">
+                        <label class="handle-option">
+                            <input type="radio" name="handleResult" value="1" onchange="handleResultChange()">
+                            <span class="option-card warn">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <span class="option-title">警告</span>
+                                <span class="option-desc">发送警告通知</span>
+                            </span>
+                        </label>
+                        <label class="handle-option">
+                            <input type="radio" name="handleResult" value="2" onchange="handleResultChange()">
+                            <span class="option-card deduct">
+                                <i class="fas fa-coins"></i>
+                                <span class="option-title">扣除房豆</span>
+                                <span class="option-desc">扣除指定数量房豆</span>
+                            </span>
+                        </label>
+                        <label class="handle-option">
+                            <input type="radio" name="handleResult" value="3" onchange="handleResultChange()">
+                            <span class="option-card ban">
+                                <i class="fas fa-user-slash"></i>
+                                <span class="option-title">禁用账号</span>
+                                <span class="option-desc">临时或永久封禁</span>
+                            </span>
+                        </label>
+                        <label class="handle-option">
+                            <input type="radio" name="handleResult" value="4" onchange="handleResultChange()">
+                            <span class="option-card invalid">
+                                <i class="fas fa-times-circle"></i>
+                                <span class="option-title">无效举报</span>
+                                <span class="option-desc">驳回该举报</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- 扣除房豆选项 -->
+                <div class="form-item" id="deductPointsItem" style="display: none;">
+                    <label class="form-label">扣除房豆数量 <span class="required">*</span></label>
+                    <div class="deduct-options">
+                        <label class="deduct-option">
+                            <input type="radio" name="deductPoints" value="5">
+                            <span>5 房豆</span>
+                        </label>
+                        <label class="deduct-option">
+                            <input type="radio" name="deductPoints" value="10">
+                            <span>10 房豆</span>
+                        </label>
+                        <label class="deduct-option">
+                            <input type="radio" name="deductPoints" value="20">
+                            <span>20 房豆</span>
+                        </label>
+                        <label class="deduct-option">
+                            <input type="radio" name="deductPoints" value="50">
+                            <span>50 房豆</span>
+                        </label>
+                        <label class="deduct-option custom">
+                            <input type="number" id="customDeductPoints" placeholder="自定义" min="1">
+                            <span>房豆</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- 禁用账号选项 -->
+                <div class="form-item" id="banDaysItem" style="display: none;">
+                    <label class="form-label">禁用时长 <span class="required">*</span></label>
+                    <div class="ban-options">
+                        <label class="ban-option">
+                            <input type="radio" name="banDays" value="1">
+                            <span>1 天</span>
+                        </label>
+                        <label class="ban-option">
+                            <input type="radio" name="banDays" value="7">
+                            <span>7 天</span>
+                        </label>
+                        <label class="ban-option">
+                            <input type="radio" name="banDays" value="30">
+                            <span>30 天</span>
+                        </label>
+                        <label class="ban-option">
+                            <input type="radio" name="banDays" value="0">
+                            <span>永久</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-item">
+                    <label class="form-label">处理备注</label>
+                    <textarea class="form-textarea" id="handleRemark" rows="3" placeholder="请输入处理备注..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closeHandleModal()">取消</button>
+                <button class="modal-btn confirm" onclick="confirmHandle()">确认处理</button>
+            </div>
+        </div>
     </div>
 
     <script src="../common/common.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
-

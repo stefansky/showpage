@@ -105,14 +105,25 @@ function initPage() {
     initCityMockData();
     loadProvinceFilter();
     loadData();
-    loadStats();
     
     // 事件监听
     document.getElementById('addCityBtn')?.addEventListener('click', () => openModal());
-    document.getElementById('searchInput')?.addEventListener('input', () => { currentPage = 1; loadData(); });
-    document.getElementById('provinceFilter')?.addEventListener('change', () => { currentPage = 1; loadData(); });
-    document.getElementById('statusFilter')?.addEventListener('change', () => { currentPage = 1; loadData(); });
     document.getElementById('citySearchInput')?.addEventListener('input', handleCitySearch);
+}
+
+// 搜索数据
+function searchData() {
+    currentPage = 1;
+    loadData();
+}
+
+// 重置搜索
+function resetSearch() {
+    document.getElementById('cityNameInput').value = '';
+    document.getElementById('provinceFilter').value = '';
+    document.getElementById('statusFilter').value = '';
+    currentPage = 1;
+    loadData();
 }
 
 // 加载省份筛选器
@@ -134,29 +145,18 @@ function loadProvinceFilter() {
     });
 }
 
-// 加载统计数据
-function loadStats() {
-    const cities = getData('cities');
-    const activeCities = cities.filter(c => c.status === 'active').length;
-    const inactiveCities = cities.filter(c => c.status === 'inactive').length;
-    
-    document.getElementById('totalCities').textContent = cities.length;
-    document.getElementById('activeCities').textContent = activeCities;
-    document.getElementById('inactiveCities').textContent = inactiveCities;
-}
-
 // 加载城市列表
 function loadData() {
     const cities = getData('cities');
-    const searchInput = document.getElementById('searchInput');
+    const cityNameInput = document.getElementById('cityNameInput');
     const provinceFilter = document.getElementById('provinceFilter');
     const statusFilter = document.getElementById('statusFilter');
     
     let filtered = [...cities];
     
-    // 搜索
-    if (searchInput?.value) {
-        const keyword = searchInput.value.toLowerCase();
+    // 城市名称搜索
+    if (cityNameInput?.value) {
+        const keyword = cityNameInput.value.toLowerCase();
         filtered = filtered.filter(c => 
             c.name.toLowerCase().includes(keyword) ||
             c.adcode.includes(keyword)
@@ -456,7 +456,6 @@ function saveCity() {
     
     closeModal();
     loadData();
-    loadStats();
     loadProvinceFilter();
 }
 
@@ -561,7 +560,6 @@ function toggleCity(id) {
     if (confirm(`确定要${action}「${city.name}」吗？\n\n${newStatus === 'inactive' ? '⚠️ 禁用后，该城市的用户将无法正常使用服务。' : '✅ 启用后，该城市的用户可以正常使用服务。'}`)) {
         updateData('cities', id, { status: newStatus });
         loadData();
-        loadStats();
         alert(`城市「${city.name}」已${action}！`);
     }
 }
@@ -574,7 +572,6 @@ function deleteCity(id) {
     if (confirm(`确定要删除「${city.name}」吗？\n\n⚠️ 删除后该城市的相关数据将无法恢复！`)) {
         deleteData('cities', id);
         loadData();
-        loadStats();
         loadProvinceFilter();
         alert(`城市「${city.name}」已删除！`);
     }

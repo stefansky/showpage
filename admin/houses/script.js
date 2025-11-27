@@ -29,31 +29,7 @@ const regionData = {
     }
 };
 
-// Mock图片
-const mockImages = [
-    'https://picsum.photos/400/300?random=1',
-    'https://picsum.photos/400/300?random=2',
-    'https://picsum.photos/400/300?random=3'
-];
-
-// 初始化Mock数据
-function initHouseMockData() {
-    const existingData = getData('houses');
-    if (!existingData || existingData.length < 5) {
-        const mockHouses = [
-            { id: 1, publisherType: 2, publisherId: 4, publisherName: '赵六', title: '精装两室一厅 近地铁', rentMode: 1, roomCount: 2, roomType: null, rentType: 2, province: '北京市', city: '北京市', district: '朝阳区', address: '国贸CBD 华贸公寓', longitude: 116.4609, latitude: 39.9093, area: 85, floor: 18, rentPrice: 6500, images: mockImages, description: '精装修两室一厅，南北通透', contactPhone: '13800138004', availableDate: '2024-02-01', status: 1, createdAt: '2024-01-20 10:00:00', updatedAt: '2024-01-20 10:00:00' },
-            { id: 2, publisherType: 1, publisherId: 1, publisherName: '张三', title: '次卧转租 限女生', rentMode: 2, roomCount: null, roomType: 2, rentType: 1, province: '北京市', city: '北京市', district: '海淀区', address: '中关村 西山壹号', longitude: 116.2869, latitude: 40.0513, area: 15, floor: 12, rentPrice: 2200, images: [], description: '因工作调动转租次卧', contactPhone: '13800138001', availableDate: '2024-02-15', status: 0, createdAt: '2024-01-21 14:30:00', updatedAt: '2024-01-21 14:30:00' },
-            { id: 3, publisherType: 3, publisherId: 1, publisherName: '阳光租房门店', title: '三室两厅 南北通透', rentMode: 1, roomCount: 3, roomType: null, rentType: 2, province: '北京市', city: '北京市', district: '朝阳区', address: '望京 望京花园', longitude: 116.4803, latitude: 40.0017, area: 120, floor: 25, rentPrice: 9800, images: mockImages.slice(0,2), description: '望京核心地段', contactPhone: '13900139001', availableDate: '2024-02-01', status: 1, createdAt: '2024-01-22 09:15:00', updatedAt: '2024-01-22 09:15:00' },
-            { id: 4, publisherType: 3, publisherId: 2, publisherName: '温馨家园公寓', title: '品牌公寓 主卧带卫', rentMode: 2, roomCount: null, roomType: 1, rentType: 2, province: '上海市', city: '上海市', district: '浦东新区', address: '陆家嘴附近', longitude: 121.4994, latitude: 31.2396, area: 25, floor: 8, rentPrice: 4500, images: mockImages, description: '品牌公寓，主卧带独卫', contactPhone: '13900139002', availableDate: '2024-01-25', status: 1, createdAt: '2024-01-18 16:20:00', updatedAt: '2024-01-23 11:00:00' },
-            { id: 5, publisherType: 2, publisherId: 7, publisherName: '周九', title: '一室一厅 精装修', rentMode: 1, roomCount: 1, roomType: null, rentType: 2, province: '广东省', city: '深圳市', district: '南山区', address: '科技园', longitude: 113.9492, latitude: 22.5282, area: 55, floor: 15, rentPrice: 5800, images: [], description: '科技园核心位置', contactPhone: '13800138007', availableDate: '2024-02-10', status: 0, createdAt: '2024-01-23 10:00:00', updatedAt: '2024-01-23 10:00:00' },
-            { id: 6, publisherType: 1, publisherId: 3, publisherName: '王小美', title: '主卧转租 近地铁', rentMode: 2, roomCount: null, roomType: 1, rentType: 1, province: '浙江省', city: '杭州市', district: '西湖区', address: '文三路', longitude: 120.1284, latitude: 30.2722, area: 18, floor: 6, rentPrice: 1800, images: mockImages.slice(0,1), description: '浙大附近主卧转租', contactPhone: '13800138003', availableDate: '2024-03-01', status: 3, createdAt: '2024-01-19 11:00:00', updatedAt: '2024-01-24 15:00:00' },
-        ];
-        saveData('houses', mockHouses);
-    }
-}
-
 function initPage() {
-    initHouseMockData();
     loadStats();
     loadData();
     initFormTabs();
@@ -61,10 +37,6 @@ function initPage() {
     initReviewListener();
     
     document.getElementById('addHouseBtn')?.addEventListener('click', () => openHouseModal());
-    document.getElementById('searchInput')?.addEventListener('input', debounce(() => { currentPage = 1; loadData(); }, 300));
-    document.getElementById('publisherTypeFilter')?.addEventListener('change', () => { currentPage = 1; loadData(); });
-    document.getElementById('rentModeFilter')?.addEventListener('change', () => { currentPage = 1; loadData(); });
-    document.getElementById('statusFilter')?.addEventListener('change', () => { currentPage = 1; loadData(); });
     
     document.getElementById('uploadAddBtn')?.addEventListener('click', function() {
         this.querySelector('input[type="file"]').click();
@@ -75,6 +47,24 @@ function initPage() {
             document.querySelectorAll('.action-dropdown-menu').forEach(menu => menu.classList.remove('show'));
         }
     });
+}
+
+// 搜索数据
+function searchData() {
+    currentPage = 1;
+    loadData();
+}
+
+// 重置搜索
+function resetSearch() {
+    document.getElementById('titleInput').value = '';
+    document.getElementById('publisherTypeFilter').value = '';
+    document.getElementById('rentModeFilter').value = '';
+    document.getElementById('statusFilter').value = '';
+    document.getElementById('startDate').value = '';
+    document.getElementById('endDate').value = '';
+    currentPage = 1;
+    loadData();
 }
 
 function debounce(func, wait) {
@@ -179,15 +169,23 @@ function loadStats() {
 function loadData() {
     const houses = getData('houses');
     let filtered = [...houses];
-    const searchVal = document.getElementById('searchInput')?.value?.toLowerCase();
+    
+    const titleVal = document.getElementById('titleInput')?.value?.toLowerCase();
     const typeVal = document.getElementById('publisherTypeFilter')?.value;
     const modeVal = document.getElementById('rentModeFilter')?.value;
     const statusVal = document.getElementById('statusFilter')?.value;
+    const startDate = document.getElementById('startDate')?.value;
+    const endDate = document.getElementById('endDate')?.value;
     
-    if (searchVal) filtered = filtered.filter(h => h.title.toLowerCase().includes(searchVal) || h.address.toLowerCase().includes(searchVal));
+    // 标题搜索
+    if (titleVal) filtered = filtered.filter(h => h.title.toLowerCase().includes(titleVal));
     if (typeVal) filtered = filtered.filter(h => h.publisherType === parseInt(typeVal));
     if (modeVal) filtered = filtered.filter(h => h.rentMode === parseInt(modeVal));
     if (statusVal) filtered = filtered.filter(h => h.status === parseInt(statusVal));
+    
+    // 时间范围筛选
+    if (startDate) filtered = filtered.filter(h => h.createdAt >= startDate);
+    if (endDate) filtered = filtered.filter(h => h.createdAt <= endDate + ' 23:59:59');
     
     filtered.sort((a, b) => b.id - a.id);
     const total = filtered.length;

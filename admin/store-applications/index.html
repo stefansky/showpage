@@ -27,32 +27,62 @@
         </header>
 
         <main class="content">
-            <div class="toolbar">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="搜索申请人、门店名称...">
-                </div>
-                <div class="filter-group">
-                    <select id="statusFilter" class="filter-select">
-                        <option value="">全部状态</option>
-                        <option value="pending">待审核</option>
-                        <option value="approved">已通过</option>
-                        <option value="rejected">已拒绝</option>
-                    </select>
+            <!-- 搜索表单 -->
+            <div class="search-form">
+                <div class="search-form-row">
+                    <div class="search-form-item">
+                        <label>联系人</label>
+                        <input type="text" id="contactPersonInput" placeholder="请输入联系人">
+                    </div>
+                    <div class="search-form-item">
+                        <label>联系电话</label>
+                        <input type="text" id="contactPhoneInput" placeholder="请输入联系电话">
+                    </div>
+                    <div class="search-form-item">
+                        <label>意向小区</label>
+                        <input type="text" id="communityInput" placeholder="请输入意向小区">
+                    </div>
+                    <div class="search-form-item">
+                        <label>处理状态</label>
+                        <select id="statusFilter">
+                            <option value="">全部</option>
+                            <option value="0">待处理</option>
+                            <option value="1">已联系</option>
+                            <option value="2">已开通</option>
+                            <option value="3">无效</option>
+                        </select>
+                    </div>
+                    <div class="search-form-item">
+                        <label>申请时间</label>
+                        <div class="date-range">
+                            <input type="date" id="startDate">
+                            <span>至</span>
+                            <input type="date" id="endDate">
+                        </div>
+                    </div>
+                    <div class="search-form-buttons">
+                        <button class="btn btn-search" onclick="searchData()">
+                            <i class="fas fa-search"></i>查询
+                        </button>
+                        <button class="btn btn-reset" onclick="resetSearch()">
+                            <i class="fas fa-redo"></i>重置
+                        </button>
+                    </div>
                 </div>
             </div>
 
+            <!-- 数据表格 -->
             <div class="table-container">
                 <table class="data-table">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>申请人</th>
-                            <th>门店名称</th>
+                            <th>联系人</th>
                             <th>联系电话</th>
-                            <th>门店地址</th>
-                            <th>申请时间</th>
+                            <th>意向小区</th>
+                            <th>备注</th>
                             <th>状态</th>
+                            <th>申请时间</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -64,8 +94,72 @@
         </main>
     </div>
 
+    <!-- 详情弹窗 -->
+    <div class="modal" id="detailModal">
+        <div class="modal-backdrop" onclick="closeDetailModal()"></div>
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h3>申请详情</h3>
+                <button class="modal-close" onclick="closeDetailModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="detailBody"></div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closeDetailModal()">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 处理弹窗 -->
+    <div class="modal" id="handleModal">
+        <div class="modal-backdrop" onclick="closeHandleModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="handleModalTitle">处理申请</h3>
+                <button class="modal-close" onclick="closeHandleModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="handle-info" id="handleInfo">
+                    <!-- 申请信息将动态生成 -->
+                </div>
+                <div class="form-item">
+                    <label class="form-label">处理状态 <span class="required">*</span></label>
+                    <div class="status-options" id="statusOptions">
+                        <label class="status-option">
+                            <input type="radio" name="handleStatus" value="1">
+                            <span class="option-card contacted">
+                                <i class="fas fa-phone"></i>
+                                <span>已联系</span>
+                            </span>
+                        </label>
+                        <label class="status-option">
+                            <input type="radio" name="handleStatus" value="2">
+                            <span class="option-card opened">
+                                <i class="fas fa-store"></i>
+                                <span>已开通</span>
+                            </span>
+                        </label>
+                        <label class="status-option">
+                            <input type="radio" name="handleStatus" value="3">
+                            <span class="option-card invalid">
+                                <i class="fas fa-ban"></i>
+                                <span>无效</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-item">
+                    <label class="form-label">处理备注</label>
+                    <textarea class="form-textarea" id="handleRemark" rows="3" placeholder="请输入处理备注..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closeHandleModal()">取消</button>
+                <button class="modal-btn confirm" onclick="confirmHandle()">确认处理</button>
+            </div>
+        </div>
+    </div>
+
     <script src="../common/common.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
-

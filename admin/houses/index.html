@@ -49,37 +49,69 @@
                 </div>
             </div>
 
-            <!-- 工具栏 -->
-            <div class="toolbar">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="搜索房源标题、地址...">
+            <!-- 搜索表单 -->
+            <div class="search-form">
+                <div class="search-form-row">
+                    <div class="search-form-item flex-1">
+                        <label>房源标题</label>
+                        <input type="text" id="titleInput" placeholder="请输入房源标题">
+                    </div>
+                    <div class="search-form-item">
+                        <label>发布来源</label>
+                        <select id="publisherTypeFilter">
+                            <option value="">全部</option>
+                            <option value="1">租客转租</option>
+                            <option value="2">房东直租</option>
+                            <option value="3">商家发布</option>
+                        </select>
+                    </div>
+                    <div class="search-form-item">
+                        <label>出租方式</label>
+                        <select id="rentModeFilter">
+                            <option value="">全部</option>
+                            <option value="1">整租</option>
+                            <option value="2">合租</option>
+                        </select>
+                    </div>
+                    <div class="search-form-item">
+                        <label>房源状态</label>
+                        <select id="statusFilter">
+                            <option value="">全部</option>
+                            <option value="0">审核中</option>
+                            <option value="1">已上架</option>
+                            <option value="2">已下架</option>
+                            <option value="3">已出租</option>
+                            <option value="4">已过期</option>
+                        </select>
+                    </div>
+                    <div class="search-form-item">
+                        <label>发布时间</label>
+                        <div class="date-range">
+                            <input type="date" id="startDate">
+                            <span>至</span>
+                            <input type="date" id="endDate">
+                        </div>
+                    </div>
+                    <div class="search-form-buttons">
+                        <button class="btn btn-search" onclick="searchData()">
+                            <i class="fas fa-search"></i>查询
+                        </button>
+                        <button class="btn btn-reset" onclick="resetSearch()">
+                            <i class="fas fa-redo"></i>重置
+                        </button>
+                    </div>
                 </div>
-                <div class="filter-group">
-                    <select class="filter-select" id="publisherTypeFilter">
-                        <option value="">全部来源</option>
-                        <option value="1">租客转租</option>
-                        <option value="2">房东直租</option>
-                        <option value="3">商家发布</option>
-                    </select>
-                    <select class="filter-select" id="rentModeFilter">
-                        <option value="">全部方式</option>
-                        <option value="1">整租</option>
-                        <option value="2">合租</option>
-                    </select>
-                    <select class="filter-select" id="statusFilter">
-                        <option value="">全部状态</option>
-                        <option value="0">审核中</option>
-                        <option value="1">已上架</option>
-                        <option value="2">已下架</option>
-                        <option value="3">已出租</option>
-                        <option value="4">已过期</option>
-                    </select>
+            </div>
+            
+            <!-- 操作栏 -->
+            <div class="action-bar">
+                <div class="action-bar-left"></div>
+                <div class="action-bar-right">
+                    <button class="btn btn-primary" id="addHouseBtn">
+                        <i class="fas fa-plus"></i>
+                        <span>录入房源</span>
+                    </button>
                 </div>
-                <button class="btn btn-primary" id="addHouseBtn">
-                    <i class="fas fa-plus"></i>
-                    <span>录入房源</span>
-                </button>
             </div>
 
             <!-- 房源列表 -->

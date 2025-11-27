@@ -32,53 +32,61 @@
         </header>
 
         <main class="content">
-            <!-- 统计卡片 -->
-            <div class="stats-row">
-                <div class="mini-stat-card">
-                    <div class="mini-stat-value" id="totalStores">0</div>
-                    <div class="mini-stat-label">总门店数</div>
-                </div>
-                <div class="mini-stat-card">
-                    <div class="mini-stat-value" id="activeStores">0</div>
-                    <div class="mini-stat-label">正常营业</div>
-                </div>
-                <div class="mini-stat-card">
-                    <div class="mini-stat-value" id="verifiedStores">0</div>
-                    <div class="mini-stat-label">已认证</div>
-                </div>
-                <div class="mini-stat-card">
-                    <div class="mini-stat-value" id="totalHouses">0</div>
-                    <div class="mini-stat-label">总房源数</div>
+            <!-- 搜索表单 -->
+            <div class="search-form">
+                <div class="search-form-row">
+                    <div class="search-form-item">
+                        <label>门店名称</label>
+                        <input type="text" id="nameInput" placeholder="请输入门店名称">
+                    </div>
+                    <div class="search-form-item">
+                        <label>联系电话</label>
+                        <input type="text" id="phoneInput" placeholder="请输入联系电话">
+                    </div>
+                    <div class="search-form-item">
+                        <label>商家类型</label>
+                        <select id="typeFilter">
+                            <option value="">全部</option>
+                            <option value="1">中介门店</option>
+                            <option value="2">公寓门店</option>
+                        </select>
+                    </div>
+                    <div class="search-form-item">
+                        <label>认证状态</label>
+                        <select id="verifyFilter">
+                            <option value="">全部</option>
+                            <option value="1">已认证</option>
+                            <option value="0">未认证</option>
+                        </select>
+                    </div>
+                    <div class="search-form-item">
+                        <label>账号状态</label>
+                        <select id="statusFilter">
+                            <option value="">全部</option>
+                            <option value="1">正常</option>
+                            <option value="0">禁用</option>
+                        </select>
+                    </div>
+                    <div class="search-form-buttons">
+                        <button class="btn btn-search" onclick="searchData()">
+                            <i class="fas fa-search"></i>查询
+                        </button>
+                        <button class="btn btn-reset" onclick="resetSearch()">
+                            <i class="fas fa-redo"></i>重置
+                        </button>
+                    </div>
                 </div>
             </div>
-
-            <!-- 工具栏 -->
-            <div class="toolbar">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="搜索门店名称、店长姓名、手机号...">
+            
+            <!-- 操作栏 -->
+            <div class="action-bar">
+                <div class="action-bar-left"></div>
+                <div class="action-bar-right">
+                    <button class="btn btn-primary" id="addStoreBtn">
+                        <i class="fas fa-plus"></i>
+                        <span>新增门店</span>
+                    </button>
                 </div>
-                <div class="filter-group">
-                    <select class="filter-select" id="typeFilter">
-                        <option value="">全部类型</option>
-                        <option value="1">中介门店</option>
-                        <option value="2">公寓门店</option>
-                    </select>
-                    <select class="filter-select" id="verifyFilter">
-                        <option value="">全部认证</option>
-                        <option value="1">已认证</option>
-                        <option value="0">未认证</option>
-                    </select>
-                    <select class="filter-select" id="statusFilter">
-                        <option value="">全部状态</option>
-                        <option value="1">正常</option>
-                        <option value="0">禁用</option>
-                    </select>
-                </div>
-                <button class="btn btn-primary" id="addStoreBtn">
-                    <i class="fas fa-plus"></i>
-                    <span>新增门店</span>
-                </button>
             </div>
 
             <!-- 门店列表 -->

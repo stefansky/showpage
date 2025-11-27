@@ -27,32 +27,69 @@
         </header>
 
         <main class="content">
-            <div class="toolbar">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="搜索租客姓名、门店名称...">
-                </div>
-                <div class="filter-group">
-                    <select id="storeFilter" class="filter-select">
-                        <option value="">全部门店</option>
-                        <option value="1">阳光租房门店</option>
-                        <option value="2">温馨家园门店</option>
-                        <option value="3">幸福租房门店</option>
-                    </select>
-                    <input type="date" id="dateFilter" class="filter-select">
+            <!-- 搜索表单 -->
+            <div class="search-form">
+                <div class="search-form-row">
+                    <div class="search-form-item">
+                        <label>租客姓名</label>
+                        <input type="text" id="tenantNameInput" placeholder="请输入租客姓名">
+                    </div>
+                    <div class="search-form-item">
+                        <label>租客电话</label>
+                        <input type="text" id="tenantPhoneInput" placeholder="请输入租客电话">
+                    </div>
+                    <div class="search-form-item">
+                        <label>预约来源</label>
+                        <select id="sourceFilter">
+                            <option value="">全部</option>
+                            <option value="1">用户申请</option>
+                            <option value="2">商家邀约</option>
+                            <option value="3">扫码预约</option>
+                        </select>
+                    </div>
+                    <div class="search-form-item">
+                        <label>预约状态</label>
+                        <select id="statusFilter">
+                            <option value="">全部</option>
+                            <option value="0">待确认</option>
+                            <option value="1">已确认</option>
+                            <option value="2">已完成</option>
+                            <option value="3">已拒绝</option>
+                            <option value="4">已取消</option>
+                        </select>
+                    </div>
+                    <div class="search-form-item">
+                        <label>预约时间</label>
+                        <div class="date-range">
+                            <input type="date" id="startDate">
+                            <span>至</span>
+                            <input type="date" id="endDate">
+                        </div>
+                    </div>
+                    <div class="search-form-buttons">
+                        <button class="btn btn-search" onclick="searchData()">
+                            <i class="fas fa-search"></i>查询
+                        </button>
+                        <button class="btn btn-reset" onclick="resetSearch()">
+                            <i class="fas fa-redo"></i>重置
+                        </button>
+                    </div>
                 </div>
             </div>
 
+            <!-- 数据表格 -->
             <div class="table-container">
                 <table class="data-table">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>租客姓名</th>
-                            <th>门店名称</th>
-                            <th>看房时间</th>
-                            <th>房源信息</th>
+                            <th>来源</th>
+                            <th>租客信息</th>
+                            <th>房源/商家</th>
+                            <th>房东/商家</th>
+                            <th>预约时间</th>
                             <th>状态</th>
+                            <th>申请时间</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -64,8 +101,22 @@
         </main>
     </div>
 
+    <!-- 详情弹窗 -->
+    <div class="modal" id="detailModal">
+        <div class="modal-backdrop" onclick="closeDetailModal()"></div>
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h3>看房预约详情</h3>
+                <button class="modal-close" onclick="closeDetailModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="detailBody"></div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closeDetailModal()">关闭</button>
+            </div>
+        </div>
+    </div>
+
     <script src="../common/common.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
-

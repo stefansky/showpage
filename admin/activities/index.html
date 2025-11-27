@@ -21,59 +21,203 @@
                 <h1 class="page-title">活动管理</h1>
             </div>
             <div class="header-right">
-                <button class="btn btn-primary" id="addActivityBtn"><i class="fas fa-plus"></i><span>新增活动</span></button>
                 <div class="user-info"><i class="fas fa-user-circle"></i><span>管理员</span></div>
                 <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i></button>
             </div>
         </header>
 
         <main class="content">
-            <div class="toolbar">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="搜索活动名称...">
+            <!-- 搜索表单 -->
+            <div class="search-form">
+                <div class="search-form-row">
+                    <div class="search-form-item flex-1">
+                        <label>活动名称</label>
+                        <input type="text" id="nameInput" placeholder="请输入活动名称">
+                    </div>
+                    <div class="search-form-item">
+                        <label>活动类型</label>
+                        <select id="typeFilter">
+                            <option value="">全部</option>
+                            <option value="1">分享好友</option>
+                            <option value="2">分享朋友圈</option>
+                            <option value="3">查看广告</option>
+                            <option value="4">每日签到</option>
+                            <option value="5">邀请注册</option>
+                            <option value="6">发布房源</option>
+                            <option value="7">发布找房</option>
+                        </select>
+                    </div>
+                    <div class="search-form-item">
+                        <label>活动状态</label>
+                        <select id="statusFilter">
+                            <option value="">全部</option>
+                            <option value="1">已开启</option>
+                            <option value="0">已关闭</option>
+                        </select>
+                    </div>
+                    <div class="search-form-buttons">
+                        <button class="btn btn-search" onclick="searchData()">
+                            <i class="fas fa-search"></i>查询
+                        </button>
+                        <button class="btn btn-reset" onclick="resetSearch()">
+                            <i class="fas fa-redo"></i>重置
+                        </button>
+                    </div>
                 </div>
-                <div class="filter-group">
-                    <select id="statusFilter" class="filter-select">
-                        <option value="">全部状态</option>
-                        <option value="active">进行中</option>
-                        <option value="ended">已结束</option>
-                        <option value="draft">草稿</option>
-                    </select>
-                    <select id="typeFilter" class="filter-select">
-                        <option value="">全部类型</option>
-                        <option value="points">房豆活动</option>
-                        <option value="discount">优惠活动</option>
-                        <option value="promotion">推广活动</option>
-                    </select>
+            </div>
+            
+            <!-- 操作栏 -->
+            <div class="action-bar">
+                <div class="action-bar-left"></div>
+                <div class="action-bar-right">
+                    <button class="btn btn-primary" id="addActivityBtn">
+                        <i class="fas fa-plus"></i>
+                        <span>新增活动</span>
+                    </button>
                 </div>
             </div>
 
-            <div class="table-container">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>活动名称</th>
-                            <th>活动类型</th>
-                            <th>奖励内容</th>
-                            <th>开始时间</th>
-                            <th>结束时间</th>
-                            <th>参与人数</th>
-                            <th>状态</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody"></tbody>
-                </table>
+            <!-- 活动卡片列表 -->
+            <div class="activity-grid" id="activityGrid">
+                <!-- 活动卡片将动态生成 -->
             </div>
 
             <div class="pagination" id="pagination"></div>
         </main>
     </div>
 
+    <!-- 新增/编辑活动弹窗 -->
+    <div class="modal" id="activityModal">
+        <div class="modal-backdrop" onclick="closeModal()"></div>
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h3 id="modalTitle">新增活动</h3>
+                <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-item full">
+                        <label class="form-label">活动名称 <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="activityName" placeholder="请输入活动名称">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label class="form-label">活动类型 <span class="required">*</span></label>
+                        <select class="form-input" id="activityType">
+                            <option value="">请选择</option>
+                            <option value="1">分享好友</option>
+                            <option value="2">分享朋友圈</option>
+                            <option value="3">查看广告</option>
+                            <option value="4">每日签到</option>
+                            <option value="5">邀请注册</option>
+                            <option value="6">发布房源</option>
+                            <option value="7">发布找房</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label class="form-label">活动状态</label>
+                        <div class="switch-wrapper">
+                            <label class="switch">
+                                <input type="checkbox" id="activityStatus" checked>
+                                <span class="slider"></span>
+                            </label>
+                            <span class="switch-label" id="statusLabel">已开启</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-item full">
+                        <label class="form-label">活动描述</label>
+                        <textarea class="form-textarea" id="activityDesc" rows="3" placeholder="请输入活动描述，将展示在小程序活动中心"></textarea>
+                    </div>
+                </div>
+
+                <div class="section-divider">
+                    <span><i class="fas fa-gift"></i> 奖励设置</span>
+                </div>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label class="form-label">奖励类型</label>
+                        <select class="form-input" id="rewardType">
+                            <option value="1">房豆</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label class="form-label">奖励数量 <span class="required">*</span></label>
+                        <div class="input-with-unit">
+                            <input type="number" class="form-input" id="rewardAmount" placeholder="如：5" min="1">
+                            <span class="unit">房豆</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-divider">
+                    <span><i class="fas fa-clock"></i> 参与限制</span>
+                </div>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label class="form-label">参与频率 <span class="required">*</span></label>
+                        <select class="form-input" id="frequency" onchange="handleFrequencyChange()">
+                            <option value="1">仅限一次</option>
+                            <option value="2">每天一次</option>
+                            <option value="3">每周一次</option>
+                            <option value="4">每月一次</option>
+                            <option value="5">不限次数</option>
+                        </select>
+                    </div>
+                    <div class="form-item" id="maxTimesItem" style="display: none;">
+                        <label class="form-label">最大参与次数</label>
+                        <div class="input-with-unit">
+                            <input type="number" class="form-input" id="maxTimes" placeholder="0为不限" min="0">
+                            <span class="unit">次</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-divider">
+                    <span><i class="fas fa-calendar-alt"></i> 活动时间</span>
+                </div>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label class="form-label">开始时间</label>
+                        <input type="datetime-local" class="form-input" id="startTime">
+                    </div>
+                    <div class="form-item">
+                        <label class="form-label">结束时间</label>
+                        <input type="datetime-local" class="form-input" id="endTime">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label class="form-label">排序权重</label>
+                        <input type="number" class="form-input" id="sortOrder" placeholder="数字越大越靠前" value="0">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closeModal()">取消</button>
+                <button class="modal-btn confirm" onclick="saveActivity()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 详情弹窗 -->
+    <div class="modal" id="detailModal">
+        <div class="modal-backdrop" onclick="closeDetailModal()"></div>
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h3>活动详情</h3>
+                <button class="modal-close" onclick="closeDetailModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="detailBody"></div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closeDetailModal()">关闭</button>
+            </div>
+        </div>
+    </div>
+
     <script src="../common/common.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
-

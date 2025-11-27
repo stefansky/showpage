@@ -9,115 +9,325 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- 侧边栏 -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <div class="logo">
-                <i class="fas fa-cog"></i>
-                <span>管理后台</span>
-            </div>
+            <div class="logo"><i class="fas fa-cog"></i><span>管理后台</span></div>
         </div>
-        <nav class="sidebar-nav" id="sidebarNav">
-            <!-- 菜单项将通过JavaScript动态生成 -->
-        </nav>
+        <nav class="sidebar-nav" id="sidebarNav"></nav>
     </div>
 
-    <!-- 主内容区 -->
     <div class="main-container">
-        <!-- 顶部导航栏 -->
         <header class="header">
             <div class="header-left">
-                <button class="menu-toggle" id="menuToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
                 <h1 class="page-title">数据概览</h1>
             </div>
             <div class="header-right">
-                <div class="user-info">
-                    <i class="fas fa-user-circle"></i>
-                    <span>管理员</span>
+                <div class="date-display">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span id="currentDate"></span>
                 </div>
-                <button class="logout-btn" id="logoutBtn">
-                    <i class="fas fa-sign-out-alt"></i>
-                </button>
+                <div class="user-info"><i class="fas fa-user-circle"></i><span>管理员</span></div>
+                <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i></button>
             </div>
         </header>
 
-        <!-- 页面内容 -->
-        <main class="content">
-            <!-- 数据统计卡片 -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon user">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="stat-info">
+        <main class="content dashboard-content">
+            <!-- 顶部核心数据 -->
+            <div class="core-stats">
+                <div class="core-stat-card users">
+                    <div class="stat-glow"></div>
+                    <div class="stat-content">
+                        <div class="stat-header">
+                            <span class="stat-label">总用户数</span>
+                            <div class="stat-icon"><i class="fas fa-users"></i></div>
+                        </div>
                         <div class="stat-value" id="totalUsers">0</div>
-                        <div class="stat-label">总用户数</div>
+                        <div class="stat-footer">
+                            <div class="stat-detail">
+                                <span class="detail-label">租客</span>
+                                <span class="detail-value" id="tenantCount">0</span>
+                            </div>
+                            <div class="stat-detail">
+                                <span class="detail-label">房东</span>
+                                <span class="detail-value" id="landlordCount">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-trend up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>12.5%</span>
                     </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon store">
-                        <i class="fas fa-store"></i>
-                    </div>
-                    <div class="stat-info">
-                        <div class="stat-value" id="totalStores">0</div>
-                        <div class="stat-label">门店数量</div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon house">
-                        <i class="fas fa-home"></i>
-                    </div>
-                    <div class="stat-info">
+
+                <div class="core-stat-card houses">
+                    <div class="stat-glow"></div>
+                    <div class="stat-content">
+                        <div class="stat-header">
+                            <span class="stat-label">房源总数</span>
+                            <div class="stat-icon"><i class="fas fa-home"></i></div>
+                        </div>
                         <div class="stat-value" id="totalHouses">0</div>
-                        <div class="stat-label">房源总数</div>
+                        <div class="stat-footer">
+                            <div class="stat-detail">
+                                <span class="detail-label">在租</span>
+                                <span class="detail-value" id="activeHouses">0</span>
+                            </div>
+                            <div class="stat-detail">
+                                <span class="detail-label">已出租</span>
+                                <span class="detail-value" id="rentedHouses">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-trend up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>8.3%</span>
                     </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon pending">
-                        <i class="fas fa-clock"></i>
+
+                <div class="core-stat-card stores">
+                    <div class="stat-glow"></div>
+                    <div class="stat-content">
+                        <div class="stat-header">
+                            <span class="stat-label">入驻商家</span>
+                            <div class="stat-icon"><i class="fas fa-store"></i></div>
+                        </div>
+                        <div class="stat-value" id="totalStores">0</div>
+                        <div class="stat-footer">
+                            <div class="stat-detail">
+                                <span class="detail-label">营业中</span>
+                                <span class="detail-value" id="openStores">0</span>
+                            </div>
+                            <div class="stat-detail">
+                                <span class="detail-label">待开通</span>
+                                <span class="detail-value" id="pendingStores">0</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="stat-info">
-                        <div class="stat-value" id="pendingReviews">0</div>
-                        <div class="stat-label">待审核</div>
+                    <div class="stat-trend up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>5.2%</span>
+                    </div>
+                </div>
+
+                <div class="core-stat-card points">
+                    <div class="stat-glow"></div>
+                    <div class="stat-content">
+                        <div class="stat-header">
+                            <span class="stat-label">房豆流通</span>
+                            <div class="stat-icon"><i class="fas fa-coins"></i></div>
+                        </div>
+                        <div class="stat-value" id="totalPoints">0</div>
+                        <div class="stat-footer">
+                            <div class="stat-detail">
+                                <span class="detail-label">发放</span>
+                                <span class="detail-value earn" id="earnPoints">0</span>
+                            </div>
+                            <div class="stat-detail">
+                                <span class="detail-label">消耗</span>
+                                <span class="detail-value consume" id="consumePoints">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-trend down">
+                        <i class="fas fa-arrow-down"></i>
+                        <span>3.1%</span>
                     </div>
                 </div>
             </div>
 
-            <!-- 今日数据 -->
-            <div class="section">
-                <div class="section-header">
-                    <h2 class="section-title">今日数据</h2>
-                </div>
-                <div class="today-stats">
-                    <div class="today-stat-item">
-                        <div class="today-stat-label">新增用户</div>
-                        <div class="today-stat-value" id="todayUsers">0</div>
+            <!-- 主内容区 -->
+            <div class="dashboard-main">
+                <!-- 左侧图表区 -->
+                <div class="charts-section">
+                    <!-- 用户增长趋势 -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3><i class="fas fa-chart-line"></i> 用户增长趋势</h3>
+                            <div class="chart-tabs">
+                                <button class="chart-tab active" data-range="week">近7天</button>
+                                <button class="chart-tab" data-range="month">近30天</button>
+                                <button class="chart-tab" data-range="quarter">近3月</button>
+                            </div>
+                        </div>
+                        <div class="chart-body">
+                            <div class="chart-legend">
+                                <span class="legend-item tenant"><i></i> 租客</span>
+                                <span class="legend-item landlord"><i></i> 房东</span>
+                            </div>
+                            <div class="chart-container" id="userChart">
+                                <canvas id="userChartCanvas"></canvas>
+                            </div>
+                        </div>
                     </div>
-                    <div class="today-stat-item">
-                        <div class="today-stat-label">新增房源</div>
-                        <div class="today-stat-value" id="todayHouses">0</div>
-                    </div>
-                    <div class="today-stat-item">
-                        <div class="today-stat-label">新增找房需求</div>
-                        <div class="today-stat-value" id="todayFindRequests">0</div>
-                    </div>
-                    <div class="today-stat-item">
-                        <div class="today-stat-label">待处理举报</div>
-                        <div class="today-stat-value" id="todayReports">0</div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- 最近活动 -->
-            <div class="section">
-                <div class="section-header">
-                    <h2 class="section-title">最近活动</h2>
-                    <button class="more-btn">查看更多</button>
+                    <!-- 房源数据分析 -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3><i class="fas fa-home"></i> 房源数据分析</h3>
+                            <div class="chart-tabs">
+                                <button class="chart-tab active" data-range="week">近7天</button>
+                                <button class="chart-tab" data-range="month">近30天</button>
+                                <button class="chart-tab" data-range="quarter">近3月</button>
+                            </div>
+                        </div>
+                        <div class="chart-body">
+                            <div class="chart-legend">
+                                <span class="legend-item new"><i></i> 新增发布</span>
+                                <span class="legend-item rented"><i></i> 成功出租</span>
+                            </div>
+                            <div class="chart-container" id="houseChart">
+                                <canvas id="houseChartCanvas"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 业务数据 -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3><i class="fas fa-handshake"></i> 业务转化数据</h3>
+                            <div class="chart-tabs">
+                                <button class="chart-tab active" data-range="week">近7天</button>
+                                <button class="chart-tab" data-range="month">近30天</button>
+                                <button class="chart-tab" data-range="quarter">近3月</button>
+                            </div>
+                        </div>
+                        <div class="chart-body">
+                            <div class="chart-legend">
+                                <span class="legend-item visit"><i></i> 看房预约</span>
+                                <span class="legend-item contact"><i></i> 联系获取</span>
+                            </div>
+                            <div class="chart-container" id="businessChart">
+                                <canvas id="businessChartCanvas"></canvas>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="activity-list" id="activityList">
-                    <!-- 活动项将通过JavaScript动态生成 -->
+
+                <!-- 右侧信息区 -->
+                <div class="info-section">
+                    <!-- 今日实时数据 -->
+                    <div class="info-card today-data">
+                        <div class="info-header">
+                            <h3><i class="fas fa-bolt"></i> 今日实时</h3>
+                            <span class="live-badge"><span class="live-dot"></span> LIVE</span>
+                        </div>
+                        <div class="today-grid">
+                            <div class="today-item">
+                                <div class="today-icon new-user"><i class="fas fa-user-plus"></i></div>
+                                <div class="today-info">
+                                    <span class="today-value" id="todayUsers">0</span>
+                                    <span class="today-label">新增用户</span>
+                                </div>
+                            </div>
+                            <div class="today-item">
+                                <div class="today-icon new-house"><i class="fas fa-plus-square"></i></div>
+                                <div class="today-info">
+                                    <span class="today-value" id="todayHouses">0</span>
+                                    <span class="today-label">新增房源</span>
+                                </div>
+                            </div>
+                            <div class="today-item">
+                                <div class="today-icon new-visit"><i class="fas fa-eye"></i></div>
+                                <div class="today-info">
+                                    <span class="today-value" id="todayVisits">0</span>
+                                    <span class="today-label">看房预约</span>
+                                </div>
+                            </div>
+                            <div class="today-item">
+                                <div class="today-icon new-contact"><i class="fas fa-phone"></i></div>
+                                <div class="today-info">
+                                    <span class="today-value" id="todayContacts">0</span>
+                                    <span class="today-label">联系获取</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 房源分布 -->
+                    <div class="info-card distribution">
+                        <div class="info-header">
+                            <h3><i class="fas fa-chart-pie"></i> 房源分布</h3>
+                        </div>
+                        <div class="distribution-content">
+                            <div class="donut-chart" id="donutChart">
+                                <svg viewBox="0 0 100 100">
+                                    <circle class="donut-ring" cx="50" cy="50" r="40"/>
+                                    <circle class="donut-segment whole" cx="50" cy="50" r="40" 
+                                            stroke-dasharray="0 251.2" stroke-dashoffset="0"/>
+                                    <circle class="donut-segment shared" cx="50" cy="50" r="40"
+                                            stroke-dasharray="0 251.2" stroke-dashoffset="0"/>
+                                </svg>
+                                <div class="donut-center">
+                                    <span class="donut-value" id="totalHousesChart">0</span>
+                                    <span class="donut-label">总房源</span>
+                                </div>
+                            </div>
+                            <div class="distribution-legend">
+                                <div class="dist-item">
+                                    <span class="dist-color whole"></span>
+                                    <span class="dist-label">整租</span>
+                                    <span class="dist-value" id="wholeRent">0</span>
+                                </div>
+                                <div class="dist-item">
+                                    <span class="dist-color shared"></span>
+                                    <span class="dist-label">合租</span>
+                                    <span class="dist-value" id="sharedRent">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 待办事项 -->
+                    <div class="info-card todos">
+                        <div class="info-header">
+                            <h3><i class="fas fa-tasks"></i> 待处理事项</h3>
+                        </div>
+                        <div class="todo-list">
+                            <a href="../houses/index.html" class="todo-item">
+                                <div class="todo-icon pending"><i class="fas fa-home"></i></div>
+                                <div class="todo-info">
+                                    <span class="todo-label">待审核房源</span>
+                                    <span class="todo-desc">需要审核的房源信息</span>
+                                </div>
+                                <span class="todo-count" id="pendingHouses">0</span>
+                            </a>
+                            <a href="../reports/index.html" class="todo-item">
+                                <div class="todo-icon danger"><i class="fas fa-flag"></i></div>
+                                <div class="todo-info">
+                                    <span class="todo-label">待处理举报</span>
+                                    <span class="todo-desc">用户提交的举报信息</span>
+                                </div>
+                                <span class="todo-count" id="pendingReports">0</span>
+                            </a>
+                            <a href="../store-applications/index.html" class="todo-item">
+                                <div class="todo-icon info"><i class="fas fa-store"></i></div>
+                                <div class="todo-info">
+                                    <span class="todo-label">开店申请</span>
+                                    <span class="todo-desc">商家入驻申请</span>
+                                </div>
+                                <span class="todo-count" id="pendingApps">0</span>
+                            </a>
+                            <a href="../visits/index.html" class="todo-item">
+                                <div class="todo-icon warning"><i class="fas fa-calendar-check"></i></div>
+                                <div class="todo-info">
+                                    <span class="todo-label">待确认预约</span>
+                                    <span class="todo-desc">看房预约确认</span>
+                                </div>
+                                <span class="todo-count" id="pendingVisits">0</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- 热门城市 -->
+                    <div class="info-card hot-cities">
+                        <div class="info-header">
+                            <h3><i class="fas fa-map-marker-alt"></i> 热门城市</h3>
+                        </div>
+                        <div class="city-list" id="cityList">
+                            <!-- 动态生成 -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
@@ -127,4 +337,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-

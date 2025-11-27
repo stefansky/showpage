@@ -1,0 +1,263 @@
+/* 字典管理页面样式 */
+
+/* 代码标签 */
+.code-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    background: #f5f5f5;
+    border-radius: 4px;
+    font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+    font-size: 13px;
+    color: #666;
+}
+
+/* 类型名称链接 */
+.type-name-link {
+    color: #2196F3;
+    cursor: pointer;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.type-name-link:hover {
+    color: #1976D2;
+    text-decoration: underline;
+}
+
+/* 描述文本 */
+.desc-text {
+    color: #999;
+    font-size: 13px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-width: 200px;
+}
+
+/* 数量徽章 */
+.count-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 12px;
+    background: #e3f2fd;
+    color: #2196F3;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.count-badge:hover {
+    background: #2196F3;
+    color: #fff;
+}
+
+/* 操作按钮组 */
+.action-btns {
+    display: flex;
+    gap: 6px;
+}
+
+/* 必填标记 */
+.required {
+    color: #F44336;
+}
+
+/* 表单提示 */
+.form-hint {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    color: #999;
+}
+
+/* ==================== 详情页样式 ==================== */
+
+/* 面包屑导航 */
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.breadcrumb a {
+    color: #666;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+}
+
+.breadcrumb a:hover {
+    color: #4CAF50;
+}
+
+.breadcrumb i.fa-chevron-right {
+    font-size: 10px;
+    color: #ccc;
+}
+
+.breadcrumb span {
+    color: #333;
+    font-weight: 600;
+}
+
+/* 字典类型信息卡片 */
+.type-info-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, #e8f5e9 0%, #e3f2fd 100%);
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.type-info-main {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.type-icon {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    border-radius: 12px;
+    color: #fff;
+    font-size: 24px;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.type-details h2 {
+    margin: 0 0 6px 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+}
+
+.type-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.type-code {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 6px;
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 12px;
+    color: #666;
+}
+
+.type-desc {
+    font-size: 13px;
+    color: #666;
+}
+
+/* 字典项标签 */
+.item-label {
+    font-weight: 500;
+    color: #333;
+}
+
+.item-label i {
+    margin-right: 4px;
+    color: #666;
+}
+
+/* 标签样式预览 */
+.style-preview {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    background: #f5f5f5;
+    color: #666;
+}
+
+.style-preview.primary { background: #e3f2fd; color: #2196F3; }
+.style-preview.success { background: #e8f5e9; color: #4CAF50; }
+.style-preview.warning { background: #fff3e0; color: #FF9800; }
+.style-preview.danger { background: #ffebee; color: #F44336; }
+.style-preview.info { background: #e0f7fa; color: #00BCD4; }
+
+/* 小型开关 */
+.switch.small {
+    width: 36px;
+    height: 20px;
+}
+
+.switch.small .slider:before {
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+}
+
+.switch.small input:checked + .slider:before {
+    transform: translateX(16px);
+}
+
+/* 表单行（两列） */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* 预览框 */
+.preview-box {
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* 开关组 */
+.switch-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .type-info-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    
+    .type-info-actions {
+        width: 100%;
+    }
+    
+    .type-info-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .breadcrumb {
+        font-size: 13px;
+    }
+}

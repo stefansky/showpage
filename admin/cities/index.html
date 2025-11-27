@@ -37,42 +37,47 @@
                 </div>
             </div>
 
-            <!-- 统计卡片 -->
-            <div class="stats-row">
-                <div class="mini-stat-card">
-                    <div class="mini-stat-value" id="totalCities">0</div>
-                    <div class="mini-stat-label">已开通城市</div>
-                </div>
-                <div class="mini-stat-card">
-                    <div class="mini-stat-value" id="activeCities">0</div>
-                    <div class="mini-stat-label">启用中</div>
-                </div>
-                <div class="mini-stat-card">
-                    <div class="mini-stat-value" id="inactiveCities">0</div>
-                    <div class="mini-stat-label">已禁用</div>
+            <!-- 搜索表单 -->
+            <div class="search-form">
+                <div class="search-form-row">
+                    <div class="search-form-item flex-1">
+                        <label>城市名称</label>
+                        <input type="text" id="cityNameInput" placeholder="请输入城市名称">
+                    </div>
+                    <div class="search-form-item">
+                        <label>所属省份</label>
+                        <select id="provinceFilter">
+                            <option value="">全部</option>
+                        </select>
+                    </div>
+                    <div class="search-form-item">
+                        <label>状态</label>
+                        <select id="statusFilter">
+                            <option value="">全部</option>
+                            <option value="active">启用</option>
+                            <option value="inactive">禁用</option>
+                        </select>
+                    </div>
+                    <div class="search-form-buttons">
+                        <button class="btn btn-search" onclick="searchData()">
+                            <i class="fas fa-search"></i>查询
+                        </button>
+                        <button class="btn btn-reset" onclick="resetSearch()">
+                            <i class="fas fa-redo"></i>重置
+                        </button>
+                    </div>
                 </div>
             </div>
-
-            <!-- 搜索筛选和操作栏 -->
-            <div class="toolbar">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="搜索城市名称...">
+            
+            <!-- 操作栏 -->
+            <div class="action-bar">
+                <div class="action-bar-left"></div>
+                <div class="action-bar-right">
+                    <button class="btn btn-primary" id="addCityBtn">
+                        <i class="fas fa-plus"></i>
+                        <span>开通城市</span>
+                    </button>
                 </div>
-                <div class="filter-group">
-                    <select id="provinceFilter" class="filter-select">
-                        <option value="">全部省份</option>
-                    </select>
-                    <select id="statusFilter" class="filter-select">
-                        <option value="">全部状态</option>
-                        <option value="active">启用</option>
-                        <option value="inactive">禁用</option>
-                    </select>
-                </div>
-                <button class="btn btn-primary" id="addCityBtn">
-                    <i class="fas fa-plus"></i>
-                    <span>开通城市</span>
-                </button>
             </div>
 
             <!-- 城市列表表格 -->

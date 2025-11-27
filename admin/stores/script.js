@@ -195,16 +195,11 @@ function initStoreMockData() {
 
 function initPage() {
     initStoreMockData();
-    loadStats();
     loadData();
     initFormTabs();
     initProvinceSelect();
     
     document.getElementById('addStoreBtn')?.addEventListener('click', () => openStoreModal());
-    document.getElementById('searchInput')?.addEventListener('input', debounce(() => { currentPage = 1; loadData(); }, 300));
-    document.getElementById('typeFilter')?.addEventListener('change', () => { currentPage = 1; loadData(); });
-    document.getElementById('verifyFilter')?.addEventListener('change', () => { currentPage = 1; loadData(); });
-    document.getElementById('statusFilter')?.addEventListener('change', () => { currentPage = 1; loadData(); });
     
     // 省市区联动
     document.getElementById('province')?.addEventListener('change', handleProvinceChange);
@@ -218,6 +213,23 @@ function initPage() {
             });
         }
     });
+}
+
+// 搜索数据
+function searchData() {
+    currentPage = 1;
+    loadData();
+}
+
+// 重置搜索
+function resetSearch() {
+    document.getElementById('nameInput').value = '';
+    document.getElementById('phoneInput').value = '';
+    document.getElementById('typeFilter').value = '';
+    document.getElementById('verifyFilter').value = '';
+    document.getElementById('statusFilter').value = '';
+    currentPage = 1;
+    loadData();
 }
 
 // 防抖函数
@@ -294,36 +306,26 @@ function handleCityChange() {
     }
 }
 
-// 加载统计数据
-function loadStats() {
-    const stores = getData('stores');
-    const activeStores = stores.filter(s => s.status === 1).length;
-    const verifiedStores = stores.filter(s => s.isVerified === 1).length;
-    const totalHouses = stores.reduce((sum, s) => sum + (s.houseCount || 0), 0);
-    
-    document.getElementById('totalStores').textContent = stores.length;
-    document.getElementById('activeStores').textContent = activeStores;
-    document.getElementById('verifiedStores').textContent = verifiedStores;
-    document.getElementById('totalHouses').textContent = totalHouses;
-}
-
 // 加载门店数据
 function loadData() {
     const stores = getData('stores');
-    const searchInput = document.getElementById('searchInput');
+    const nameInput = document.getElementById('nameInput');
+    const phoneInput = document.getElementById('phoneInput');
     const typeFilter = document.getElementById('typeFilter');
     const verifyFilter = document.getElementById('verifyFilter');
     const statusFilter = document.getElementById('statusFilter');
     
     let filtered = [...stores];
     
-    if (searchInput?.value) {
-        const keyword = searchInput.value.toLowerCase();
-        filtered = filtered.filter(s => 
-            s.merchantName.toLowerCase().includes(keyword) || 
-            s.contactPerson.toLowerCase().includes(keyword) ||
-            s.contactPhone.includes(keyword)
-        );
+    // 门店名称搜索
+    if (nameInput?.value) {
+        const keyword = nameInput.value.toLowerCase();
+        filtered = filtered.filter(s => s.merchantName.toLowerCase().includes(keyword));
+    }
+    
+    // 联系电话搜索
+    if (phoneInput?.value) {
+        filtered = filtered.filter(s => s.contactPhone.includes(phoneInput.value));
     }
     
     if (typeFilter?.value) {
@@ -617,7 +619,6 @@ function saveStore() {
     
     closeStoreModal();
     loadData();
-    loadStats();
 }
 
 // 编辑门店
@@ -822,7 +823,6 @@ function toggleVerify(id) {
     if (confirm(`确定要${action}「${store.merchantName}」吗？`)) {
         updateData('stores', id, { isVerified: newVerified, updatedAt: formatDateTime() });
         loadData();
-        loadStats();
         alert(`已${action}！`);
     }
 }
@@ -838,7 +838,6 @@ function toggleStatus(id) {
     if (confirm(`确定要${action}门店「${store.merchantName}」吗？\n\n${newStatus === 0 ? '禁用后该门店将无法正常运营。' : '启用后该门店可以正常运营。'}`)) {
         updateData('stores', id, { status: newStatus, updatedAt: formatDateTime() });
         loadData();
-        loadStats();
         alert(`门店已${action}！`);
     }
 }
@@ -851,7 +850,6 @@ function deleteStore(id) {
     if (confirm(`⚠️ 确定要删除门店「${store.merchantName}」吗？\n\n此操作不可恢复，门店的所有数据将被清除。`)) {
         deleteData('stores', id);
         loadData();
-        loadStats();
         alert('门店已删除！');
     }
 }

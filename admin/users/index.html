@@ -50,55 +50,52 @@
                 </div>
             </div>
 
-            <!-- 统计卡片 -->
-            <div class="stats-row">
-                <div class="mini-stat-card">
-                    <div class="mini-stat-value" id="totalUsers">0</div>
-                    <div class="mini-stat-label">总用户数</div>
+            <!-- 搜索表单 -->
+            <div class="search-form">
+                <div class="search-form-row">
+                    <div class="search-form-item">
+                        <label>用户昵称</label>
+                        <input type="text" id="nicknameInput" placeholder="请输入昵称">
+                    </div>
+                    <div class="search-form-item">
+                        <label>手机号</label>
+                        <input type="text" id="phoneInput" placeholder="请输入手机号">
+                    </div>
+                    <div class="search-form-item">
+                        <label>用户角色</label>
+                        <select id="roleFilter">
+                            <option value="">全部</option>
+                            <option value="tenant">租客</option>
+                            <option value="landlord">房东</option>
+                        </select>
+                    </div>
+                    <div class="search-form-item">
+                        <label>实名状态</label>
+                        <select id="authFilter">
+                            <option value="">全部</option>
+                            <option value="verified">已认证</option>
+                            <option value="pending">待审核</option>
+                            <option value="unverified">未认证</option>
+                        </select>
+                    </div>
+                    <div class="search-form-item">
+                        <label>账号状态</label>
+                        <select id="statusFilter">
+                            <option value="">全部</option>
+                            <option value="active">正常</option>
+                            <option value="disabled">禁用</option>
+                            <option value="blocked">拉黑</option>
+                        </select>
+                    </div>
+                    <div class="search-form-buttons">
+                        <button class="btn btn-search" onclick="searchData()">
+                            <i class="fas fa-search"></i>查询
+                        </button>
+                        <button class="btn btn-reset" onclick="resetSearch()">
+                            <i class="fas fa-redo"></i>重置
+                        </button>
+                    </div>
                 </div>
-                <div class="mini-stat-card">
-                    <div class="mini-stat-value" id="tenantCount">0</div>
-                    <div class="mini-stat-label">租客</div>
-                </div>
-                <div class="mini-stat-card">
-                    <div class="mini-stat-value" id="landlordCount">0</div>
-                    <div class="mini-stat-label">房东</div>
-                </div>
-                <div class="mini-stat-card">
-                    <div class="mini-stat-value" id="verifiedCount">0</div>
-                    <div class="mini-stat-label">已实名</div>
-                </div>
-            </div>
-
-            <!-- 工具栏 -->
-            <div class="toolbar">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="搜索用户昵称、手机号、openId...">
-                </div>
-                <div class="filter-group">
-                    <select class="filter-select" id="roleFilter">
-                        <option value="">全部角色</option>
-                        <option value="tenant">租客</option>
-                        <option value="landlord">房东</option>
-                    </select>
-                    <select class="filter-select" id="authFilter">
-                        <option value="">全部认证状态</option>
-                        <option value="verified">已认证</option>
-                        <option value="pending">待审核</option>
-                        <option value="unverified">未认证</option>
-                    </select>
-                    <select class="filter-select" id="statusFilter">
-                        <option value="">全部状态</option>
-                        <option value="active">正常</option>
-                        <option value="disabled">禁用</option>
-                        <option value="blocked">拉黑</option>
-                    </select>
-                </div>
-                <button class="btn btn-secondary" onclick="exportUsers()">
-                    <i class="fas fa-download"></i>
-                    <span>导出</span>
-                </button>
             </div>
 
             <!-- 用户列表 -->

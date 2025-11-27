@@ -27,32 +27,71 @@
         </header>
 
         <main class="content">
-            <div class="toolbar">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="搜索用户昵称、位置">
+            <!-- 搜索表单 -->
+            <div class="search-form">
+                <div class="search-form-row">
+                    <div class="search-form-item">
+                        <label>用户昵称</label>
+                        <input type="text" id="nicknameInput" placeholder="请输入用户昵称">
+                    </div>
+                    <div class="search-form-item">
+                        <label>联系电话</label>
+                        <input type="text" id="phoneInput" placeholder="请输入联系电话">
+                    </div>
+                    <div class="search-form-item">
+                        <label>租赁方式</label>
+                        <select id="rentModeFilter">
+                            <option value="">全部</option>
+                            <option value="1">整租</option>
+                            <option value="2">合租</option>
+                        </select>
+                    </div>
+                    <div class="search-form-item">
+                        <label>需求状态</label>
+                        <select id="statusFilter">
+                            <option value="">全部</option>
+                            <option value="1">进行中</option>
+                            <option value="2">已找到</option>
+                            <option value="0">已关闭</option>
+                        </select>
+                    </div>
+                    <div class="search-form-buttons">
+                        <button class="btn btn-search" onclick="searchData()">
+                            <i class="fas fa-search"></i>查询
+                        </button>
+                        <button class="btn btn-reset" onclick="resetSearch()">
+                            <i class="fas fa-redo"></i>重置
+                        </button>
+                    </div>
                 </div>
-                <div class="filter-group">
-                    <select class="filter-select" id="rentTypeFilter">
-                        <option value="">全部类型</option>
-                        <option value="整租">整租</option>
-                        <option value="合租">合租</option>
-                    </select>
+            </div>
+            
+            <!-- 操作栏 -->
+            <div class="action-bar">
+                <div class="action-bar-left"></div>
+                <div class="action-bar-right">
+                    <button class="btn btn-primary" id="addRequestBtn">
+                        <i class="fas fa-plus"></i>
+                        <span>新增需求</span>
+                    </button>
                 </div>
             </div>
 
+            <!-- 需求列表 -->
             <div class="table-container">
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>需求ID</th>
+                            <th>ID</th>
                             <th>用户昵称</th>
-                            <th>租赁类型</th>
-                            <th>户型</th>
-                            <th>位置</th>
+                            <th>手机号</th>
+                            <th>租赁方式</th>
+                            <th>期望户型</th>
+                            <th>预算范围</th>
+                            <th>期望位置</th>
                             <th>入住时间</th>
-                            <th>发布时间</th>
                             <th>状态</th>
+                            <th>发布时间</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -64,8 +103,183 @@
         </main>
     </div>
 
+    <!-- 新增/编辑需求弹窗 -->
+    <div class="modal" id="requestModal">
+        <div class="modal-backdrop" onclick="closeRequestModal()"></div>
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h3 id="modalTitle">新增找房需求</h3>
+                <button class="modal-close" onclick="closeRequestModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-item">
+                        <label class="form-label">关联用户 <span class="required">*</span></label>
+                        <select class="form-input" id="userId">
+                            <option value="">请选择用户</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label class="form-label">联系电话 <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="contactPhone" placeholder="请输入联系电话">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label class="form-label">租赁方式 <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-item">
+                                <input type="radio" name="rentMode" value="1" onchange="handleRentModeChange()">
+                                <span>整租</span>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="rentMode" value="2" onchange="handleRentModeChange()">
+                                <span>合租</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-item" id="roomCountItem" style="display:none;">
+                        <label class="form-label">期望户型</label>
+                        <select class="form-input" id="roomCount">
+                            <option value="">请选择</option>
+                            <option value="1">1室</option>
+                            <option value="2">2室</option>
+                            <option value="3">3室</option>
+                            <option value="4">4室及以上</option>
+                        </select>
+                    </div>
+                    <div class="form-item" id="roomTypeItem" style="display:none;">
+                        <label class="form-label">期望房间</label>
+                        <select class="form-input" id="roomType">
+                            <option value="">请选择</option>
+                            <option value="1">主卧</option>
+                            <option value="2">次卧</option>
+                            <option value="3">不限</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label class="form-label">最低预算（元/月）</label>
+                        <input type="number" class="form-input" id="minPrice" placeholder="如：1000">
+                    </div>
+                    <div class="form-item">
+                        <label class="form-label">最高预算（元/月）</label>
+                        <input type="number" class="form-input" id="maxPrice" placeholder="如：3000">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label class="form-label">期望入住日期</label>
+                        <input type="date" class="form-input" id="moveInDate">
+                    </div>
+                    <div class="form-item">
+                        <label class="form-label">需求状态 <span class="required">*</span></label>
+                        <select class="form-input" id="status">
+                            <option value="1">进行中</option>
+                            <option value="2">已找到</option>
+                            <option value="0">已关闭</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 位置选择 -->
+                <div class="location-section">
+                    <div class="section-title">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>期望位置（可添加多个）</span>
+                    </div>
+                    <div class="location-list" id="locationList">
+                        <!-- 位置项将动态生成 -->
+                    </div>
+                    <button class="add-location-btn" type="button" onclick="addLocation()">
+                        <i class="fas fa-plus"></i>
+                        <span>添加期望位置</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closeRequestModal()">取消</button>
+                <button class="modal-btn confirm" onclick="saveRequest()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 查看详情弹窗 -->
+    <div class="modal" id="detailModal">
+        <div class="modal-backdrop" onclick="closeDetailModal()"></div>
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h3>需求详情</h3>
+                <button class="modal-close" onclick="closeDetailModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="detailBody"></div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closeDetailModal()">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 位置选择弹窗 -->
+    <div class="modal" id="locationModal">
+        <div class="modal-backdrop" onclick="closeLocationModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>选择位置</h3>
+                <button class="modal-close" onclick="closeLocationModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-item">
+                        <label class="form-label">省份</label>
+                        <select class="form-input" id="locProvince" onchange="handleLocProvinceChange()">
+                            <option value="">请选择</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label class="form-label">城市</label>
+                        <select class="form-input" id="locCity" onchange="handleLocCityChange()">
+                            <option value="">请选择</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label class="form-label">区县</label>
+                        <select class="form-input" id="locDistrict">
+                            <option value="">请选择</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label class="form-label">详细地址/小区</label>
+                        <input type="text" class="form-input" id="locAddress" placeholder="如：xx小区附近">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label class="form-label">经度</label>
+                        <input type="text" class="form-input" id="locLng" placeholder="可选">
+                    </div>
+                    <div class="form-item">
+                        <label class="form-label">纬度</label>
+                        <input type="text" class="form-input" id="locLat" placeholder="可选">
+                    </div>
+                </div>
+                <div class="map-placeholder-small">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <button class="btn btn-secondary btn-sm" type="button" onclick="simulateGetCoord()">
+                        <i class="fas fa-crosshairs"></i> 模拟定位
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closeLocationModal()">取消</button>
+                <button class="modal-btn confirm" onclick="confirmLocation()">确认</button>
+            </div>
+        </div>
+    </div>
+
     <script src="../common/common.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
-

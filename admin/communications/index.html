@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>沟通管理 - 管理后台</title>
+    <title>联系记录 - 管理后台</title>
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="../common/style.css">
     <link rel="stylesheet" href="style.css">
@@ -18,7 +18,7 @@
         <header class="header">
             <div class="header-left">
                 <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
-                <h1 class="page-title">沟通管理</h1>
+                <h1 class="page-title">联系记录</h1>
             </div>
             <div class="header-right">
                 <div class="user-info"><i class="fas fa-user-circle"></i><span>管理员</span></div>
@@ -27,36 +27,60 @@
         </header>
 
         <main class="content">
-            <div class="toolbar">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="搜索用户、联系方式...">
-                </div>
-                <div class="filter-group">
-                    <select id="typeFilter" class="filter-select">
-                        <option value="">全部类型</option>
-                        <option value="tenant">租客联系方式</option>
-                        <option value="landlord">房东联系方式</option>
-                    </select>
-                    <select id="statusFilter" class="filter-select">
-                        <option value="">全部状态</option>
-                        <option value="active">有效</option>
-                        <option value="invalid">无效</option>
-                    </select>
+            <!-- 搜索表单 -->
+            <div class="search-form">
+                <div class="search-form-row">
+                    <div class="search-form-item">
+                        <label>联系方式</label>
+                        <input type="text" id="contactInput" placeholder="请输入联系方式">
+                    </div>
+                    <div class="search-form-item">
+                        <label>查看者类型</label>
+                        <select id="viewerTypeFilter">
+                            <option value="">全部</option>
+                            <option value="1">用户</option>
+                            <option value="2">商家</option>
+                        </select>
+                    </div>
+                    <div class="search-form-item">
+                        <label>目标类型</label>
+                        <select id="targetTypeFilter">
+                            <option value="">全部</option>
+                            <option value="1">房源</option>
+                            <option value="2">找房</option>
+                        </select>
+                    </div>
+                    <div class="search-form-item">
+                        <label>获取时间</label>
+                        <div class="date-range">
+                            <input type="date" id="startDate">
+                            <span>至</span>
+                            <input type="date" id="endDate">
+                        </div>
+                    </div>
+                    <div class="search-form-buttons">
+                        <button class="btn btn-search" onclick="searchData()">
+                            <i class="fas fa-search"></i>查询
+                        </button>
+                        <button class="btn btn-reset" onclick="resetSearch()">
+                            <i class="fas fa-redo"></i>重置
+                        </button>
+                    </div>
                 </div>
             </div>
 
+            <!-- 数据表格 -->
             <div class="table-container">
                 <table class="data-table">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>获取者</th>
-                            <th>联系方式类型</th>
-                            <th>目标用户</th>
+                            <th>查看者</th>
+                            <th>目标类型</th>
+                            <th>目标信息</th>
+                            <th>发布者</th>
                             <th>联系方式</th>
                             <th>获取时间</th>
-                            <th>状态</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -68,8 +92,22 @@
         </main>
     </div>
 
+    <!-- 详情弹窗 -->
+    <div class="modal" id="detailModal">
+        <div class="modal-backdrop" onclick="closeDetailModal()"></div>
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h3>联系记录详情</h3>
+                <button class="modal-close" onclick="closeDetailModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="detailBody"></div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closeDetailModal()">关闭</button>
+            </div>
+        </div>
+    </div>
+
     <script src="../common/common.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
-

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>字典项管理 - 管理后台</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../common/style.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo"><i class="fas fa-cog"></i><span>管理后台</span></div>
+        </div>
+        <nav class="sidebar-nav" id="sidebarNav"></nav>
+    </div>
+
+    <div class="main-container">
+        <header class="header">
+            <div class="header-left">
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+                <div class="breadcrumb">
+                    <a href="index.html"><i class="fas fa-book"></i> 字典管理</a>
+                    <i class="fas fa-chevron-right"></i>
+                    <span id="typeName">字典项管理</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="user-info"><i class="fas fa-user-circle"></i><span>管理员</span></div>
+                <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </header>
+
+        <main class="content">
+            <!-- 字典类型信息卡片 -->
+            <div class="type-info-card">
+                <div class="type-info-main">
+                    <div class="type-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="type-details">
+                        <h2 id="typeTitle">-</h2>
+                        <div class="type-meta">
+                            <span class="type-code"><i class="fas fa-code"></i> <span id="typeCode">-</span></span>
+                            <span class="type-desc" id="typeDesc">-</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="type-info-actions">
+                    <button class="btn btn-secondary" onclick="history.back()">
+                        <i class="fas fa-arrow-left"></i> 返回
+                    </button>
+                </div>
+            </div>
+
+            <!-- 工具栏 -->
+            <div class="toolbar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="搜索字典值或标签...">
+                </div>
+                <div class="filter-group">
+                    <select class="filter-select" id="statusFilter">
+                        <option value="">全部状态</option>
+                        <option value="1">启用</option>
+                        <option value="0">禁用</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" onclick="openItemModal()">
+                    <i class="fas fa-plus"></i> 新增字典项
+                </button>
+            </div>
+
+            <!-- 表格 -->
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th width="60">ID</th>
+                            <th>字典值</th>
+                            <th>显示标签</th>
+                            <th>样式预览</th>
+                            <th width="80">排序</th>
+                            <th width="80">状态</th>
+                            <th width="80">类型</th>
+                            <th width="150">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+
+            <div class="pagination" id="pagination"></div>
+        </main>
+    </div>
+
+    <!-- 新增/编辑字典项模态框 -->
+    <div class="modal" id="itemModal">
+        <div class="modal-backdrop" onclick="closeItemModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="itemModalTitle">新增字典项</h3>
+                <button class="modal-close" onclick="closeItemModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-item">
+                        <label class="form-label">字典值 <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="itemValue" placeholder="如：1 或 tenant">
+                        <span class="form-hint">存储在数据库中的值</span>
+                    </div>
+                    <div class="form-item">
+                        <label class="form-label">显示标签 <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="itemLabel" placeholder="如：租客">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label class="form-label">标签样式</label>
+                        <select class="form-input" id="itemStyle">
+                            <option value="">默认（灰色）</option>
+                            <option value="primary">主要（蓝色）</option>
+                            <option value="success">成功（绿色）</option>
+                            <option value="warning">警告（橙色）</option>
+                            <option value="danger">危险（红色）</option>
+                            <option value="info">信息（青色）</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label class="form-label">图标</label>
+                        <input type="text" class="form-input" id="itemIcon" placeholder="如：fa-user">
+                        <span class="form-hint">FontAwesome 图标类名</span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label class="form-label">排序值</label>
+                        <input type="number" class="form-input" id="itemSort" value="0" min="0">
+                    </div>
+                    <div class="form-item">
+                        <label class="form-label">状态</label>
+                        <div class="switch-group" style="margin-top: 8px;">
+                            <label class="switch">
+                                <input type="checkbox" id="itemStatus" checked>
+                                <span class="slider"></span>
+                            </label>
+                            <span>启用</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 样式预览 -->
+                <div class="form-item">
+                    <label class="form-label">效果预览</label>
+                    <div class="preview-box" id="previewBox">
+                        <span class="style-preview" id="stylePreview">标签预览</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" onclick="closeItemModal()">取消</button>
+                <button class="modal-btn confirm" onclick="saveItem()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../common/common.js"></script>
+    <script src="detail.js"></script>
+</body>
+</html>
+

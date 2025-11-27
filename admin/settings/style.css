@@ -1,2 +1,321 @@
-/* 系统设置页面特定样式 */
+/* 系统设置页面样式 */
 
+/* 设置导航 */
+.settings-nav {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    padding: 8px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    overflow-x: auto;
+}
+
+.settings-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.settings-nav-item:hover {
+    background: #f5f5f5;
+    color: #333;
+}
+
+.settings-nav-item.active {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.settings-nav-item i {
+    font-size: 16px;
+}
+
+/* 设置面板 */
+.settings-panel {
+    display: none;
+}
+
+.settings-panel.active {
+    display: block;
+}
+
+/* 配置区块 */
+.config-section {
+    background: #fff;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.config-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 24px;
+    border-bottom: 1px solid #f0f0f0;
+    background: #fafbfc;
+}
+
+.config-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.config-title i {
+    font-size: 18px;
+    color: #4CAF50;
+}
+
+.service-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+}
+
+.config-desc {
+    flex: 1;
+    font-size: 13px;
+    color: #999;
+    margin-left: 8px;
+}
+
+.config-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: #f5f5f5;
+    font-size: 12px;
+}
+
+.config-status .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #999;
+}
+
+.config-status.connected .status-dot {
+    background: #4CAF50;
+}
+
+.config-status.connected {
+    background: #e8f5e9;
+    color: #4CAF50;
+}
+
+.config-status.error .status-dot {
+    background: #F44336;
+}
+
+.config-status.error {
+    background: #ffebee;
+    color: #F44336;
+}
+
+.config-body {
+    padding: 24px;
+}
+
+/* 配置行 */
+.config-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.config-row:last-child {
+    margin-bottom: 0;
+}
+
+.config-row.full {
+    grid-template-columns: 1fr;
+}
+
+/* 配置项 */
+.config-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.config-item label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+.config-item label .required {
+    color: #F44336;
+}
+
+.config-item input,
+.config-item select,
+.config-item textarea {
+    padding: 10px 14px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.config-item input:focus,
+.config-item select:focus,
+.config-item textarea:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+.config-item input:disabled {
+    background: #f5f5f5;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.config-item textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* 输入框组 */
+.input-group {
+    display: flex;
+    align-items: center;
+}
+
+.input-group input {
+    flex: 1;
+    border-radius: 8px 0 0 8px;
+}
+
+.input-group .input-suffix {
+    padding: 10px 14px;
+    background: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    border-left: none;
+    border-radius: 0 8px 8px 0;
+    font-size: 13px;
+    color: #666;
+    white-space: nowrap;
+}
+
+.input-hint {
+    font-size: 12px;
+    color: #999;
+    margin-top: 4px;
+}
+
+/* 开关配置项 */
+.config-item.switch-item {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.switch-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.switch-info label {
+    margin: 0;
+}
+
+.switch-desc {
+    font-size: 12px;
+    color: #999;
+}
+
+/* 配置操作按钮 */
+.config-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #f0f0f0;
+}
+
+/* 底部保存栏 */
+.settings-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 20px 24px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-top: 20px;
+    position: sticky;
+    bottom: 20px;
+}
+
+/* 响应式 */
+@media (max-width: 900px) {
+    .settings-nav {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .settings-nav-item {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+    
+    .config-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .config-header {
+        flex-wrap: wrap;
+    }
+    
+    .config-desc {
+        width: 100%;
+        margin-left: 30px;
+        margin-top: 4px;
+    }
+    
+    .config-status {
+        margin-left: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .settings-nav-item span {
+        display: none;
+    }
+    
+    .settings-nav-item {
+        padding: 12px;
+    }
+    
+    .settings-nav-item i {
+        font-size: 18px;
+    }
+}

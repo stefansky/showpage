@@ -28,13 +28,7 @@ function initUserMockData() {
 
 function initPage() {
     initUserMockData();
-    loadStats();
     loadData();
-    
-    document.getElementById('searchInput')?.addEventListener('input', debounce(() => { currentPage = 1; loadData(); }, 300));
-    document.getElementById('roleFilter')?.addEventListener('change', () => { currentPage = 1; loadData(); });
-    document.getElementById('authFilter')?.addEventListener('change', () => { currentPage = 1; loadData(); });
-    document.getElementById('statusFilter')?.addEventListener('change', () => { currentPage = 1; loadData(); });
     
     // 点击其他地方关闭下拉菜单
     document.addEventListener('click', (e) => {
@@ -46,6 +40,23 @@ function initPage() {
     });
 }
 
+// 搜索数据
+function searchData() {
+    currentPage = 1;
+    loadData();
+}
+
+// 重置搜索
+function resetSearch() {
+    document.getElementById('nicknameInput').value = '';
+    document.getElementById('phoneInput').value = '';
+    document.getElementById('roleFilter').value = '';
+    document.getElementById('authFilter').value = '';
+    document.getElementById('statusFilter').value = '';
+    currentPage = 1;
+    loadData();
+}
+
 // 防抖函数
 function debounce(func, wait) {
     let timeout;
@@ -55,36 +66,26 @@ function debounce(func, wait) {
     };
 }
 
-// 加载统计数据
-function loadStats() {
-    const users = getData('users');
-    const tenantCount = users.filter(u => u.role === 'tenant').length;
-    const landlordCount = users.filter(u => u.role === 'landlord').length;
-    const verifiedCount = users.filter(u => u.authStatus === 'verified').length;
-    
-    document.getElementById('totalUsers').textContent = users.length;
-    document.getElementById('tenantCount').textContent = tenantCount;
-    document.getElementById('landlordCount').textContent = landlordCount;
-    document.getElementById('verifiedCount').textContent = verifiedCount;
-}
-
 // 加载用户数据
 function loadData() {
     const users = getData('users');
-    const searchInput = document.getElementById('searchInput');
+    const nicknameInput = document.getElementById('nicknameInput');
+    const phoneInput = document.getElementById('phoneInput');
     const roleFilter = document.getElementById('roleFilter');
     const authFilter = document.getElementById('authFilter');
     const statusFilter = document.getElementById('statusFilter');
     
     let filtered = [...users];
     
-    if (searchInput?.value) {
-        const keyword = searchInput.value.toLowerCase();
-        filtered = filtered.filter(u => 
-            u.nickname.toLowerCase().includes(keyword) || 
-            u.phone.includes(keyword) ||
-            u.openId?.toLowerCase().includes(keyword)
-        );
+    // 昵称搜索
+    if (nicknameInput?.value) {
+        const keyword = nicknameInput.value.toLowerCase();
+        filtered = filtered.filter(u => u.nickname.toLowerCase().includes(keyword));
+    }
+    
+    // 手机号搜索
+    if (phoneInput?.value) {
+        filtered = filtered.filter(u => u.phone.includes(phoneInput.value));
     }
     
     if (roleFilter?.value) {
